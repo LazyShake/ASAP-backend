@@ -13,7 +13,7 @@ services:
       - ./nginx/conf/:/etc/nginx/conf.d/:ro
       - ./index.php:/var/www/public/index.php
     ports:
-      - "127.0.0.1:8021:80"
+      - "127.0.0.1:8023:80"
     depends_on:
       - backend
       - frontend
