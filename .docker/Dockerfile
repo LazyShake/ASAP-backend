@@ -1,40 +1,4 @@
-FROM php:8.1-fpm
-# Install dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    htop \
-    wget \
-    lynx \
-    curl \
-    mc \
-    vim \
-    libmcrypt-dev \
-    libicu-dev \
-    libfreetype6-dev \
-    libjpeg-dev \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libmagickwand-dev \
-    libxml2-dev \
-    unzip \
-    libzip-dev \
-    locales \
-    tzdata \
-    nano \
-    libpq-dev \
-    zip
-
-RUN docker-php-ext-install pgsql \
-        && docker-php-ext-install pdo_pgsql
-
-RUN docker-php-ext-install zip
-
-RUN docker-php-ext-install gd \
-        && docker-php-ext-configure gd  --with-freetype --with-jpeg \
-        &&  docker-php-ext-enable gd
-
-RUN pecl install imagick \
-        && docker-php-ext-enable imagick
-
+FROM 999669/asap-new-backend:fe8e959d
 
 COPY ./ /var/www
 # Set working directory
