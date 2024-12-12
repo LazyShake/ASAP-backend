@@ -1,0 +1,36 @@
+services:
+  backend:
+    image: {{ docker_registry_url }}/{{ docker_registry_project }}/{{ docker_repo_name }}:{{ app_version }}
+    volumes:
+          - ./php/.env:/var/www/.env
+          - ./php/storage:/var/www/storage
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:latest
+    restart: unless-stopped
+    volumes:
+      - ./nginx/conf/:/etc/nginx/conf.d/:ro
+      - ./index.php:/var/www/public/index.php
+    ports:
+      - "127.0.0.1:8022:80"
+    depends_on:
+      - backend
+      - frontend
+
+  frontend:
+    image: {{ docker_registry_url }}/{{ docker_registry_project }}/asap-nv-frontend:${FRONTEND_IMAGE_TAG}
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:13.3
+    environment:
+        POSTGRES_DB: "nv-prod"
+        POSTGRES_USER: "root"
+        POSTGRES_PASSWORD: "pgpwd4habr"
+        PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - nv-prod-pgsql-storage:/var/lib/postgresql/data
+
+volumes:
+  nv-prod-pgsql-storage:

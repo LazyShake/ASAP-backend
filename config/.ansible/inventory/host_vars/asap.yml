@@ -1,0 +1,4 @@
+ansible_host: 195.161.68.104
+ansible_port: 49282
+ansible_ssh_user: root
+ansible_python_interpreter: /usr/bin/python3
