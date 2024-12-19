@@ -27,6 +27,16 @@ class Article extends Model
         return $this->belongsTo(Type::class, 'type', 'id_type');
     }
 
+    public function profession()
+    {
+        return $this->belongsTo(Profession::class, 'id_profession');
+    }
+
+    public static function getArticlesByProfession($professionId)
+    {
+        return self::where('id_profession', $professionId)->get();
+    }
+
     // Указываем, что Laravel будет работать с временными метками created_at и updated_at
     public $timestamps = true;
 }

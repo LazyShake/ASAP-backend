@@ -12,10 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('types', function (Blueprint $table) {
-            $table->id('id_type'); // Primary key
-            $table->string('name_type'); // Название типа
+            $table->id('id_type');
+            $table->string('name_type');
             $table->timestamps();
         });
+        
     }
 
     /**

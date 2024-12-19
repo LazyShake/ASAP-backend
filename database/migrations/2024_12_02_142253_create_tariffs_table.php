@@ -12,15 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tariffs', function (Blueprint $table) {
-            $table->id('id_tariff'); // Primary key
-            $table->string('name_tariff'); // Название тарифа
-            $table->string('short_description')->nullable(); // Краткое описание
-            $table->string('place')->nullable(); // Место (например, очно/онлайн)
-            $table->decimal('price', 10, 2); // Цена
-            $table->boolean('installment')->default(false); // Рассрочка
-            $table->text('detailed_description')->nullable(); // Подробное описание
+            $table->id('id_tariff');
+            $table->string('name_tariff');
+            $table->string('short_description');
+            $table->string('place');
+            $table->decimal('price', 10, 2);
+            $table->string('installment');
+            $table->text('detailed_description');
             $table->timestamps();
         });
+        
     }
 
     /**

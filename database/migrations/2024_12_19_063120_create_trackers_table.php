@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('training_plans', function (Blueprint $table) {
-            $table->id('id_training_plan');
-            $table->string('period');
-            $table->string('stage');
-            $table->text('description_stage');
+        Schema::create('trackers', function (Blueprint $table) {
+            $table->id('id_trackers');
+            $table->string('name_tracker');
+            $table->string('picture');
+            $table->text('description');
+            $table->string('status');
             $table->timestamps();
         });
-        
     }
 
     /**
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('training_plans');
+        Schema::dropIfExists('trackers');
     }
 };

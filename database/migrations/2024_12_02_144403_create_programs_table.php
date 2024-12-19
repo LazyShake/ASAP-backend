@@ -12,17 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('programs', function (Blueprint $table) {
-            $table->id('id_program'); // Primary key
-            $table->string('name_module'); // Название модуля
-            $table->string('type_program')->nullable(); // Тип программы
-            $table->text('content_module')->nullable(); // Контент модуля
-            $table->unsignedBigInteger('id_profession'); // Связь с профессией
-            $table->integer('number_module')->nullable(); // Номер модуля
-            $table->timestamps();
+            $table->id('id_program');
+            $table->string('name_module');
+            $table->string('type_program');
+            $table->text('content_module');
+            $table->integer('number_module');
 
-            // Внешний ключ
+            $table->unsignedBigInteger('id_profession');
             $table->foreign('id_profession')->references('id_profession')->on('professions')->onDelete('cascade');
+            $table->timestamps();
         });
+        
     }
 
     /**

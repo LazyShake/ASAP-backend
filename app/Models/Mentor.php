@@ -12,7 +12,7 @@ class Mentor extends Model
     // Указываем таблицу, если имя модели отличается от имени таблицы
     protected $table = 'mentors';
 
-    protected $primaryKey = 'id_mentors';
+    protected $primaryKey = 'id_mentor';
 
     // Указываем столбцы, которые могут быть массово присваиваемыми
     protected $fillable = [

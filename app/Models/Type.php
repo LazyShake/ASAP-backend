@@ -9,6 +9,10 @@ class Type extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id_type'; // Укажите нестандартное имя первичного ключа
+    public $incrementing = true; // Если это автоинкремент
+    protected $keyType = 'int';
+    
     // Указываем таблицу, если имя модели отличается от имени таблицы
     protected $table = 'types';
 

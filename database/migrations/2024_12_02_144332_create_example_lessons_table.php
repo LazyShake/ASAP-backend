@@ -12,15 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('example_lessons', function (Blueprint $table) {
-            $table->id('id_example_lesson'); // Primary key
-            $table->string('name_example_lesson'); // Название урока
-            $table->string('link')->nullable(); // Ссылка на урок
-            $table->unsignedBigInteger('id_profession'); // Связь с профессией
+            $table->id('id_example_lesson');
+            $table->string('name_example_lesson');
+            $table->string('link');
             $table->timestamps();
-
-            // Внешний ключ
-            $table->foreign('id_profession')->references('id_profession')->on('professions')->onDelete('cascade');
         });
+        
     }
 
     /**

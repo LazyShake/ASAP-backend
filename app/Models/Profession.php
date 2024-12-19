@@ -27,7 +27,6 @@ class Profession extends Model
         'price',
         'period',
         'start_of_training',
-        'program',
         'id_mentors',
         'id_tariff',
         'id_article',
@@ -46,14 +45,29 @@ class Profession extends Model
         return $this->hasMany(Mentor::class, 'id_profession', 'id_profession');
     }
 
+    public function career()
+    {
+        return $this->hasOne(Career::class, 'id_career', 'id_career');
+    }
+
+    public function progress()
+    {
+        return $this->hasMany(Progress::class, 'id_progress', 'id_progress');
+    }
+
     public function tariff()
     {
         return $this->belongsTo(Tariff::class, 'id_tariff');
     }
 
+    public function color()
+    {
+        return $this->belongsTo(Color::class, 'id_color');
+    }
+
     public function article()
     {
-        return $this->belongsTo(Article::class, 'id_article');
+        return $this->hasMany(Article::class, 'id_article');
     }
 
     public function trainingPlan()
@@ -68,7 +82,7 @@ class Profession extends Model
 
     public function reviews()
     {
-        return $this->belongsTo(Review::class, 'id_reviews');
+        return $this->hasMany(Review::class, 'id_reviews');
     }
 
     public function getSkillsList()

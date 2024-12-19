@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Profession;
 use App\Models\Program;
 use App\Models\Mentor;
+use App\Models\Article;
+use App\Models\Progress;
 use Illuminate\Http\Request;
 
 class ProfessionController extends Controller
@@ -20,7 +22,11 @@ class ProfessionController extends Controller
         $skills = $profession->getSkillsList();
 
         $programs = Program::where('id_profession', $id)->orderBy('number_module')->get();
+        
+        $articles = Article::getArticlesByProfession($id);
 
-        return view('profession', compact('profession', 'mentors', 'trackers', 'skills', 'programs'));
+        $progress = Progress::getProgressByProfession($id);
+
+        return view('profession', compact('profession', 'mentors', 'trackers', 'skills', 'programs', 'articles', 'progress'));
     }
 }

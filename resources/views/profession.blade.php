@@ -8,7 +8,7 @@
     <div class="details">
         <p><strong>Стоимость обучения:</strong> {{ number_format($profession->price, 2) }} руб.</p>
         <p><strong>Продолжительность:</strong> {{ $profession->period ? $profession->period . ' дней' : 'Не указано' }}</p>
-        <p><strong>Дата ближайшего старта:</strong> {{ $profession->start_of_training ? $profession->start_of_training->format('d.m.Y') : 'Не указано' }}</p>
+        <p><strong>Дата ближайшего старта:</strong> {{ \Carbon\Carbon::parse($profession->start_of_training)->format('d.m.Y') ?? 'Не указано' }}</p>
     </div>
 </div>
 @include('components.why-choose-us')
@@ -18,6 +18,8 @@
 @include('components.grades')
 @include('components.program')
 @include('components.feedback')
+@include('components.articles')
+@include('components.progress')
 @endsection
 
 
