@@ -95,4 +95,9 @@ class Profession extends Model
         return $this->trainingPlan;
     }
 
+    public function getTariff()
+    {
+        return $this->tariff;
+    }
+
 }

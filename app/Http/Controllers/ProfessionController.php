@@ -7,6 +7,8 @@ use App\Models\Program;
 use App\Models\Mentor;
 use App\Models\Article;
 use App\Models\Progress;
+use App\Models\Review;
+use App\Models\TrainingPlan;
 use Illuminate\Http\Request;
 
 class ProfessionController extends Controller
@@ -22,11 +24,19 @@ class ProfessionController extends Controller
         $skills = $profession->getSkillsList();
 
         $programs = Program::where('id_profession', $id)->orderBy('number_module')->get();
-        
-        $articles = Article::getArticlesByProfession($id);
+
+        $articles = Article::where('id_profession', $id)->orderBy('created_at', 'desc')->take(2)->get();
 
         $progress = Progress::getProgressByProfession($id);
 
-        return view('profession', compact('profession', 'mentors', 'trackers', 'skills', 'programs', 'articles', 'progress'));
+        $training_plan = $profession->getTrainingPlan();
+
+        $reviews = Progress::getReviewsByProfession($id);
+
+        $tariff = $profession->getTariff();
+        
+        $professions = Profession::all();
+
+        return view('profession', compact('profession', 'mentors', 'trackers', 'skills', 'programs', 'articles', 'progress', 'training_plan', 'reviews', 'tariff', 'professions'));
     }
 }

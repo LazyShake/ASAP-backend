@@ -30,4 +30,9 @@ class Review extends Model
     {
         return $this->belongsTo(Profession::class, 'profession');
     }
+
+    public static function getReviewsByProfession($professionId)
+    {
+        return self::where('id_profession', $professionId)->get();
+    }
 }

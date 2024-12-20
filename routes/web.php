@@ -42,3 +42,15 @@ Route::post('/submit-feedback', function (Request $request) {
 
     return back()->with('success', 'Спасибо! Мы свяжемся с вами в ближайшее время.');
 })->name('feedback.submit');
+
+Route::post('/submit-phone', function (Request $request) {
+    // Валидация данных
+    $validated = $request->validate([
+        'phone' => 'required|phone:RU',
+    ]);
+
+    // Логика обработки, например, сохранение в БД или отправка письма
+    //Mail::to('admin@example.com')->send(new FeedbackMail($validated));
+
+    return back()->with('success', 'Спасибо! Мы свяжемся с вами в ближайшее время.');
+})->name('phone.submit');
