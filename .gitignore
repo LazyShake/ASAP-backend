@@ -22,4 +22,5 @@ yarn-error.log
 /.vscode
 /.zed
 /storage
-/storage/framework/sessions
+/storage/framework/sessions/
+/bootstrap/cache/
