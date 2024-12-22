@@ -1,1 +1,0 @@
-<?php /**PATH D:\OSPanel\domains\asap-new-site-dev-main\back\vendor\filament\filament\src\/../resources/views/components/layouts/app/sidebar/footer.blade.php ENDPATH**/ ?>

@@ -18,7 +18,7 @@ class Review extends Model
         'text',
         'picture',
         'video',
-        'profession',
+        'profession_id',
         'owner',
     ];
 
@@ -28,11 +28,11 @@ class Review extends Model
     // Отношение с профессией (обратная связь)
     public function profession()
     {
-        return $this->belongsTo(Profession::class, 'profession');
+        return $this->belongsTo(Profession::class, 'profession_id');
     }
 
     public static function getReviewsByProfession($professionId)
     {
-        return self::where('id_profession', $professionId)->get();
+        return self::where('profession_id', $professionId)->get();
     }
 }

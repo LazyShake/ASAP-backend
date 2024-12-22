@@ -31,7 +31,7 @@ class ProfessionController extends Controller
 
         $training_plan = $profession->getTrainingPlan();
 
-        $reviews = Progress::getReviewsByProfession($id);
+        $reviews = Review::getReviewsByProfession($id);
 
         $tariff = $profession->getTariff();
         
