@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Filament\Resources\TrainingPlanResource\Pages;
+
+use App\Filament\Resources\TrainingPlanResource;
+use Filament\Pages\Actions;
+use Filament\Resources\Pages\EditRecord;
+
+class EditTrainingPlan extends EditRecord
+{
+    protected static string $resource = TrainingPlanResource::class;
+
+    protected function getActions(): array
+    {
+        return [
+            Actions\DeleteAction::make(),
+        ];
+    }
+}
