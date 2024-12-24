@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder
             TypeSeeder::class,
             TrainingPlanSeeder::class,
             TariffSeeder::class,
-            ExampleLessonSeeder::class,
             CareerSeeder::class,
             ColorSeeder::class,
             ProfessionSeeder::class,
@@ -27,6 +26,9 @@ class DatabaseSeeder extends Seeder
             MentorSeeder::class,
             ReviewSeeder::class,
             SkillSeeder::class,
+            TagsSeeder::class,
+            ReferalSeeder::class,
+            TrackerSeeder::class,
         ]);
         
     }

@@ -3,29 +3,26 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Mentor;
 use Illuminate\Database\Seeder;
+use App\Models\Tracker;
 
-class MentorSeeder extends Seeder
+class TrackerSeeder extends Seeder
 {
-    public function run()
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
     {
-        Mentor::create([
-            'name_mentors' => 'Alice Johnson',
+        Tracker::create([
+            'name_tracker' => 'Alice Johnson',
             'picture' => '/images/mentor-alice.jpg',
             'description' => 'Expert in Frontend Development with 10 years of experience.',
-            'status' => True,
-            'id_profession' => 1,
-            'workplace' => 'Sber'
         ]);
 
-        Mentor::create([
-            'name_mentors' => 'Bob Brown',
+        Tracker::create([
+            'name_tracker' => 'Bob Brown',
             'picture' => '/images/mentor-bob.jpg',
             'description' => 'Data Scientist specializing in Machine Learning.',
-            'status' => True,
-            'id_profession' => 2,
-            'workplace' => 'T-bank'
         ]);
     }
 }

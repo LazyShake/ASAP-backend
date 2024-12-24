@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id('id_tariff');
             $table->string('name_tariff');
             $table->string('short_description');
-            $table->string('place');
             $table->decimal('price', 10, 2);
             $table->string('installment');
             $table->text('detailed_description');

@@ -14,8 +14,13 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id('id_article');
             $table->string('name_article');
-            $table->text('text');
+            $table->text('short_text');
+            $table->longText('content');
             $table->string('picture');
+            $table->text('link');
+            $table->text('owner_name');
+            $table->text('owner_description');
+            $table->text('owner_picture');
 
             $table->unsignedBigInteger('type_id');
             $table->foreign('type_id')->references('id_type')->on('types')->onDelete('cascade');

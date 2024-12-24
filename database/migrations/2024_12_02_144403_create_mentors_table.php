@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('name_mentors');
             $table->string('picture');
             $table->text('description');
-            $table->string('role');
+            $table->boolean('status');
+            $table->string('workplace');
 
             $table->unsignedBigInteger('id_profession');
             $table->foreign('id_profession')->references('id_profession')->on('professions')->onDelete('cascade');

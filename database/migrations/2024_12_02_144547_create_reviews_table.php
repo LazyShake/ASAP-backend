@@ -16,6 +16,10 @@ return new class extends Migration
             $table->text('text'); // Текст отзыва
             $table->string('picture')->nullable(); // Изображение (может быть пустым)
             $table->string('video')->nullable(); // Видео (может быть пустым)
+            $table->boolean('status');
+            $table->text('place_job');
+            $table->text('job_before');
+            $table->text('job_after');
             
             // Связь с профессией (professions)
             $table->unsignedBigInteger('profession_id');

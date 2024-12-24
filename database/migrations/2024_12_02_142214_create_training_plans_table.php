@@ -13,9 +13,7 @@ return new class extends Migration
     {
         Schema::create('training_plans', function (Blueprint $table) {
             $table->id('id_training_plan');
-            $table->string('period');
-            $table->string('stage');
-            $table->text('description_stage');
+            $table->string('image');
             $table->timestamps();
         });
         

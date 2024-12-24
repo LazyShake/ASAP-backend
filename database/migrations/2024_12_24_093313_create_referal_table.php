@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('trackers', function (Blueprint $table) {
-            $table->id('id_trackers');
-            $table->string('name_tracker');
-            $table->string('picture');
-            $table->text('description');
+        Schema::create('referal', function (Blueprint $table) {
+            $table->id('id_referal');
+            $table->decimal('price', 10, 2);
             $table->timestamps();
         });
     }
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('trackers');
+        Schema::dropIfExists('referal');
     }
 };

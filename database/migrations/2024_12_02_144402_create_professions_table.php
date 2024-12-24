@@ -14,23 +14,11 @@ return new class extends Migration
         Schema::create('professions', function (Blueprint $table) {
             $table->id('id_profession'); // Primary key
             $table->string('name_profession');
+            $table->string('image');
             $table->decimal('price', 10, 2);
             $table->string('period');
             $table->date('start_of_training');
         
-        
-            // Связь с тарифами (tariffs)
-            $table->unsignedBigInteger('tariff_id');
-            $table->foreign('tariff_id')->references('id_tariff')->on('tariffs')->onDelete('cascade');
-        
-        
-            // Связь с учебным планом (training_plans)
-            $table->unsignedBigInteger('training_plan_id');
-            $table->foreign('training_plan_id')->references('id_training_plan')->on('training_plans')->onDelete('cascade');
-        
-            // Связь с примерными уроками (example_lessons)
-            $table->unsignedBigInteger('example_lesson_id');
-            $table->foreign('example_lesson_id')->references('id_example_lesson')->on('example_lessons')->onDelete('cascade');
         
             $table->unsignedBigInteger('id_career');
             $table->foreign('id_career')->references('id_career')->on('career')->onDelete('cascade');
@@ -41,6 +29,8 @@ return new class extends Migration
 
             $table->string('place');
             $table->string('type');
+            $table->string('description');
+            $table->string('miniimage');
         
             $table->timestamps(); // created_at и updated_at
         });

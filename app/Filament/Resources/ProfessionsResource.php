@@ -9,7 +9,10 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Resources\Form;
-use Filament\Forms\Components\HasManyRepeater;
+use Filament\Forms\Components\Repeater;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ProfessionsResource extends Resource
 {
@@ -42,7 +45,7 @@ class ProfessionsResource extends Resource
                     ->nullable(),
 
                 // Отношение с наставниками (HasManyRepeater)
-                HasManyRepeater::make('mentors') // Используем HasManyRepeater для наставников
+                Repeater::make('mentors') // Используем HasManyRepeater для наставников
                     ->relationship('mentors') // Указываем отношение "mentors"
                     ->schema([
                         Forms\Components\TextInput::make('name_mentors')
@@ -55,17 +58,62 @@ class ProfessionsResource extends Resource
                     ->label('Наставники')
                     ->createItemButtonLabel('Добавить наставника'),
 
-                // Отношение с тарифом (Select)
-                Forms\Components\Select::make('id_tariff')
-                    ->label('Тариф')
-                    ->relationship('tariff', 'name_tariff') // Замените `tariff` и `name` на нужные атрибуты
-                    ->nullable(),
+                Repeater::make('article') // Используем HasManyRepeater для наставников
+                    ->relationship('article') // Указываем отношение "mentors"
+                    ->schema([
+                        Forms\Components\TextInput::make('name_article')
+                            ->label('Имя ментора')
+                            ->required(),
+                        Forms\Components\Textarea::make('text')
+                            ->label('Описание')
+                            ->rows(3),
+                    ])
+                    ->label('Статьи')
+                    ->createItemButtonLabel('Добавить статью'),
 
-                // Отношение с статьями (Select)
-                Forms\Components\Select::make('id_article')
-                    ->label('Статья')
-                    ->relationship('articles', 'name_article') // Замените `articles` и `name_article` на нужные атрибуты
-                    ->nullable(),
+                Repeater::make('reviews') // Используем HasManyRepeater для наставников
+                    ->relationship('reviews') // Указываем отношение "mentors"
+                    ->schema([
+                        Forms\Components\TextInput::make('owner')
+                            ->label('Автор')
+                            ->required(),
+                        Forms\Components\Textarea::make('text')
+                            ->label('Отзыв')
+                            ->rows(3),
+                    ])
+                    ->label('Отзывы')
+                    ->createItemButtonLabel('Добавить отзыв'),
+
+
+                /*Repeater::make('tariffs') // Используем Repeater для тарифов
+                    ->relationship('tariff') // Указываем отношение "tariffs"
+                    ->schema([
+                        Forms\Components\TextInput::make('name_tariff')
+                            ->label('Название')
+                            ->required(),
+                        Forms\Components\Textarea::make('short_description')
+                            ->label('Краткое описание')
+                            ->nullable(),
+                        Forms\Components\Textarea::make('place')
+                            ->label('place')
+                            ->nullable(),
+                        Forms\Components\TextInput::make('price')
+                            ->label('Стоимость')
+                            ->required(),
+                    ])
+                    ->label('Тарифы')
+                    ->createItemButtonLabel('Добавить тариф'),*/
+                
+                /*Repeater::make('articles') // Используем Repeater для статей
+                    ->relationship('article') // Указываем отношение "articles"
+                    ->schema([
+                        Forms\Components\Select::make('id_article')
+                            ->label('Статья')
+                            ->relationship('article', 'name_article') // Замените `article` и `name_article` на нужные атрибуты
+                            ->nullable(),
+                    ])
+                    ->label('Статьи')
+                    ->createItemButtonLabel('Добавить статью'),*/
             ]);
     }
 
@@ -84,12 +132,6 @@ class ProfessionsResource extends Resource
                 Tables\Columns\TextColumn::make('start_of_training')
                     ->label('Дата начала')
                     ->date(),
-                Tables\Columns\TextColumn::make('mentors.name_mentors')
-                    ->label('Наставник'),
-                Tables\Columns\TextColumn::make('tariff.name_tariff')
-                    ->label('Тариф'),
-                Tables\Columns\TextColumn::make('articles.name_article')
-                    ->label('Статья'),
             ])
             ->filters([
                 // Добавьте фильтры, если нужно

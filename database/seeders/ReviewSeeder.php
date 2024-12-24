@@ -16,6 +16,10 @@ class ReviewSeeder extends Seeder
             'video' => '/videos/review1.mp4',
             'profession_id' => 1,
             'owner' => 'John Doe',
+            'status' => True,
+            'place_job' => 'Sber',
+            'job_before' => 'job1',
+            'job_after' => 'job2',
         ]);
 
         Review::create([
@@ -24,6 +28,10 @@ class ReviewSeeder extends Seeder
             'video' => '/videos/review2.mp4',
             'profession_id' => 2,
             'owner' => 'Jane Smith',
+            'status' => True,
+            'place_job' => 'Sber',
+            'job_before' => 'job1',
+            'job_after' => 'job2',
         ]);
     }
 }

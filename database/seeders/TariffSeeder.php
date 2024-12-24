@@ -13,7 +13,6 @@ class TariffSeeder extends Seeder
         Tariff::create([
             'name_tariff' => 'Standard Plan',
             'short_description' => 'Access to all materials for 4 months.',
-            'place' => 'Online',
             'price' => 49999.99,
             'installment' => 'Yes',
             'detailed_description' => 'Includes full access to modules and mentorship.',
@@ -22,7 +21,6 @@ class TariffSeeder extends Seeder
         Tariff::create([
             'name_tariff' => 'Premium Plan',
             'short_description' => 'Includes personal mentorship and extended access.',
-            'place' => 'Online and Offline',
             'price' => 99999.99,
             'installment' => 'Yes',
             'detailed_description' => 'Personalized mentorship with extended access to resources.',

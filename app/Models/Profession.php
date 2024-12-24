@@ -82,7 +82,7 @@ class Profession extends Model
 
     public function reviews()
     {
-        return $this->hasMany(Review::class, 'id_reviews');
+        return $this->hasMany(Review::class, 'id_review');
     }
 
     public function getSkillsList()

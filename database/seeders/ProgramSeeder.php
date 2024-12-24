@@ -12,7 +12,6 @@ class ProgramSeeder extends Seeder
     {
         Program::create([
             'name_module' => 'Introduction to Frontend Development',
-            'type_program' => 'Video lectures',
             'content_module' => 'HTML, CSS basics, layout principles',
             'number_module' => 1,
             'id_profession' => 1,
@@ -20,7 +19,6 @@ class ProgramSeeder extends Seeder
 
         Program::create([
             'name_module' => 'Advanced Data Science',
-            'type_program' => 'Online course',
             'content_module' => 'Machine Learning, Data Visualization',
             'number_module' => 2,
             'id_profession' => 2,

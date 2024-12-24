@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('programs', function (Blueprint $table) {
             $table->id('id_program');
             $table->string('name_module');
-            $table->string('type_program');
             $table->text('content_module');
-            $table->integer('number_module');
+            $table->text('number_module');
 
             $table->unsignedBigInteger('id_profession');
             $table->foreign('id_profession')->references('id_profession')->on('professions')->onDelete('cascade');
