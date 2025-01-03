@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfessionController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\PageController;
 use Illuminate\Http\Request;
 
 
@@ -32,4 +33,7 @@ Route::get('/feedback-form', function () {
 
 Route::post('/submit-feedback', [FeedbackController::class, 'submitFeedback'])->name('feedback.submit');
 Route::post('/submit-phone', [FeedbackController::class, 'submitPhone'])->name('phone.submit');
+
+Route::get('/blog', [PageController::class, 'blog'])->name('blog');
+Route::get('/article/{id}', [PageController::class, 'showArticle'])->name('article.show');
 

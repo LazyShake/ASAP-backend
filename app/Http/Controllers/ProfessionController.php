@@ -7,6 +7,7 @@ use App\Models\Program;
 use App\Models\Mentor;
 use App\Models\Article;
 use App\Models\Progress;
+use App\Models\Referal;
 use App\Models\Review;
 use App\Models\TrainingPlan;
 use Illuminate\Http\Request;
@@ -36,6 +37,8 @@ class ProfessionController extends Controller
         $tariff = $profession->getTariff();
         
         $professions = Profession::all();
+
+        $referal = Referal::all();
 
         return view('profession', compact('profession', 'mentors', 'trackers', 'skills', 'programs', 'articles', 'progress', 'training_plan', 'reviews', 'tariff', 'professions'));
     }
