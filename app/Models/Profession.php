@@ -75,6 +75,12 @@ class Profession extends Model
         return $this->belongsTo(TrainingPlan::class, 'id_training_plan');
     }
 
+    public function skills()
+    {
+        return $this->hasMany(Skill::class, 'profession_id');
+    }
+
+
     public function exampleLesson()
     {
         return $this->belongsTo(ExampleLesson::class, 'id_example_lesson');
