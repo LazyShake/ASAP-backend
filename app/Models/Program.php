@@ -16,7 +16,6 @@ class Program extends Model
     // Указываем столбцы, которые могут быть массово присваиваемыми
     protected $fillable = [
         'name_module',
-        'type_program',
         'content_module',
         'id_profession',
         'number_module',

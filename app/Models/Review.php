@@ -20,6 +20,10 @@ class Review extends Model
         'video',
         'profession_id',
         'owner',
+        'status',
+        'place_job',
+        'job_before',
+        'job_after',
     ];
 
     // Указываем, что Laravel будет работать с временными метками created_at и updated_at

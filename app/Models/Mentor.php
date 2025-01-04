@@ -20,7 +20,8 @@ class Mentor extends Model
         'picture',
         'description',
         'id_profession',
-        'role',
+        'status',
+        'workplace',
     ];
 
     // Указываем, что Laravel будет работать с временными метками created_at и updated_at

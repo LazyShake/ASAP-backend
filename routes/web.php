@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfessionController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ArticleController;
 use Illuminate\Http\Request;
 
 
@@ -37,3 +38,11 @@ Route::post('/submit-phone', [FeedbackController::class, 'submitPhone'])->name('
 Route::get('/blog', [PageController::class, 'blog'])->name('blog');
 Route::get('/article/{id}', [PageController::class, 'showArticle'])->name('article.show');
 
+// Все статьи
+Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
+
+// Статьи по профессии
+Route::get('/articles/profession/{professionId}', [ArticleController::class, 'byProfession'])->name('articles.byProfession');
+
+// Просмотр конкретной статьи
+Route::get('/articles/{id}', [ArticleController::class, 'show'])->name('articles.show');

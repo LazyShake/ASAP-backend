@@ -16,20 +16,25 @@ class Article extends Model
     // Указываем столбцы, которые могут быть массово присваиваемыми
     protected $fillable = [
         'name_article',
-        'text',
+        'short_text',
+        'content',
         'picture',
-        'type',
+        'type_id',
+        'id_profession',
+        'link',
+        'owner_name',
+        'owner_description',
+        'owner_picture',
     ];
 
-    // Указываем связь с таблицей "types" (если связь с типами)
     public function type()
     {
-        return $this->belongsTo(Type::class, 'type', 'id_type');
+        return $this->belongsTo(Type::class, 'type_id', 'id_type');
     }
 
     public function profession()
     {
-        return $this->belongsTo(Profession::class, 'id_profession');
+        return $this->belongsTo(Profession::class, 'id_profession', 'id_profession');
     }
 
     public static function getArticlesByProfession($professionId)

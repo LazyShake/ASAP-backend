@@ -15,9 +15,7 @@ class TrainingPlan extends Model
 
     // Указываем столбцы, которые могут быть массово присваиваемыми
     protected $fillable = [
-        'period',
-        'stage',
-        'description_stage',
+        'image',
     ];
 
 

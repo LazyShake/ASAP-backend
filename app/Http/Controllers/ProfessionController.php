@@ -3,18 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profession;
-use App\Models\Program;
+use App\Http\Resources\ProfessionResource;
+use App\Http\Resources\ReferalResource;
+use App\Models\Referal;
+/*use App\Models\Program;
 use App\Models\Mentor;
 use App\Models\Article;
 use App\Models\Progress;
-use App\Models\Referal;
 use App\Models\Review;
 use App\Models\TrainingPlan;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request;*/
 
 class ProfessionController extends Controller
 {
-    public function show($id)
+    /*public function show($id)
     {
         $profession = Profession::findOrFail($id);
 
@@ -41,5 +43,24 @@ class ProfessionController extends Controller
         $referal = Referal::all();
 
         return view('profession', compact('profession', 'mentors', 'trackers', 'skills', 'programs', 'articles', 'progress', 'training_plan', 'reviews', 'tariff', 'professions'));
+    }*/
+
+    public function index()
+    {
+        // Возвращает список профессий с их связями
+        return ProfessionResource::collection(
+            Profession::with(['color', 'skills', 'mentors', 'reviews', 'progress'])->get()
+        );
+    }
+
+    public function show(Profession $profession)
+    {
+        
+        $referals = Referal::all();
+
+        return [
+            'profession' => new ProfessionResource($profession->load(['color', 'skills', 'mentors', 'reviews', 'progress'])),
+            'referals' => ReferalResource::collection($referals),
+        ];
     }
 }

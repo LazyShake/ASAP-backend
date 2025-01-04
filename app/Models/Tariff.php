@@ -17,7 +17,6 @@ class Tariff extends Model
     protected $fillable = [
         'name_tariff',
         'short_description',
-        'place',
         'price',
         'installment',
         'detailed_description',
