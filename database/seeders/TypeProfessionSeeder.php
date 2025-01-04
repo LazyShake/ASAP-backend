@@ -2,14 +2,15 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Tags;
+use App\Models\TypeProfession;
 
-class TagsSeeder extends Seeder
+class TypeProfessionSeeder extends Seeder
 {
     public function run(): void
     {
         // Генерация 10 записей с помощью фабрики
-        Tags::factory()->count(10)->create();
+        TypeProfession::factory()->count(10)->create();
     }
 }

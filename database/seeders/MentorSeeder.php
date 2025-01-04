@@ -2,30 +2,14 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Mentor;
 use Illuminate\Database\Seeder;
+use App\Models\Mentor;
 
 class MentorSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
-        Mentor::create([
-            'name_mentors' => 'Alice Johnson',
-            'picture' => '/images/mentor-alice.jpg',
-            'description' => 'Expert in Frontend Development with 10 years of experience.',
-            'status' => True,
-            'id_profession' => 1,
-            'workplace' => 'Sber'
-        ]);
-
-        Mentor::create([
-            'name_mentors' => 'Bob Brown',
-            'picture' => '/images/mentor-bob.jpg',
-            'description' => 'Data Scientist specializing in Machine Learning.',
-            'status' => True,
-            'id_profession' => 2,
-            'workplace' => 'T-bank'
-        ]);
+        // Генерация 10 менторов с помощью фабрики
+        Mentor::factory()->count(10)->create();
     }
 }

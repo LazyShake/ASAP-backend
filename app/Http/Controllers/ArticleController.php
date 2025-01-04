@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ArticleResource;
+use App\Http\Resources\ProfessionResource;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Models\Profession;
@@ -38,37 +39,24 @@ class ArticleController extends Controller
     // 3. Вывод конкретной статьи
     public function showArticle($id)
     {
+        // Получение данных статьи
         $article = Article::with('type', 'profession')->findOrFail($id);
-        return new ArticleResource($article);
-    }
 
-    // API для блока "Это интересно"
-    public function getRelatedArticles($id)
-    {
-        $article = Article::findOrFail($id);
-
+        // Получение связанных статей (по типу или тегам)
         $relatedArticles = Article::where('type', $article->type)
-            ->where('id_article', '!=', $id)
+            ->where('id_article', '!=', $id) // Исключаем текущую статью
             ->take(3)
             ->get();
 
-        return ArticleResource::collection($relatedArticles);
-    }
-
-    // API для блока "Профессии"
-    public function getProfessions()
-    {
+        // Получение данных профессий
         $professions = Profession::all();
 
-        return response()->json($professions->map(function ($profession) {
-            return [
-                'id' => $profession->id_profession,
-                'name' => $profession->name,
-                'description' => $profession->description,
-                'picture' => asset('storage/' . $profession->picture),
-                'link' => route('professions.show', $profession->id_profession),
-            ];
-        }));
+        // Возвращаем объединённые данные
+        return response()->json([
+            'article' => new ArticleResource($article),
+            'related_articles' => ArticleResource::collection($relatedArticles),
+            'professions' => ProfessionResource::collection($professions),
+        ]);
     }
 
     // API для CTA: Пересылка в Telegram

@@ -41,13 +41,11 @@ Route::post('/submit-phone', [FeedbackController::class, 'submitPhone'])->name('
 Route::get('/blog', [PageController::class, 'blog'])->name('blog');
 Route::get('/article/{id}', [PageController::class, 'showArticle'])->name('article.show');
 
-// Все статьи
-Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
-
-// Статьи по профессии
-Route::get('/articles/profession/{professionId}', [ArticleController::class, 'byProfession'])->name('articles.byProfession');
+Route::get('/articles', [ArticleController::class, 'index']);
+Route::get('/articles/profession/{professionId}', [ArticleController::class, 'byProfession']);
 
 // Просмотр конкретной статьи
-Route::get('/articles/{id}', [ArticleController::class, 'show'])->name('articles.show');
+Route::get('/articles/{id}', [ArticleController::class, 'showArticle']); // Показ статьи
+Route::post('/cta', [ArticleController::class, 'sendToTelegram']); // API для CTA
 
 Route::get('/course/{id}', [ProfessionController::class, 'show'])->name('professions.show');

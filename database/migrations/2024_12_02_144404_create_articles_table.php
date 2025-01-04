@@ -22,6 +22,8 @@ return new class extends Migration
             $table->text('owner_description');
             $table->text('owner_picture');
 
+            $table->unsignedBigInteger('filter_id');
+            $table->foreign('filter_id')->references('filter_id')->on('filter')->onDelete('cascade');
             $table->unsignedBigInteger('type_id');
             $table->foreign('type_id')->references('id_type')->on('types')->onDelete('cascade');
             $table->unsignedBigInteger('id_profession');

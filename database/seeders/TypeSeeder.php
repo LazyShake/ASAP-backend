@@ -10,7 +10,7 @@ class TypeSeeder extends Seeder
 {
     public function run()
     {
-        Type::create(['name_type' => 'Frontend']);
-        Type::create(['name_type' => 'Data Science']);
+        // Используем фабрику для создания записей
+        Type::factory()->count(10)->create();  // Создадим 10 записей с фейковыми данными
     }
 }
