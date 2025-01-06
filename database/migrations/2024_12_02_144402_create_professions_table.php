@@ -26,11 +26,11 @@ return new class extends Migration
             $table->unsignedBigInteger('id_color');
             $table->foreign('id_color')->references('id_color')->on('color')->onDelete('cascade');
             $table->unsignedBigInteger('id_type');
-            $table->foreign('id_type')->references('id_type')->on('type_profession')->onDelete('cascade');
+            $table->foreign('id_type')->references('id')->on('type_profession')->onDelete('cascade');
             // Остальные поля
 
             $table->string('place');
-            $table->string('description');
+            $table->text('description');
             $table->string('miniimage');
         
             $table->timestamps(); // created_at и updated_at

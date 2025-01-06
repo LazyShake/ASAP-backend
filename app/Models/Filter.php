@@ -11,7 +11,7 @@ class Filter extends Model
 
     protected $table = 'filters';
 
-    protected $primaryKey = 'id_filter';
+    protected $primaryKey = 'filter_id';
 
     protected $fillable = [
         'name_filter',

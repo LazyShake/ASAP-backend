@@ -9,7 +9,7 @@ class TypeProfession extends Model
 {
     use HasFactory;
 
-    protected $table = 'type_professions';
+    protected $table = 'type_profession';
 
     protected $primaryKey = 'id';
 

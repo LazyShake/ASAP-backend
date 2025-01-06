@@ -53,13 +53,15 @@ class ProfessionController extends Controller
         );
     }
 
-    public function show(Profession $profession)
+    public function show(int $profession)
     {
         
         $referals = Referal::all();
+        $profession = Profession::find($profession);
+        //dd(new ProfessionResource($profession->load(['career', 'typeProfession', 'color', 'skills', 'mentors', 'reviews', 'progress'])));
 
         return [
-            'profession' => new ProfessionResource($profession->load(['color', 'skills', 'mentors', 'reviews', 'progress'])),
+            'profession' => new ProfessionResource($profession->load(['career', 'typeProfession', 'color', 'skills', 'mentors', 'reviews', 'progress'])),
             'referals' => ReferalResource::collection($referals),
         ];
     }

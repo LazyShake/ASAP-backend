@@ -21,11 +21,6 @@ class Career extends Model
         'images_vacancy',
     ];
 
-    public function profession()
-    {
-        return $this->belongsTo(Profession::class);
-    }
-
     // Указать, что timestamps присутствуют
     public $timestamps = true;
 }

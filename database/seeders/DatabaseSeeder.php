@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\FirstImage;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,9 +21,11 @@ class DatabaseSeeder extends Seeder
             TariffSeeder::class,
             CareerSeeder::class,
             ColorSeeder::class,
+            TypeProfessionSeeder::class,
             ProfessionSeeder::class,
             ProgressSeeder::class,
             ProgramSeeder::class,
+            FilterSeeder::class,
             ArticleSeeder::class,
             MentorSeeder::class,
             ReviewSeeder::class,
@@ -29,6 +33,11 @@ class DatabaseSeeder extends Seeder
             TagsSeeder::class,
             ReferalSeeder::class,
             TrackerSeeder::class,
+            FirstImageSeeder::class,
+            PartnerSeeder::class,
+            StatisticSeeder::class,
+            TestSeeder::class,
+            
         ]);
         
     }

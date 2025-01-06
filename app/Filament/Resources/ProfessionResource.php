@@ -10,9 +10,6 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Resources\Form;
 use Filament\Forms\Components\Repeater;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 
@@ -40,11 +37,14 @@ class ProfessionResource extends Resource
                 Forms\Components\TextInput::make('period')->label('Период обучения')->maxLength(255),
                 Forms\Components\DatePicker::make('start_of_training')->label('Дата начала обучения')->required(),
                 Forms\Components\TextInput::make('place')->label('Место обучения')->maxLength(255),
-                Forms\Components\TextInput::make('type')
+                Forms\Components\Select::make('id_type') // Тип профессии
                     ->label('Тип профессии')
-                    ->required(),
+                    ->required()
+                    ->options(\App\Models\TypeProfession::pluck('name_type', 'id')) // Список типов профессий
+                    ->searchable()
+                    ->placeholder('Выберите тип профессии'),
                 Forms\Components\Select::make('id_color')
-                    ->relationship('color', 'name')
+                    ->relationship('color', 'name') // Связь с моделью Color
                     ->label('Цвет')
                     ->required(),
                 Forms\Components\Repeater::make('skills')
@@ -53,8 +53,8 @@ class ProfessionResource extends Resource
                         Forms\Components\TextInput::make('name')->label('Название навыка')->required(),
                         Forms\Components\Textarea::make('text')->label('Описание навыка'),
                     ]),
-                Forms\Components\FileUpload::make('images')->label('Изображения')->image(),
-                Forms\Components\FileUpload::make('mini_images')->label('Мини-изображения')->image(),
+                Forms\Components\FileUpload::make('image')->label('Изображения')->image(),
+                Forms\Components\FileUpload::make('miniimage')->label('Мини-изображения')->image(),
                 Repeater::make('mentors')
                     ->relationship()
                     ->schema([
@@ -87,12 +87,11 @@ class ProfessionResource extends Resource
             ->columns([
                 TextColumn::make('name_profession')->label('Название профессии')->sortable()->searchable(),
                 TextColumn::make('price')->label('Цена')->sortable(),
-                TextColumn::make('program.name_module')->label('Программа'),
                 TextColumn::make('period')->label('Период обучения'),
                 TextColumn::make('start_of_training')->label('Дата начала')->dateTime(),
                 TextColumn::make('place')->label('Место обучения'),
-                TextColumn::make('type')->label('Тип'),
-                TextColumn::make('color.name_color')->label('Цвет'),
+                TextColumn::make('type.name_type')->label('Тип профессии'), // Изменено на корректное отображение связи
+                TextColumn::make('color.name')->label('Цвет'),
             ])
             ->filters([
                 Filter::make('price_above_1000')
@@ -110,6 +109,3 @@ class ProfessionResource extends Resource
         ];
     }
 }
-
-// Аналогичным образом можно создать ресурсы для других сущностей, таких как Program, Reviews, Mentors, Tariff и т.д.
-// Каждая модель должна быть связана с её отношениями (hasMany, belongsTo и т.д.), чтобы корректно отразить структуру связей модели данных.

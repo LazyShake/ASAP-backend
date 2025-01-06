@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('programs', function (Blueprint $table) {
             $table->id('id_program');
-            $table->string('name_module');
+            $table->text('name_module');
             $table->text('content_module');
             $table->text('number_module');
 

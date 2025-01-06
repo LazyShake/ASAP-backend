@@ -9,101 +9,66 @@ class Profession extends Model
 {
     use HasFactory;
 
-    // Указываем, что таблица имеет кастомное имя первичного ключа
+    // Указываем кастомное имя первичного ключа
     protected $primaryKey = 'id_profession';
 
-    // Если ключ не автозаполняемый (например, UUID), это нужно указать
+    // Автоинкрементный ключ
     public $incrementing = true;
 
-    // Тип данных для primaryKey
+    // Тип ключа
     protected $keyType = 'int';
 
-    // Таблица, с которой связана модель
+    // Таблица, связанная с моделью
     protected $table = 'professions';
 
     // Поля, доступные для массового заполнения
     protected $fillable = [
         'name_profession',
+        'image',
         'price',
         'period',
         'start_of_training',
-        'id_mentors',
-        'id_tariff',
-        'id_article',
-        'id_training_plan',
-        'id_example_lesson',
-        'id_reviews',
-        'skills',
-        'employment',
-        'installment',
-        'referral',
+        'id_career',
+        'id_color',
+        'id_type',
+        'place',
+        'description',
+        'miniimage',
     ];
 
-    // Пример отношений
-    public function mentors()
-    {
-        return $this->hasMany(Mentor::class, 'id_profession', 'id_profession');
-    }
-
+    // Отношения
     public function career()
     {
-        return $this->hasOne(Career::class, 'id_career', 'id_career');
-    }
-
-    public function progress()
-    {
-        return $this->hasMany(Progress::class, 'id_progress', 'id_progress');
-    }
-
-    public function tariff()
-    {
-        return $this->belongsTo(Tariff::class, 'id_tariff');
+        return $this->belongsTo(Career::class, 'id_career', 'id_career');
     }
 
     public function color()
     {
-        return $this->belongsTo(Color::class, 'id_color');
+        return $this->belongsTo(Color::class, 'id_color', 'id_color');
     }
 
-    public function article()
+    public function typeProfession()
     {
-        return $this->hasMany(Article::class, 'id_article');
+        return $this->belongsTo(TypeProfession::class, 'id_type', 'id');
     }
 
-    public function trainingPlan()
+    public function progress()
     {
-        return $this->belongsTo(TrainingPlan::class, 'id_training_plan');
+        return $this->hasMany(Progress::class, 'id_profession', 'id_profession');
     }
 
     public function skills()
     {
-        return $this->hasMany(Skill::class, 'profession_id');
-    }
-
-
-    public function exampleLesson()
-    {
-        return $this->belongsTo(ExampleLesson::class, 'id_example_lesson');
+        return $this->hasMany(Skill::class, 'profession_id', 'id_profession');
     }
 
     public function reviews()
     {
-        return $this->hasMany(Review::class, 'id_review');
+        return $this->hasMany(Review::class, 'profession_id', 'id_profession');
     }
 
-    public function getSkillsList()
+    public function mentors()
     {
-        return explode(',', $this->skills);
+        return $this->hasMany(Mentor::class, 'id_profession', 'id_profession');
     }
-
-    public function getTrainingPlan()
-    {
-        return $this->trainingPlan;
-    }
-
-    public function getTariff()
-    {
-        return $this->tariff;
-    }
-
 }
