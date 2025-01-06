@@ -48,8 +48,9 @@ class ProfessionController extends Controller
     public function index()
     {
         // Возвращает список профессий с их связями
+        
         return ProfessionResource::collection(
-            Profession::with(['color', 'skills', 'mentors', 'reviews', 'progress'])->get()
+            Profession::with(['career', 'typeProfession', 'color', 'skills', 'mentors', 'reviews', 'progress'])->paginate(10)
         );
     }
 
