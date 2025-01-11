@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ExampleResource\Pages;
 use App\Filament\Resources\ExampleResource\RelationManagers;
-use App\Models\Example;
+use App\Models\ExampleLesson;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -13,9 +13,9 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ExampleResource extends Resource
+class ExampleLessonResource extends Resource
 {
-    protected static ?string $model = Example::class;
+    protected static ?string $model = ExampleLesson::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 

@@ -49,3 +49,14 @@ Route::get('/articles/{id}', [ArticleController::class, 'showArticle']); // По
 Route::post('/cta', [ArticleController::class, 'sendToTelegram']); // API для CTA
 
 Route::get('/course/{id}', [ProfessionController::class, 'show'])->name('profession.show');
+
+Route::get('/blog', [PageController::class, 'index']);
+
+// Получить конкретную статью
+Route::get('/blog/articles/{articleId}', [PageController::class, 'getArticle']);
+
+// Получить 3 последние статьи
+Route::get('/articles', [PageController::class, 'getRecentArticles']);
+
+// Получить список профессий
+Route::get('/professions', [PageController::class, 'getProfessions']);

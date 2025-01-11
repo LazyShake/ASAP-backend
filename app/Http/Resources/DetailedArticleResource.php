@@ -3,10 +3,9 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ArticleResource extends JsonResource
+class DetailedArticleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +15,15 @@ class ArticleResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'picture' => $this->picture,
+            'id_article' => $this->id,
             'name_article' => $this->name_article,
+            'content' => $this->content,
+            'picture' => $this->picture,
             'date' => $this->date,
-            'short_text' => Str::limit($this->short_text, 255), // Ограничение по количеству символов
+            'name_owner' => $this->name_owner,
+            'description_owner' => $this->description_owner,
+            'photo_owner' => $this->photo_owner,
+            'tags' => $this->tags,
         ];
     }
 }
