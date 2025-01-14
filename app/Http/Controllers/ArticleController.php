@@ -31,7 +31,7 @@ class ArticleController extends Controller
 
         // Пагинация
         $perPage = $request->get('per_page', 12);
-        $articles = $query->with('type', 'profession')->paginate($perPage);
+        $articles = $query->with('id_type', 'profession')->paginate($perPage);
 
         return ArticleResource::collection($articles);
     }
@@ -43,7 +43,7 @@ class ArticleController extends Controller
         $article = Article::with('type', 'profession')->findOrFail($id);
 
         // Получение связанных статей (по типу или тегам)
-        $relatedArticles = Article::where('type', $article->type)
+        $relatedArticles = Article::where('type_id', $article->type->id_type)
             ->where('id_article', '!=', $id) // Исключаем текущую статью
             ->take(3)
             ->get();

@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfessionController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\MainPageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,3 +55,16 @@ Route::get('/articles', [PageController::class, 'getRecentArticles']);
 
 // Получить список профессий
 Route::get('/professions', [PageController::class, 'getProfessions']);
+
+Route::prefix('main')->group(function () {
+    Route::get('/first_screen', [MainPageController::class, 'firstScreen']);
+    Route::get('/professions', [MainPageController::class, 'professions']);
+    Route::get('/tariff/price', [MainPageController::class, 'tariffPrice']);
+    Route::get('/professions/{profession_id}/mini_images', [MainPageController::class, 'professionImages']);
+    Route::get('/mentors', [MainPageController::class, 'mentors']);
+    Route::get('/statistics', [MainPageController::class, 'statistics']);
+    Route::get('/reviews', [MainPageController::class, 'reviews']);
+    Route::get('/partners', [MainPageController::class, 'partners']);
+    Route::get('/articles', [MainPageController::class, 'articles']);
+    Route::get('/referal_price', [MainPageController::class, 'referalPrice']);
+});
