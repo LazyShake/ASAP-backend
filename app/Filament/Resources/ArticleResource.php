@@ -40,35 +40,29 @@ class ArticleResource extends Resource
                 Forms\Components\FileUpload::make('picture')
                     ->label('Изображение')
                     ->image(),
-                
+
                 // Поле для выбора или создания нового типа статьи
                 Select::make('type_id')
                     ->label('Тип статьи')
-                    ->options(function () {
-                        return Type::all()->pluck('name', 'id')->toArray();
-                    })
-                    ->createOption()
+                    ->options(Type::all()->pluck('name_type', 'id_type')->toArray())
                     ->createOptionForm([
-                        Forms\Components\TextInput::make('name')
+                        Forms\Components\TextInput::make('name_type')
                             ->label('Название типа')
                             ->required(),
                     ])
-                    ->reactive()
+                    ->searchable()
                     ->placeholder('Выберите или создайте тип'),
 
                 // Поле для выбора или создания новой профессии
                 Select::make('id_profession')
                     ->label('Профессия')
-                    ->options(function () {
-                        return Profession::all()->pluck('name_profession', 'id')->toArray();
-                    })
-                    ->createOption()
+                    ->options(Profession::all()->pluck('name_profession', 'id_profession')->toArray())
                     ->createOptionForm([
                         Forms\Components\TextInput::make('name_profession')
                             ->label('Название профессии')
                             ->required(),
                     ])
-                    ->reactive()
+                    ->searchable()
                     ->placeholder('Выберите или создайте профессию'),
 
                 Forms\Components\TextInput::make('link')
@@ -100,7 +94,7 @@ class ArticleResource extends Resource
                     ->limit(50),
                 Tables\Columns\ImageColumn::make('picture')
                     ->label('Изображение'),
-                Tables\Columns\TextColumn::make('type.name')
+                Tables\Columns\TextColumn::make('type.name_type')
                     ->label('Тип статьи')
                     ->sortable()
                     ->searchable(),
@@ -114,7 +108,7 @@ class ArticleResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('type_id')
                     ->label('Тип статьи')
-                    ->relationship('type', 'name'),
+                    ->relationship('type', 'name_type'),
                 Tables\Filters\SelectFilter::make('id_profession')
                     ->label('Профессия')
                     ->relationship('profession', 'name_profession'),

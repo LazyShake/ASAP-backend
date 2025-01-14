@@ -65,7 +65,7 @@ class ProfessionResource extends Resource
                     ->label('Цвет')
                     ->required(),
                 Forms\Components\BelongsToSelect::make('id_type')
-                    ->relationship('typeProfession', 'name')
+                    ->relationship('typeProfession', 'name_type')
                     ->label('Тип профессии')
                     ->required(),
             ]);

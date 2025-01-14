@@ -21,12 +21,11 @@ class ProfessionResource extends JsonResource
             'description' => $this->description,
             'price' => "От {$this->price} ₽",
             'period' => $this->period,
-            'start_of_training' => $this->start_of_training->format('d F'),
+            'start_of_training' => $this->start_of_training,
             'place' => $this->place,
             'type' => $this->typeProfession->name ?? null,
             'mini_images' => $this->miniimage,
             'mentors' => MentorResource::collection($this->mentors),
-            'trackers' => TrackerResource::collection($this->trackers),
             'skills' => SkillResource::collection($this->skills),
             'career' => CareerResource::make($this->career),
             'training_plan' => TrainingPlanResource::make($this->trainingPlan),
@@ -34,7 +33,6 @@ class ProfessionResource extends JsonResource
             'progress' => ProgressResource::collection($this->progress),
             'articles' => ArticleResource::collection($this->articles),
             'reviews' => ReviewResource::collection($this->reviews),
-            'tariffs' => TariffResource::collection($this->tariffs),
         ];
     }
 }

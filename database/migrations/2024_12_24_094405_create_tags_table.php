@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id('id_tag');
             $table->string('name_tag');
             
-            $table->unsignedBigInteger('id_review');
-            $table->foreign('id_review')->references('id_review')->on('reviews')->onDelete('cascade');
+            $table->unsignedBigInteger('id_article');
+            $table->foreign('id_article')->references('id_article')->on('articles')->onDelete('cascade');
             $table->timestamps();
         });
     }

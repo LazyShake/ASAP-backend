@@ -10,7 +10,7 @@ use Filament\Resources\RelationManagers\RelationManager;
 
 class ReviewRelationManager extends RelationManager
 {
-    protected static string $relationship = 'review';
+    protected static string $relationship = 'reviews';
 
     protected static ?string $recordTitleAttribute = 'author';
 

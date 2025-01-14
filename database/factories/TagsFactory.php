@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Tags;
-use App\Models\Review;
+use App\Models\Article;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TagsFactory extends Factory
@@ -14,7 +14,7 @@ class TagsFactory extends Factory
     {
         return [
             'name_tag' => $this->faker->word(),
-            'id_review' => Review::factory(), // Связь с моделью Review
+            'id_article' => Article::factory(), // Связь с моделью Review
         ];
     }
 }

@@ -71,4 +71,12 @@ class Profession extends Model
     {
         return $this->hasMany(Mentor::class, 'id_profession', 'id_profession');
     }
+    public function articles()
+    {
+        return $this->hasMany(Article::class, 'id_profession', 'id_profession');
+    }
+    public function programs()
+    {
+        return $this->hasMany(Program::class, 'id_profession', 'id_profession');
+    }
 }

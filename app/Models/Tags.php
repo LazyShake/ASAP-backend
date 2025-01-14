@@ -20,6 +20,11 @@ class Tags extends Model
      */
     protected $fillable = [
         'name_tag',
-        'id_review',
+        'id_article',
     ];
+
+    public function tags()
+    {
+        return $this->belongsTo(Article::class, 'id_article', 'id_article');
+    }
 }
