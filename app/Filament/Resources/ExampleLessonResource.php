@@ -3,27 +3,42 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ExampleResource\Pages;
-use App\Filament\Resources\ExampleResource\RelationManagers;
 use App\Models\ExampleLesson;
+use App\Models\Profession;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\Select;
 
 class ExampleLessonResource extends Resource
 {
     protected static ?string $model = ExampleLesson::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $pluralLabel = 'Примерные уроки';
+    protected static ?string $modelLabel = 'Примерный урок';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name_example_lesson')
+                    ->label('Название урока')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('link')
+                    ->label('Ссылка на урок')
+                    ->url()
+                    ->required()
+                    ->maxLength(255),
+                Select::make('id_profession')
+                    ->label('Профессия')
+                    ->relationship('profession', 'name_profession')
+                    ->required()
+                    ->searchable()
+                    ->placeholder('Выберите профессию'),
             ]);
     }
 
@@ -31,10 +46,23 @@ class ExampleLessonResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name_example_lesson')
+                    ->label('Название урока')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('link')
+                    ->label('Ссылка на урок')
+                    ->url(fn ($record) => $record->link) // Открывает ссылку
+                    ->urlLabel('Открыть'),
+                Tables\Columns\TextColumn::make('profession.name_profession')
+                    ->label('Профессия')
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('id_profession')
+                    ->label('Профессия')
+                    ->relationship('profession', 'name_profession'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -43,14 +71,7 @@ class ExampleLessonResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-    
+
     public static function getPages(): array
     {
         return [
@@ -58,5 +79,5 @@ class ExampleLessonResource extends Resource
             'create' => Pages\CreateExample::route('/create'),
             'edit' => Pages\EditExample::route('/{record}/edit'),
         ];
-    }    
+    }
 }

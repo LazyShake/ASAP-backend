@@ -2,21 +2,21 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TypeResource\Pages;
-use App\Models\Type;
+use App\Filament\Resources\TypeProfessionResource\Pages;
+use App\Models\TypeProfession;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 
-class TypeResource extends Resource
+class TypeProfessionResource extends Resource
 {
-    protected static ?string $model = Type::class;
+    protected static ?string $model = TypeProfession::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-cog';
-    protected static ?string $pluralLabel = 'Типы';
-    protected static ?string $modelLabel = 'Тип';
+    protected static ?string $pluralLabel = 'Типы профессий';
+    protected static ?string $modelLabel = 'Тип профессии';
 
     public static function form(Form $form): Form
     {
@@ -53,9 +53,9 @@ class TypeResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTypes::route('/'),
-            'create' => Pages\CreateType::route('/create'),
-            'edit' => Pages\EditType::route('/{record}/edit'),
+            'index' => Pages\ListTypeProfessions::route('/'),
+            'create' => Pages\CreateTypeProfession::route('/create'),
+            'edit' => Pages\EditTypeProfession::route('/{record}/edit'),
         ];
     }
 }

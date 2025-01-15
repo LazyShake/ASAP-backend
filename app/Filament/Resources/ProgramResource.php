@@ -3,27 +3,44 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProgramResource\Pages;
-use App\Filament\Resources\ProgramResource\RelationManagers;
 use App\Models\Program;
+use App\Models\Profession;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProgramResource extends Resource
 {
     protected static ?string $model = Program::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-list';
+    protected static ?string $pluralLabel = 'Программы';
+    protected static ?string $modelLabel = 'Программа';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name_module')
+                    ->label('Название модуля')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\Textarea::make('content_module')
+                    ->label('Контент модуля')
+                    ->required()
+                    ->maxLength(1000),
+                Forms\Components\Select::make('id_profession')
+                    ->label('Профессия')
+                    ->options(Profession::all()->pluck('name_profession', 'id_profession'))
+                    ->required()
+                    ->searchable()
+                    ->placeholder('Выберите профессию'),
+                Forms\Components\TextInput::make('number_module')
+                    ->label('Номер модуля')
+                    ->numeric()
+                    ->required(),
             ]);
     }
 
@@ -31,10 +48,28 @@ class ProgramResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name_module')
+                    ->label('Название модуля')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('content_module')
+                    ->label('Контент')
+                    ->limit(50),
+                Tables\Columns\TextColumn::make('profession.name_profession')
+                    ->label('Профессия')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('number_module')
+                    ->label('Номер модуля')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Дата создания')
+                    ->dateTime('d.m.Y H:i'),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('id_profession')
+                    ->label('Профессия')
+                    ->relationship('profession', 'name_profession'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -43,14 +78,7 @@ class ProgramResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-    
+
     public static function getPages(): array
     {
         return [
@@ -58,5 +86,5 @@ class ProgramResource extends Resource
             'create' => Pages\CreateProgram::route('/create'),
             'edit' => Pages\EditProgram::route('/{record}/edit'),
         ];
-    }    
+    }
 }

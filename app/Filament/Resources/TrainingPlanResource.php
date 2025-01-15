@@ -3,27 +3,29 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TrainingPlanResource\Pages;
-use App\Filament\Resources\TrainingPlanResource\RelationManagers;
 use App\Models\TrainingPlan;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TrainingPlanResource extends Resource
 {
     protected static ?string $model = TrainingPlan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-book-open';
+    protected static ?string $pluralLabel = 'Учебные планы';
+    protected static ?string $modelLabel = 'Учебный план';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\FileUpload::make('image')
+                    ->label('Изображение')
+                    ->image()
+                    ->required(),
             ]);
     }
 
@@ -31,10 +33,14 @@ class TrainingPlanResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('Изображение'),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Дата создания')
+                    ->dateTime('d.m.Y H:i'),
             ])
             ->filters([
-                //
+                // Можно добавить фильтры, если необходимо
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -43,14 +49,7 @@ class TrainingPlanResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-    
+
     public static function getPages(): array
     {
         return [
@@ -58,5 +57,5 @@ class TrainingPlanResource extends Resource
             'create' => Pages\CreateTrainingPlan::route('/create'),
             'edit' => Pages\EditTrainingPlan::route('/{record}/edit'),
         ];
-    }    
+    }
 }
