@@ -9,6 +9,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\MainPageController;
+use App\Http\Controllers\SeoFileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,4 +68,11 @@ Route::prefix('main')->group(function () {
     Route::get('/partners', [MainPageController::class, 'partners']);
     Route::get('/articles', [MainPageController::class, 'articles']);
     Route::get('/referal_price', [MainPageController::class, 'referalPrice']);
+});
+
+Route::prefix('seo-files')->group(function () {
+    Route::get('/', [SeoFileController::class, 'index']); // Список SEO файлов
+    Route::post('/', [SeoFileController::class, 'store']); // Загрузка нового SEO файла
+    Route::get('{id}', [SeoFileController::class, 'show']); // Детали SEO файла
+    Route::delete('{id}', [SeoFileController::class, 'destroy']); // Удаление SEO файла
 });
