@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Skill extends Model
+{
+    use HasFactory;
+
+    // Имя таблицы
+    protected $table = 'skills';
+
+    // Первичный ключ
+    protected $primaryKey = 'id_skills';
+
+    // Поля, которые можно массово заполнять
+    protected $fillable = [
+        'text',
+        'name',
+        'profession_id',
+    ];
+
+    // Указать, что timestamps присутствуют
+    public $timestamps = true;
+
+    // Связь с моделью Profession (многие к одному)
+    public function profession()
+    {
+        return $this->belongsTo(Profession::class, 'profession_id', 'id_profession');
+    }
+}

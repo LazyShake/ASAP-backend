@@ -29,6 +29,10 @@ server {
         gzip_static on;
     }
 
+    location /vendor {
+        try_files $uri $uri/ $query_string;
+        gzip_static on;
+    }
 
     location ~ \.php$ {
         include fastcgi_params;
