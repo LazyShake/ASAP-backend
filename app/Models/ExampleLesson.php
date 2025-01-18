@@ -26,6 +26,6 @@ class ExampleLesson extends Model
     // Отношение с профессией (обратная связь)
     public function profession()
     {
-        return $this->belongsTo(Profession::class, 'id_profession');
+        return $this->belongsTo(Profession::class, 'id_profession', 'id_profession');
     }
 }

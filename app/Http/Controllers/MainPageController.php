@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SEOPageResource;
 use App\Http\Resources\FirstImageResource;
 use App\Http\Resources\ProfessionGeneralResource;
 use App\Http\Resources\MentorResource;
@@ -17,11 +18,27 @@ use App\Models\Statistic;
 use App\Models\Review;
 use App\Models\Partner;
 use App\Models\Article;
+use App\Models\SEOPage; // Импортируем модель SEOPage
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class MainPageController extends Controller
 {
+    // Получение SEO данных с ID = 1
+    public function seoData()
+    {
+        try {
+            $seo = SEOPage::findOrFail(1); // Находим запись с ID = 1
+            return new SEOPageResource($seo); // Используем ресурс SEOPageResource
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            Log::warning('SEO запись с ID 1 не найдена: ' . $e->getMessage());
+            return response()->json(['error' => 'SEO данные не найдены'], 404);
+        } catch (\Exception $e) {
+            Log::error('Ошибка получения SEO данных: ' . $e->getMessage());
+            return response()->json(['error' => 'Не удалось загрузить SEO данные'], 500);
+        }
+    }
+
     public function firstScreen()
     {
         try {

@@ -1,8 +1,7 @@
 <?php
-
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ExampleResource\Pages;
+use App\Filament\Resources\ExampleLessonResource\Pages;
 use App\Models\ExampleLesson;
 use App\Models\Profession;
 use Filament\Forms;
@@ -15,7 +14,6 @@ use Filament\Forms\Components\Select;
 class ExampleLessonResource extends Resource
 {
     protected static ?string $model = ExampleLesson::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-collection';
     protected static ?string $pluralLabel = 'Примерные уроки';
     protected static ?string $modelLabel = 'Примерный урок';
@@ -33,12 +31,10 @@ class ExampleLessonResource extends Resource
                     ->url()
                     ->required()
                     ->maxLength(255),
-                Select::make('id_profession')
-                    ->label('Профессия')
+                    Select::make('id_profession')
+                    ->label('Profession')
                     ->relationship('profession', 'name_profession')
-                    ->required()
-                    ->searchable()
-                    ->placeholder('Выберите профессию'),
+                    ->required(),
             ]);
     }
 
@@ -53,7 +49,7 @@ class ExampleLessonResource extends Resource
                 Tables\Columns\TextColumn::make('link')
                     ->label('Ссылка на урок')
                     ->url(fn ($record) => $record->link) // Открывает ссылку
-                    ->urlLabel('Открыть'),
+                    ->Label('Открыть'),
                 Tables\Columns\TextColumn::make('profession.name_profession')
                     ->label('Профессия')
                     ->sortable()
@@ -75,9 +71,9 @@ class ExampleLessonResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListExamples::route('/'),
-            'create' => Pages\CreateExample::route('/create'),
-            'edit' => Pages\EditExample::route('/{record}/edit'),
+            'index' => Pages\ListExampleLessons::route('/'),
+            'create' => Pages\CreateExampleLesson::route('/create'),
+            'edit' => Pages\EditExampleLesson::route('/{record}/edit'),
         ];
     }
 }

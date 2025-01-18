@@ -47,7 +47,7 @@ class ProfessionResource extends Resource
                 Forms\Components\DatePicker::make('start_of_training')
                     ->label('Дата начала обучения')
                     ->required(),
-                Forms\Components\Textarea::make('description')
+                Forms\Components\RichEditor::make('description')
                     ->label('Описание')
                     ->maxLength(500),
                 Forms\Components\FileUpload::make('image')
@@ -68,6 +68,17 @@ class ProfessionResource extends Resource
                     ->relationship('typeProfession', 'name_type')
                     ->label('Тип профессии')
                     ->required(),
+                
+                // SEO поля
+                Forms\Components\TextInput::make('SEO_key_words')
+                    ->label('Ключевые слова SEO')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('SEO_title')
+                    ->label('Заголовок SEO')
+                    ->maxLength(255),
+                Forms\Components\Textarea::make('SEO_description')
+                    ->label('Описание SEO')
+                    ->maxLength(500),
             ]);
     }
 
@@ -86,10 +97,18 @@ class ProfessionResource extends Resource
                     ->label('Количество мест'),
                 Tables\Columns\TextColumn::make('period')
                     ->label('Период обучения'),
-                    Tables\Columns\TextColumn::make('start_of_training')
+                Tables\Columns\TextColumn::make('start_of_training')
                     ->label('Дата начала обучения')
                     ->date('d.m.Y') // Форматирование даты
                     ->sortable(),
+                
+                // Отображение SEO полей в таблице
+                Tables\Columns\TextColumn::make('SEO_key_words')
+                    ->label('Ключевые слова SEO'),
+                Tables\Columns\TextColumn::make('SEO_title')
+                    ->label('Заголовок SEO'),
+                Tables\Columns\TextColumn::make('SEO_description')
+                    ->label('Описание SEO'),
             ])
             ->filters([
                 // Добавьте фильтры, если необходимо

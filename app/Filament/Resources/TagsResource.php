@@ -11,11 +11,12 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 
-class TagResource extends Resource
+class TagsResource extends Resource
 {
     protected static ?string $model = Tags::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-tag';
+    protected static ?string $navigationLabel = 'Теги';
     protected static ?string $pluralLabel = 'Теги';
     protected static ?string $modelLabel = 'Тег';
 
@@ -27,11 +28,6 @@ class TagResource extends Resource
                     ->label('Название тега')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Select::make('id_article')
-                    ->label('Статья')
-                    ->options(Article::all()->pluck('title', 'id_article')->toArray())
-                    ->searchable()
-                    ->nullable(),
             ]);
     }
 
@@ -41,16 +37,9 @@ class TagResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name_tag')
                     ->label('Название тега'),
-                Tables\Columns\TextColumn::make('article.title')
-                    ->label('Статья'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Дата создания')
                     ->dateTime('d.m.Y H:i'),
-            ])
-            ->filters([
-                Tables\Filters\SelectFilter::make('id_article')
-                    ->label('Статья')
-                    ->options(Article::all()->pluck('title', 'id_article')->toArray()),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

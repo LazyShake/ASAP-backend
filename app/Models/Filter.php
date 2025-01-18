@@ -16,4 +16,10 @@ class Filter extends Model
     protected $fillable = [
         'name_filter',
     ];
+    
+    public function articles()
+{
+    return $this->hasMany(Article::class);
+}
+
 }

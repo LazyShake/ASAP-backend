@@ -23,7 +23,7 @@ class ReviewResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Textarea::make('text')
+                Forms\Components\RichEditor::make('text')
                     ->label('Текст отзыва')
                     ->required(),
                 Forms\Components\FileUpload::make('picture')
@@ -35,7 +35,7 @@ class ReviewResource extends Resource
                     ->nullable(),
                 Forms\Components\Select::make('profession_id')
                     ->label('Профессия')
-                    ->options(Profession::all()->pluck('name_profession', 'id')->toArray())
+                    ->options(Profession::all()->pluck('name_profession', 'id_profession')->toArray())
                     ->searchable()
                     ->nullable(),
                 Forms\Components\TextInput::make('owner')
@@ -67,13 +67,13 @@ class ReviewResource extends Resource
                 Tables\Columns\TextColumn::make('text')
                     ->label('Текст отзыва')
                     ->limit(50)
-                    ->tooltip(fn ($state) => $state),
+                    ->tooltip(fn ($record) => $record->text), // Явно указываем, что это за текст
                 Tables\Columns\ImageColumn::make('picture')
                     ->label('Фото'),
                 Tables\Columns\TextColumn::make('video')
                     ->label('Видео')
                     ->url(fn ($record) => $record->link) // Открывает ссылку
-                    ->urlLabel('Открыть'),
+                    ->Label('Открыть'),
                 Tables\Columns\TextColumn::make('profession.name_profession')
                     ->label('Профессия'),
                 Tables\Columns\TextColumn::make('owner')
@@ -91,7 +91,7 @@ class ReviewResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('profession_id')
                     ->label('Профессия')
-                    ->options(Profession::all()->pluck('name_profession', 'id')->toArray()),
+                    ->options(Profession::all()->pluck('name_profession', 'id_profession')->toArray()),
                 Tables\Filters\TernaryFilter::make('status')
                     ->label('Отображать на главной'),
             ])

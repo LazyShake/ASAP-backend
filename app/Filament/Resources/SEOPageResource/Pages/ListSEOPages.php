@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\ExampleResource\Pages;
+namespace App\Filament\Resources\SEOPageResource\Pages;
 
-use App\Filament\Resources\ExampleResource;
+use App\Filament\Resources\SEOPageResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListExamples extends ListRecords
+class ListSEOPages extends ListRecords
 {
-    protected static string $resource = ExampleResource::class;
+    protected static string $resource = SEOPageResource::class;
 
     protected function getActions(): array
     {

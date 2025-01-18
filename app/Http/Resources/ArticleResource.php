@@ -16,10 +16,14 @@ class ArticleResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'picture' => $this->picture,
-            'name_article' => $this->name_article,
-            'date' => $this->date,
-            'short_text' => Str::limit($this->short_text, 255), // Ограничение по количеству символов
+            'id_article' => $this->id_article, // ID статьи
+            'name_article' => $this->name_article, // Название статьи
+            'short_text' => Str::limit($this->short_text, 150), // Краткое описание статьи с лимитом для превью
+            'picture' => $this->picture, // Изображение для превью
+            'link' => $this->link, // Ссылка на полную статью
+            'owner_name' => $this->owner_name, // Имя владельца статьи
+            'owner_picture' => $this->owner_picture, // Фото владельца
+            'date' => $this->date, // Дата публикации
         ];
     }
 }

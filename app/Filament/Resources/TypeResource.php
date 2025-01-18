@@ -15,8 +15,8 @@ class TypeResource extends Resource
     protected static ?string $model = Type::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-cog';
-    protected static ?string $pluralLabel = 'Типы';
-    protected static ?string $modelLabel = 'Тип';
+    protected static ?string $pluralLabel = 'Типы статей';
+    protected static ?string $modelLabel = 'Тип статьи';
 
     public static function form(Form $form): Form
     {

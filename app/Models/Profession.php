@@ -34,6 +34,9 @@ class Profession extends Model
         'place',
         'description',
         'miniimage',
+        'SEO_key_words',
+        'SEO_title',
+        'SEO_description'
     ];
 
     // Отношения

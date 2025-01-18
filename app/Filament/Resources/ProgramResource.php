@@ -27,7 +27,7 @@ class ProgramResource extends Resource
                     ->label('Название модуля')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('content_module')
+                Forms\Components\RichEditor::make('content_module')
                     ->label('Контент модуля')
                     ->required()
                     ->maxLength(1000),

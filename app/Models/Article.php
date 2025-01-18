@@ -21,10 +21,14 @@ class Article extends Model
         'picture',
         'type_id',
         'id_profession',
+        'filter_id',
         'link',
         'owner_name',
         'owner_description',
         'owner_picture',
+        'seo_title', // SEO заголовок
+        'seo_description', // SEO описание
+        'seo_keywords', // SEO ключевые слова
     ];
 
     public function type()
@@ -35,6 +39,16 @@ class Article extends Model
     public function profession()
     {
         return $this->belongsTo(Profession::class, 'id_profession', 'id_profession');
+    }
+
+    public function filter()
+    {
+        return $this->belongsTo(Filter::class, 'filter_id', 'filter_id');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tags::class, 'article_tag', 'article_id', 'tag_id');
     }
 
     public static function getArticlesByProfession($professionId)

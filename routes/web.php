@@ -41,7 +41,7 @@ Route::post('/submit-feedback', [FeedbackController::class, 'submitFeedback'])->
 Route::post('/submit-phone', [FeedbackController::class, 'submitPhone'])->name('phone.submit');
 
 // Просмотр конкретной статьи
-Route::get('/articles/{id}', [ArticleController::class, 'showArticle']); // Показ статьи
+Route::get('/blog/articles/{id}', [ArticleController::class, 'showArticle']); // Показ статьи
 Route::post('/cta', [ArticleController::class, 'sendToTelegram']); // API для CTA
 
 Route::get('/course/{id}', [ProfessionController::class, 'show'])->name('profession.show');

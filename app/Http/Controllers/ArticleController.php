@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ArticleResource;
-use App\Http\Resources\ProfessionResource;
+use App\Http\Resources\DetailedArticleResource;
+use App\Http\Resources\ProfessionPreviewResource;
 use App\Models\Article;
 use App\Models\Profession;
 use Illuminate\Http\Request;
@@ -65,9 +66,9 @@ class ArticleController extends Controller
 
             // Возвращаем объединённые данные
             return response()->json([
-                'article' => new ArticleResource($article),
+                'article' => new DetailedArticleResource($article),
                 'related_articles' => ArticleResource::collection($relatedArticles),
-                'professions' => ProfessionResource::collection($professions),
+                'professions' => ProfessionPreviewResource::collection($professions),
             ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             Log::warning('Статья не найдена: ' . $e->getMessage());

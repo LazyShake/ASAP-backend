@@ -27,12 +27,12 @@ class SkillResource extends Resource
                     ->label('Название навыка')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('text')
+                Forms\Components\RichEditor::make('text')
                     ->label('Описание навыка')
                     ->required(),
                 Forms\Components\Select::make('profession_id')
                     ->label('Профессия')
-                    ->options(Profession::all()->pluck('name_profession', 'id')->toArray())
+                    ->options(Profession::all()->pluck('name_profession', 'id_profession')->toArray())
                     ->searchable()
                     ->nullable(),
             ]);
@@ -47,7 +47,7 @@ class SkillResource extends Resource
                 Tables\Columns\TextColumn::make('text')
                     ->label('Описание')
                     ->limit(50)
-                    ->tooltip(fn ($state) => $state),
+                    ->tooltip(fn ($record) => $record->text), // Явно указываем, что это за текст
                 Tables\Columns\TextColumn::make('profession.name_profession')
                     ->label('Профессия'),
                 Tables\Columns\TextColumn::make('created_at')

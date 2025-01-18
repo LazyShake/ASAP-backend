@@ -6,6 +6,8 @@ use App\Filament\Resources\ArticleResource\Pages;
 use App\Models\Article;
 use App\Models\Type;
 use App\Models\Profession;
+use App\Models\Tags;
+use App\Models\Filter;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -44,27 +46,47 @@ class ArticleResource extends Resource
                 // Поле для выбора или создания нового типа статьи
                 Select::make('type_id')
                     ->label('Тип статьи')
-                    ->options(Type::all()->pluck('name_type', 'id_type')->toArray())
-                    ->createOptionForm([
-                        Forms\Components\TextInput::make('name_type')
-                            ->label('Название типа')
-                            ->required(),
-                    ])
+                    ->options(Type::query()->pluck('name_type', 'id_type'))
                     ->searchable()
-                    ->placeholder('Выберите или создайте тип'),
+                    ->placeholder('Выберите тип')
+                    ->required()
+                    ->reactive() // Обработка изменения значения
+                    ->afterStateUpdated(function ($state, callable $set) {
+                        // Если тип равен "Кейс" или "Другое", выбираем первый фильтр и отключаем выбор
+                        if ($state === 1 || $state === 2) {
+                            $set('filter_id', Filter::first()->id); // Устанавливаем первый фильтр
+                            $set('filter_disabled', true); // Отключаем поле фильтра
+                        } else {
+                            $set('filter_id', null); // Сбрасываем фильтр
+                            $set('filter_disabled', false); // Включаем возможность выбора фильтра
+                        }
+                    }),
 
-                // Поле для выбора или создания новой профессии
-                Select::make('id_profession')
-                    ->label('Профессия')
-                    ->options(Profession::all()->pluck('name_profession', 'id_profession')->toArray())
-                    ->createOptionForm([
-                        Forms\Components\TextInput::make('name_profession')
-                            ->label('Название профессии')
-                            ->required(),
-                    ])
+
+                Select::make('filter_id')
+                    ->label('Фильтр')
+                    ->options(function () {
+                        return Filter::query()->pluck('name_filter', 'filter_id')->toArray();
+                    })
                     ->searchable()
-                    ->placeholder('Выберите или создайте профессию'),
-
+                    ->placeholder('Выберите фильтр')
+                    ->nullable()
+                    ->reactive() // Делаем поле реактивным
+                    ->visible(function (callable $get) {
+                        // Получаем название типа статьи
+                        $typeId = $get('type_id'); // Получаем ID типа статьи
+                        return $typeId == 4; // Показываем поле, если тип статьи "Для профессии"
+                    })
+                    ->disabled(function (callable $get) {
+                        // Отключаем поле, если оно не должно быть доступным
+                        return $get('filter_disabled');
+                    }),
+                Select::make('tags') // Поле для выбора нескольких тегов
+                    ->label('Теги')
+                    ->multiple() // Указывает, что это множественный выбор
+                    ->options(Tags::query()->pluck('name_tag', 'id_tag')) // Список тегов
+                    ->searchable() // Позволяет искать по тегам
+                    ->placeholder('Выберите теги'),
                 Forms\Components\TextInput::make('link')
                     ->label('Ссылка')
                     ->url()
@@ -80,6 +102,8 @@ class ArticleResource extends Resource
                     ->image(),
             ]);
     }
+
+
 
     public static function table(Table $table): Table
     {
@@ -102,6 +126,21 @@ class ArticleResource extends Resource
                     ->label('Профессия')
                     ->sortable()
                     ->searchable(),
+                Tables\Columns\TextColumn::make('filter.name_filter')
+                    ->label('Фильтр')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('tags') // или другое имя поля
+                    ->label('Теги')
+                    ->formatStateUsing(function ($state) {
+                        // Если $state является коллекцией тегов, соединяем их имена через запятую
+                        if ($state instanceof \Illuminate\Database\Eloquent\Collection) {
+                            return $state->pluck('name_tag')->implode(', ');
+                        }
+                        return ''; // Возвращаем пустую строку, если нет тегов
+                    }),
+
+
                 Tables\Columns\TextColumn::make('owner_name')
                     ->label('Имя автора'),
             ])
@@ -112,6 +151,9 @@ class ArticleResource extends Resource
                 Tables\Filters\SelectFilter::make('id_profession')
                     ->label('Профессия')
                     ->relationship('profession', 'name_profession'),
+                Tables\Filters\SelectFilter::make('filter_ids')
+                    ->label('Фильтры')
+                    ->relationship('filter', 'name_filter'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

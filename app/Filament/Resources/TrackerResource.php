@@ -46,7 +46,7 @@ class TrackerResource extends Resource
                 Tables\Columns\TextColumn::make('description')
                     ->label('Описание')
                     ->limit(50)
-                    ->tooltip(fn ($state) => $state),
+                    ->tooltip(fn ($record) => $record->text), // Явно указываем, что это за текст
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Дата создания')
                     ->dateTime('d.m.Y H:i'),

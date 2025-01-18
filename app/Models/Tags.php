@@ -20,11 +20,12 @@ class Tags extends Model
      */
     protected $fillable = [
         'name_tag',
-        'id_article',
     ];
 
-    public function tags()
+    public function articles()
     {
-        return $this->belongsTo(Article::class, 'id_article', 'id_article');
+        return $this->belongsToMany(Article::class, 'article_tag', 'tag_id', 'article_id');
     }
+
+
 }

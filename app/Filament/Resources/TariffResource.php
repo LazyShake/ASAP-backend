@@ -52,7 +52,7 @@ class TariffResource extends Resource
                 Tables\Columns\TextColumn::make('short_description')
                     ->label('Краткое описание')
                     ->limit(50)
-                    ->tooltip(fn ($state) => $state),
+                    ->tooltip(fn ($record) => $record->text), // Явно указываем, что это за текст
                 Tables\Columns\TextColumn::make('price')
                     ->label('Цена'),
                 Tables\Columns\BooleanColumn::make('installment')
