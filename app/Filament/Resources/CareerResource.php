@@ -37,7 +37,7 @@ class CareerResource extends Resource
                     ->numeric()
                     ->required(),
 
-                Forms\Components\FileUpload::make('images_vacancy')
+                    Forms\Components\TextInput::make('images_vacancy')
                     ->label('Изображения вакансий')
                     ->image()
                     ->multiple()

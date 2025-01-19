@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MentorResource\Pages;
-use App\Filament\Resources\MentorResource\RelationManagers;
 use App\Models\Mentor;
 use Filament\Forms;
 use Filament\Forms\Components\RichEditor;
@@ -11,14 +10,11 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Select;
-use Filament\Tables\Columns\BadgeColumn;
+use Filament\Forms\Components\Toggle;
 
 class MentorResource extends Resource
 {
@@ -36,33 +32,31 @@ class MentorResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name_mentors')
-                    ->label('Name')
+                    ->label('Имя')
                     ->required()
                     ->maxLength(255),
 
                 RichEditor::make('description')
-                    ->label('Description')
+                    ->label('Описание')
                     ->required()
                     ->maxLength(1000),
 
                 TextInput::make('picture')
-                    ->label('Picture URL')
+                    ->label('Ссылка на изображение')
                     ->maxLength(255),
 
-                Select::make('role')
-                    ->label('Role')
-                    ->options([
-                        'mentor' => 'Mentor',
-                        'tracker' => 'Tracker',
-                    ])
-                    ->required(),
-                Forms\Components\Toggle::make('status')
+                Toggle::make('status')
                     ->label('Отображать на главной')
                     ->default(false),
+
                 Select::make('id_profession')
-                    ->label('Profession')
+                    ->label('Профессия')
                     ->relationship('profession', 'name_profession')
                     ->required(),
+
+                TextInput::make('workplace')
+                    ->label('Место работы')
+                    ->maxLength(255),
             ]);
     }
 
@@ -71,32 +65,25 @@ class MentorResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name_mentors')
-                    ->label('Name')
+                    ->label('Имя')
                     ->searchable(),
 
                 ImageColumn::make('picture')
-                    ->label('Picture')
+                    ->label('Изображение')
                     ->size(50),
 
-                badgeColumn::make('role')
-                    ->label('Role')
-                    ->enum([
-                        'mentor' => 'Mentor',
-                        'tracker' => 'Tracker',
-                    ])
-                    ->colors([
-                        'success' => 'mentor',
-                        'warning' => 'tracker',
-                    ]),
+                TextColumn::make('workplace')
+                    ->label('Место работы'),
+
                 Tables\Columns\BooleanColumn::make('status')
                     ->label('На главной'),
 
                 TextColumn::make('profession.name_profession')
-                    ->label('Profession')
+                    ->label('Профессия')
                     ->sortable(),
             ])
             ->filters([
-                //
+                // Добавьте фильтры, если требуется
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -110,7 +97,7 @@ class MentorResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            // Укажите отношения, если они есть
         ];
     }
 

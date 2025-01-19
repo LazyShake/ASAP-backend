@@ -87,10 +87,21 @@ class ArticleResource extends Resource
                     ->options(Tags::query()->pluck('name_tag', 'id_tag')) // Список тегов
                     ->searchable() // Позволяет искать по тегам
                     ->placeholder('Выберите теги'),
-                Forms\Components\TextInput::make('link')
+                    Forms\Components\TextInput::make('link')
                     ->label('Ссылка')
                     ->url()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->nullable()
+                    ->reactive() // Делаем поле реактивным
+                    ->visible(function (callable $get) {
+                        // Получаем название типа статьи
+                        $typeId = $get('type_id'); // Получаем ID типа статьи
+                        return $typeId == 3; // Показываем поле, если тип статьи "Для профессии"
+                    })
+                    ->disabled(function (callable $get) {
+                        // Отключаем поле, если оно не должно быть доступным
+                        return $get('link_disabled');
+                    }),
                 Forms\Components\TextInput::make('owner_name')
                     ->label('Имя автора')
                     ->maxLength(255),

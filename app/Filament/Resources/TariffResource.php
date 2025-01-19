@@ -34,9 +34,10 @@ class TariffResource extends Resource
                     ->label('Цена')
                     ->required()
                     ->numeric(),
-                Forms\Components\Toggle::make('installment')
+                Forms\Components\TextInput::make('installment')
                     ->label('Рассрочка')
-                    ->default(false),
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\Textarea::make('detailed_description')
                     ->label('Подробное описание')
                     ->nullable(),
