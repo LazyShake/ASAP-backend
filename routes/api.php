@@ -8,6 +8,8 @@ use App\Http\Controllers\ProfessionController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\MainPageController;
+use App\Http\Controllers\SeoFileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,14 +40,33 @@ Route::get('/feedback-form', function () {
 Route::post('/submit-feedback', [FeedbackController::class, 'submitFeedback'])->name('feedback.submit');
 Route::post('/submit-phone', [FeedbackController::class, 'submitPhone'])->name('phone.submit');
 
-Route::get('/blog', [PageController::class, 'blog'])->name('blog');
-Route::get('/article/{id}', [PageController::class, 'showArticle'])->name('article.show');
-
-Route::get('/articles', [ArticleController::class, 'index']);
-Route::get('/articles/profession/{professionId}', [ArticleController::class, 'byProfession']);
-
 // Просмотр конкретной статьи
-Route::get('/articles/{id}', [ArticleController::class, 'showArticle']); // Показ статьи
+Route::get('/blog/articles/{id}', [ArticleController::class, 'showArticle']); // Показ статьи
 Route::post('/cta', [ArticleController::class, 'sendToTelegram']); // API для CTA
 
-Route::get('/course/{id}', [ProfessionController::class, 'show'])->name('professions.show');
+Route::get('/course/{id}', [ProfessionController::class, 'show'])->name('profession.show');
+
+Route::get('/blog', [PageController::class, 'index']);
+
+// Получить конкретную статью
+Route::get('/blog/articles/{articleId}', [PageController::class, 'getArticle']);
+
+// Получить 3 последние статьи
+Route::get('/articles', [PageController::class, 'getRecentArticles']);
+
+// Получить список профессий
+Route::get('/professions', [PageController::class, 'getProfessions']);
+
+Route::prefix('main')->group(function () {
+    Route::get('/first_screen', [MainPageController::class, 'firstScreen']);
+    Route::get('/professions', [MainPageController::class, 'professions']);
+    Route::get('/tariff/price', [MainPageController::class, 'tariffPrice']);
+    Route::get('/professions/{profession_id}/mini_images', [MainPageController::class, 'professionImages']);
+    Route::get('/mentors', [MainPageController::class, 'mentors']);
+    Route::get('/statistics', [MainPageController::class, 'statistics']);
+    Route::get('/reviews', [MainPageController::class, 'reviews']);
+    Route::get('/partners', [MainPageController::class, 'partners']);
+    Route::get('/articles', [MainPageController::class, 'articles']);
+    Route::get('/referal_price', [MainPageController::class, 'referalPrice']);
+});
+
