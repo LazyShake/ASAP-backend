@@ -15,6 +15,7 @@ class FirstImageResource extends Resource
     protected static ?string $model = FirstImage::class;
     protected static ?string $navigationIcon = 'heroicon-o-photograph';
     protected static ?string $pluralLabel = 'Первые изображения';
+    protected static ?string $navigationGroup = 'Главная';
 
     protected static ?string $modelLabel = 'Изображение';
 

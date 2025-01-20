@@ -18,6 +18,8 @@ class SkillResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-cog';
     protected static ?string $pluralLabel = 'Навыки';
     protected static ?string $modelLabel = 'Навык';
+    protected static ?string $navigationGroup = 'Профессии';
+
 
     public static function form(Form $form): Form
     {

@@ -16,7 +16,7 @@ class SEOPageResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-document';
 
     protected static ?string $pluralLabel = 'SEO страницы';
-
+    protected static ?string $navigationGroup = 'Управление';
     protected static ?string $modelLabel = 'SEO страница';
 
     public static function form(Form $form): Form

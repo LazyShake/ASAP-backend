@@ -1,24 +1,18 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\ProfessionResource\RelationManagers;
 
-use App\Filament\Resources\ProgramResource\Pages;
-use App\Models\Program;
-use App\Models\Profession;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
 
-class ProgramResource extends Resource
+class ProgramsRelationManager extends RelationManager
 {
-    protected static ?string $model = Program::class;
+    protected static string $relationship = 'programs'; // Укажите название связи из модели Profession.
 
-    protected static ?string $navigationIcon = 'heroicon-o-clipboard-list';
-    protected static ?string $pluralLabel = 'Программы';
-    protected static ?string $modelLabel = 'Программа';
-    protected static bool $shouldRegisterNavigation = false;
+    protected static ?string $recordTitleAttribute = 'name_module';
 
     public static function form(Form $form): Form
     {
@@ -32,12 +26,6 @@ class ProgramResource extends Resource
                     ->label('Контент модуля')
                     ->required()
                     ->maxLength(1000),
-                Forms\Components\Select::make('id_profession')
-                    ->label('Профессия')
-                    ->options(Profession::all()->pluck('name_profession', 'id_profession'))
-                    ->required()
-                    ->searchable()
-                    ->placeholder('Выберите профессию'),
                 Forms\Components\TextInput::make('number_module')
                     ->label('Номер модуля')
                     ->numeric()
@@ -51,15 +39,10 @@ class ProgramResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name_module')
                     ->label('Название модуля')
-                    ->sortable()
-                    ->searchable(),
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('content_module')
                     ->label('Контент')
                     ->limit(50),
-                Tables\Columns\TextColumn::make('profession.name_profession')
-                    ->label('Профессия')
-                    ->sortable()
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('number_module')
                     ->label('Номер модуля')
                     ->sortable(),
@@ -67,25 +50,16 @@ class ProgramResource extends Resource
                     ->label('Дата создания')
                     ->dateTime('d.m.Y H:i'),
             ])
-            ->filters([
-                Tables\Filters\SelectFilter::make('id_profession')
-                    ->label('Профессия')
-                    ->relationship('profession', 'name_profession'),
+            ->filters([])
+            ->headerActions([
+                Tables\Actions\CreateAction::make(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListPrograms::route('/'),
-            'create' => Pages\CreateProgram::route('/create'),
-            'edit' => Pages\EditProgram::route('/{record}/edit'),
-        ];
     }
 }

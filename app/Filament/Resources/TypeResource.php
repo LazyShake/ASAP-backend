@@ -17,6 +17,7 @@ class TypeResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-cog';
     protected static ?string $pluralLabel = 'Типы статей';
     protected static ?string $modelLabel = 'Тип статьи';
+    protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Form $form): Form
     {

@@ -48,6 +48,14 @@ class ReviewRelationManager extends RelationManager
             ->filters([
                 // Можно добавить фильтры, если необходимо
             ])
-            ->defaultSort('author');
+            
+            ->defaultSort('author')
+            ->headerActions([
+                Tables\Actions\CreateAction::make(),
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+            ]);
     }
 }

@@ -9,7 +9,9 @@ use App\Filament\Resources\ProfessionResource\RelationManagers\ProgressRelationM
 use App\Filament\Resources\ProfessionResource\RelationManagers\SkillsRelationManager;
 use App\Filament\Resources\ProfessionResource\RelationManagers\ReviewRelationManager;
 use App\Filament\Resources\ProfessionResource\RelationManagers\MentorRelationManager;
+use App\Filament\Resources\ProfessionResource\RelationManagers\ProgramsRelationManager;
 use App\Models\Profession;
+use App\Models\Skill;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -23,7 +25,7 @@ class ProfessionResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-briefcase';
 
     protected static ?string $pluralLabel = 'Профессии';
-
+    protected static ?string $navigationGroup = 'Профессии';
     protected static ?string $modelLabel = 'Профессия';
 
     public static function form(Form $form): Form
@@ -64,11 +66,17 @@ class ProfessionResource extends Resource
                     ->relationship('color', 'name')
                     ->label('Цвет')
                     ->required(),
+                    Forms\Components\Select::make('skills') // Поле для выбора нескольких тегов
+                    ->label('Навыки')
+                    ->multiple() // Указывает, что это множественный выбор
+                    ->options(Skill::query()->pluck('name', 'id_skills')) // Список тегов
+                    ->searchable() // Позволяет искать по тегам
+                    ->placeholder('Выберите навыки'),
                 Forms\Components\BelongsToSelect::make('id_type')
                     ->relationship('typeProfession', 'name_type')
                     ->label('Тип профессии')
                     ->required(),
-                
+
                 // SEO поля
                 Forms\Components\TextInput::make('SEO_key_words')
                     ->label('Ключевые слова SEO')
@@ -97,11 +105,18 @@ class ProfessionResource extends Resource
                     ->label('Количество мест'),
                 Tables\Columns\TextColumn::make('period')
                     ->label('Период обучения'),
+
                 Tables\Columns\TextColumn::make('start_of_training')
                     ->label('Дата начала обучения')
                     ->date('d.m.Y') // Форматирование даты
                     ->sortable(),
-                
+                Tables\Columns\TextColumn::make('skills.name')
+                    ->label('Навыки')
+                    ->sortable()
+                    ->searchable()
+                    ->limit(50)
+                    ->formatStateUsing(fn($state) => is_array($state) ? implode(', ', $state) : $state),
+
                 // Отображение SEO полей в таблице
                 Tables\Columns\TextColumn::make('SEO_key_words')
                     ->label('Ключевые слова SEO'),
@@ -125,12 +140,11 @@ class ProfessionResource extends Resource
     {
         return [
             CareerRelationManager::class,
-            ColorRelationManager::class,
-            TypeProfessionRelationManager::class,
             ProgressRelationManager::class,
-            SkillsRelationManager::class,
+            //SkillsRelationManager::class,
             ReviewRelationManager::class,
             MentorRelationManager::class,
+            ProgramsRelationManager::class,
         ];
     }
 

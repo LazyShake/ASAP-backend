@@ -16,6 +16,8 @@ class ColorResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-color-swatch';
     protected static ?string $pluralLabel = 'Цвета';
     protected static ?string $modelLabel = 'Цвет';
+    protected static bool $shouldRegisterNavigation = false;
+
 
     public static function form(Form $form): Form
     {

@@ -17,6 +17,7 @@ class CareerResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-briefcase';
     protected static ?string $pluralLabel = 'Карьеры';
     protected static ?string $modelLabel = 'Карьера';
+    protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Form $form): Form
     {
