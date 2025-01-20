@@ -84,55 +84,21 @@ class ArticleResource extends Resource
                     }),
 
 
-
-                Select::make('tags') // Поле для выбора нескольких тегов
+                Select::make('tags')
                     ->label('Теги')
-                    ->multiple() // Указывает, что это множественный выбор
-                    ->options(function ($get) {
-                        // Получаем текущие выбранные теги
-                        $selectedTags = $get('tags') ?? [];
-                        // Получаем все доступные теги
-                        $tags = Tags::query()->pluck('name_tag', 'id_tag')->toArray();
-                        // Вставляем выбранные теги в начало списка, чтобы они всегда были видны
-                        foreach ($selectedTags as $selectedTag) {
-                            if (!isset($tags[$selectedTag])) {
-                                $tags = [$selectedTag => $selectedTag] + $tags;
-                            }
-                        }
-                        return $tags;
+                    ->multiple() // Поддержка нескольких тегов
+                    ->relationship('tags', 'name_tag') // Указываем связь
+                    ->searchable() // Включаем поиск
+                    ->getSearchResultsUsing(function (string $query) {
+                        // Фильтрация списка тегов
+                        return Tags::where('name_tag', 'like', "%{$query}%")
+                            ->pluck('name_tag', 'id_tag');
                     })
-                    ->searchable() // Позволяет искать по тегам
-                    ->placeholder('Выберите теги или создайте новый'),
-
-                Forms\Components\TextInput::make('new_tag') // Поле для ввода нового тега
-                    ->label('Добавить новый тег')
-                    ->placeholder('Введите новый тег')
-                    ->reactive() // Чтобы это поле обновлялось без перезагрузки
-                    ->afterStateUpdated(function ($state, $get, $set) {
-                        $newTag = $get('new_tag');
-
-                        // Если тег содержит запятую, добавляем его и очищаем поле
-                        if (str_contains($newTag, ',')) {
-                            // Очищаем тег от запятой
-                            $newTag = trim($newTag, ',');
-
-                            // Если тег не пустой и не существует в базе
-                            if (!empty($newTag) && !Tags::where('name_tag', $newTag)->exists()) {
-                                // Создаем новый тег
-                                Tags::create([
-                                    'name_tag' => $newTag,
-                                    'created_at' => now(),
-                                    'updated_at' => now(),
-                                ]);
-                            }
-
-                            // Очищаем поле ввода нового тега
-                            $set('new_tag', '');
-
-                            // Обновляем список тегов в поле выбора
-                            $set('tags', Tags::query()->pluck('name_tag', 'id_tag')->toArray());
-                        }
-                    }),
+                    ->placeholder('Выберите теги или создайте новый')
+                    ->createOptionForm([
+                        Forms\Components\TextInput::make('name_tag')
+                            ->required(),
+                    ]),
 
 
                 Forms\Components\TextInput::make('link')
