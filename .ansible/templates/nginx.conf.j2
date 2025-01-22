@@ -15,9 +15,10 @@ server {
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
         proxy_set_header Host $host;
-        proxy_set_header Origin $scheme://$host;
+        proxy_set_header Origin https://$host;
         proxy_cache_bypass $http_upgrade;
     }
+
 
     location /api {
         try_files $uri $uri/ /index.php?$query_string;
@@ -29,8 +30,19 @@ server {
         gzip_static on;
     }
 
-    location /vendor {
-        try_files $uri $uri/ $query_string;
+    location /filament {
+        try_files $uri $uri/ /index.php?$query_string;
+        gzip_static on;
+    }
+
+    location /livewire {
+        try_files $uri $uri/ /index.php?$query_string;
+        gzip_static on;
+    }
+
+
+    location /docs {
+        try_files $uri $uri/ /index.php?$query_string;
         gzip_static on;
     }
 
@@ -40,5 +52,13 @@ server {
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include fastcgi_params;
         fastcgi_read_timeout 3000;
+        fastcgi_param   REQUEST_SCHEME  'https';
+        fastcgi_param   HTTPS           'on';
+    }
+
+
+    location /storage {
+        alias /var/www/public/storage;
+        autoindex off; # Отключить индексацию файлов, если это не требуется
     }
 }

@@ -1,4 +1,7 @@
-FROM 999669/asap-new-backend:fe8e959d
+FROM 999669/asap-nv-backend:01e9ac91
+
+RUN rm -rf /var/www/database
+
 
 COPY ./ /var/www
 # Set working directory
