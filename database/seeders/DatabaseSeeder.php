@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
             PartnerSeeder::class,
             StatisticSeeder::class,
             TestSeeder::class,
+            AssignRolesSeeder::class,
             
         ]);
         

@@ -3,28 +3,41 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
     /**
-     * The list of the inputs that are never flashed to the session on validation exceptions.
+     * Render an exception into an HTTP response.
      *
-     * @var array<int, string>
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Throwable  $exception
+     * @return \Illuminate\Http\Response
      */
-    protected $dontFlash = [
-        'current_password',
-        'password',
-        'password_confirmation',
-    ];
-
-    /**
-     * Register the exception handling callbacks for the application.
-     */
-    public function register(): void
+    public function render($request, Throwable $exception)
     {
-        $this->reportable(function (Throwable $e) {
-            //
-        });
+        // Обработка ModelNotFoundException
+        if ($exception instanceof ModelNotFoundException) {
+            return response()->json([
+                'error' => 'Ресурс не найден',
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        // Обработка ValidationException
+        if ($exception instanceof ValidationException) {
+            return response()->json([
+                'error' => 'Некорректные данные',
+                'details' => $exception->errors(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        // Для всех остальных ошибок
+        return response()->json([
+            'error' => 'Произошла ошибка на сервере',
+            'message' => $exception->getMessage(),
+        ], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 }

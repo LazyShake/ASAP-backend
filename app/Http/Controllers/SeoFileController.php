@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SeoFile;
 use Illuminate\Http\Request;
-use App\Http\Resources\SeoFileResource;
+use App\Http\Resources\SeoPageResource;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -15,7 +15,7 @@ class SeoFileController extends Controller
      */
     public function index()
     {
-        return SeoFileResource::collection(
+        return SeoPageResource::collection(
             SeoFile::paginate(10)
         );
     }
@@ -30,7 +30,7 @@ class SeoFileController extends Controller
     {
         $seoFile = SeoFile::findOrFail($id);
 
-        return new SeoFileResource($seoFile);
+        return new SeoPageResource($seoFile);
     }
 
     /**
@@ -51,7 +51,7 @@ class SeoFileController extends Controller
             'path' => $path,
         ]);
 
-        return new SeoFileResource($seoFile);
+        return new SeoPageResource($seoFile);
     }
 
     /**

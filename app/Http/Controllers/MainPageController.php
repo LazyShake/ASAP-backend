@@ -18,142 +18,79 @@ use App\Models\Statistic;
 use App\Models\Review;
 use App\Models\Partner;
 use App\Models\Article;
-use App\Models\SEOPage; // Импортируем модель SEOPage
+use App\Models\SEOPage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class MainPageController extends Controller
 {
-    // Получение SEO данных с ID = 1
     public function seoData()
     {
-        try {
-            $seo = SEOPage::findOrFail(1); // Находим запись с ID = 1
-            return new SEOPageResource($seo); // Используем ресурс SEOPageResource
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            Log::warning('SEO запись с ID 1 не найдена: ' . $e->getMessage());
-            return response()->json(['error' => 'SEO данные не найдены'], 404);
-        } catch (\Exception $e) {
-            Log::error('Ошибка получения SEO данных: ' . $e->getMessage());
-            return response()->json(['error' => 'Не удалось загрузить SEO данные'], 500);
-        }
+        $seo = SEOPage::findOrFail(1);
+        return new SEOPageResource($seo);
     }
 
     public function firstScreen()
     {
-        try {
-            $firstScreen = FirstImage::first();
-            return new FirstImageResource($firstScreen);
-        } catch (\Exception $e) {
-            Log::error('Ошибка получения первого экрана: ' . $e->getMessage());
-            return response()->json(['error' => 'Не удалось загрузить данные первого экрана'], 500);
-        }
+        $firstScreen = FirstImage::first();
+        return new FirstImageResource($firstScreen);
     }
 
     public function professions()
     {
-        try {
-            $professions = Profession::all();
-            return ProfessionGeneralResource::collection($professions);
-        } catch (\Exception $e) {
-            Log::error('Ошибка получения профессий: ' . $e->getMessage());
-            return response()->json(['error' => 'Не удалось загрузить профессии'], 500);
-        }
+        $professions = Profession::all();
+        return ProfessionGeneralResource::collection($professions);
     }
 
     public function tariffPrice()
     {
-        try {
-            $price = Tariff::max('price');
-            return response()->json(['price' => $price]);
-        } catch (\Exception $e) {
-            Log::error('Ошибка получения цены тарифа: ' . $e->getMessage());
-            return response()->json(['error' => 'Не удалось загрузить цену тарифа'], 500);
-        }
+        $price = Tariff::max('price');
+        return response()->json(['price' => $price]);
     }
 
     public function professionImages($professionId)
     {
-        try {
-            $profession = Profession::findOrFail($professionId);
-            return new ProfessionGeneralResource($profession);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            Log::warning('Профессия не найдена: ' . $e->getMessage());
-            return response()->json(['error' => 'Профессия не найдена'], 404);
-        } catch (\Exception $e) {
-            Log::error('Ошибка получения изображения профессии: ' . $e->getMessage());
-            return response()->json(['error' => 'Не удалось загрузить данные профессии'], 500);
-        }
+        $profession = Profession::findOrFail($professionId);
+        return new ProfessionGeneralResource($profession);
     }
 
     public function mentors(Request $request)
     {
-        try {
-            $mentors = Mentor::where('status', true)
-                ->paginate($request->get('recordsPerPage', 4));
-            return MentorResource::collection($mentors);
-        } catch (\Exception $e) {
-            Log::error('Ошибка получения списка менторов: ' . $e->getMessage());
-            return response()->json(['error' => 'Не удалось загрузить список менторов'], 500);
-        }
+        $mentors = Mentor::where('status', true)
+            ->paginate($request->get('recordsPerPage', 4));
+        return MentorResource::collection($mentors);
     }
 
     public function statistics()
     {
-        try {
-            $statistics = Statistic::all();
-            return StatisticResource::collection($statistics);
-        } catch (\Exception $e) {
-            Log::error('Ошибка получения статистики: ' . $e->getMessage());
-            return response()->json(['error' => 'Не удалось загрузить статистику'], 500);
-        }
+        $statistics = Statistic::all();
+        return StatisticResource::collection($statistics);
     }
 
     public function reviews(Request $request)
     {
-        try {
-            $reviews = Review::where('status', true)
-                ->paginate($request->get('recordsPerPage', 2));
-            return ReviewResource::collection($reviews);
-        } catch (\Exception $e) {
-            Log::error('Ошибка получения отзывов: ' . $e->getMessage());
-            return response()->json(['error' => 'Не удалось загрузить отзывы'], 500);
-        }
+        $reviews = Review::where('status', true)
+            ->paginate($request->get('recordsPerPage', 2));
+        return ReviewResource::collection($reviews);
     }
 
     public function partners()
     {
-        try {
-            $partners = Partner::all();
-            return PartnerResource::collection($partners);
-        } catch (\Exception $e) {
-            Log::error('Ошибка получения партнеров: ' . $e->getMessage());
-            return response()->json(['error' => 'Не удалось загрузить партнеров'], 500);
-        }
+        $partners = Partner::all();
+        return PartnerResource::collection($partners);
     }
 
     public function articles(Request $request)
     {
-        try {
-            $articles = Article::where('type_id', null)
-                ->latest('created_at')
-                ->take(2)
-                ->get();
-            return ArticleResource::collection($articles);
-        } catch (\Exception $e) {
-            Log::error('Ошибка получения статей: ' . $e->getMessage());
-            return response()->json(['error' => 'Не удалось загрузить статьи'], 500);
-        }
+        $articles = Article::where('type_id', null)
+            ->latest('created_at')
+            ->take(2)
+            ->get();
+        return ArticleResource::collection($articles);
     }
 
     public function referalPrice()
     {
-        try {
-            $referalPrice = config('settings.referal_price', '5000 р');
-            return response()->json(['referal_price' => $referalPrice]);
-        } catch (\Exception $e) {
-            Log::error('Ошибка получения цены рефералов: ' . $e->getMessage());
-            return response()->json(['error' => 'Не удалось загрузить цену рефералов'], 500);
-        }
+        $referalPrice = config('settings.referal_price', '5000 р');
+        return response()->json(['referal_price' => $referalPrice]);
     }
 }
