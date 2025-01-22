@@ -30,7 +30,7 @@ server {
         gzip_static on;
     }
 
-    location /vendor {
+    location /filament {
         try_files $uri $uri/ /index.php?$query_string;
         gzip_static on;
     }
