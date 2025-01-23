@@ -13,7 +13,7 @@ class AddFilterIdToArticlesTable extends Migration
      */
     public function up()
     {
-        Schema::table('articles', function (Blueprint $table) {
+        /*Schema::table('articles', function (Blueprint $table) {
             $table->unsignedBigInteger('filter_id')->nullable()->after('id');
 
             // Внешний ключ
@@ -21,7 +21,7 @@ class AddFilterIdToArticlesTable extends Migration
                 ->references('id')
                 ->on('filters')
                 ->onDelete('set null'); // Если фильтр удалён, связь обнуляется
-        });
+        });*/
     }
 
     /**

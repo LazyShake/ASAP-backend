@@ -62,7 +62,7 @@ class CareerResource extends Resource
                     ->label('Количество вакансий')
                     ->sortable(),
 
-                Tables\Columns\ImageColumn::make('images_vacancy')
+                Tables\Columns\TextColumn::make('images_vacancy')
                     ->label('Изображения вакансий'),
             ])
             ->filters([
