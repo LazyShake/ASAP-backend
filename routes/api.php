@@ -42,7 +42,7 @@ Route::post('/submit-phone', [FeedbackController::class, 'submitPhone'])->name('
 
 // Просмотр конкретной статьи
 Route::get('/blog/articles/{id}', [ArticleController::class, 'showArticle']); // Показ статьи
-Route::post('/cta', [ArticleController::class, 'sendToTelegram']); // API для CTA
+Route::post('/cta', [FeedbackController::class, 'sendToTelegram']); // API для CTA
 
 Route::get('/course/{id}', [ProfessionController::class, 'show'])->name('profession.show');
 

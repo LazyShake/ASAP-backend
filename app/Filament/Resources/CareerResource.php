@@ -40,9 +40,8 @@ class CareerResource extends Resource
 
                     Forms\Components\TextInput::make('images_vacancy')
                     ->label('Изображения вакансий')
-                    ->image()
-                    ->multiple()
-                    ->maxFiles(5),
+                    ->required()
+                    ->maxLength(255),
             ]);
     }
 
