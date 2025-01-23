@@ -22,7 +22,7 @@ class TrackerResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name_trackers')
+                Forms\Components\TextInput::make('name_tracker')
                     ->label('Название трекера')
                     ->required()
                     ->maxLength(255),

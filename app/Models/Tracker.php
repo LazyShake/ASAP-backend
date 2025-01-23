@@ -19,7 +19,7 @@ class Tracker extends Model
      * Атрибуты, которые можно массово заполнять.
      */
     protected $fillable = [
-        'name_trackers',
+        'name_tracker',
         'picture',
         'description',
     ];
