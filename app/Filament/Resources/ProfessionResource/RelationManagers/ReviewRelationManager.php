@@ -12,24 +12,41 @@ class ReviewRelationManager extends RelationManager
 {
     protected static string $relationship = 'reviews';
 
-    protected static ?string $recordTitleAttribute = 'author';
+    protected static ?string $recordTitleAttribute = 'owner';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('author')
-                    ->label('Автор')
+                Forms\Components\RichEditor::make('text')
+                    ->label('Текст отзыва')
+                    ->required(),
+                Forms\Components\FileUpload::make('picture')
+                    ->label('Фото отзыва')
+                    ->image(),
+                Forms\Components\TextInput::make('video')
+                    ->label('Ссылка на видео')
+                    ->url()
+                    ->nullable(),
+                Forms\Components\TextInput::make('owner')
+                    ->label('Автор отзыва')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('content')
-                    ->label('Содержание отзыва')
-                    ->required()
-                    ->maxLength(1000),
-                Forms\Components\TextInput::make('rating')
-                    ->label('Рейтинг')
-                    ->numeric()
-                    ->required(),
+                Forms\Components\Toggle::make('status')
+                    ->label('Отображать на главной')
+                    ->default(false),
+                Forms\Components\TextInput::make('place_job')
+                    ->label('Место работы')
+                    ->nullable()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('job_before')
+                    ->label('Профессия до обучения')
+                    ->nullable()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('job_after')
+                    ->label('Профессия после обучения')
+                    ->nullable()
+                    ->maxLength(255),
             ]);
     }
 
@@ -37,19 +54,33 @@ class ReviewRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('author')
+                Tables\Columns\TextColumn::make('text')
+                    ->label('Текст отзыва')
+                    ->limit(50)
+                    ->tooltip(fn ($record) => $record->text),
+                Tables\Columns\ImageColumn::make('picture')
+                    ->label('Фото'),
+                Tables\Columns\TextColumn::make('video')
+                    ->label('Видео')
+                    ->url(fn ($record) => $record->video)
+                    ->label('Открыть'),
+                Tables\Columns\TextColumn::make('owner')
                     ->label('Автор'),
-                Tables\Columns\TextColumn::make('content')
-                    ->label('Содержание')
-                    ->limit(50),
-                Tables\Columns\TextColumn::make('rating')
-                    ->label('Рейтинг'),
+                Tables\Columns\BooleanColumn::make('status')
+                    ->label('На главной'),
+                Tables\Columns\TextColumn::make('job_before')
+                    ->label('До обучения'),
+                Tables\Columns\TextColumn::make('job_after')
+                    ->label('После обучения'),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Дата создания')
+                    ->dateTime('d.m.Y H:i'),
             ])
             ->filters([
-                // Можно добавить фильтры, если необходимо
+                Tables\Filters\TernaryFilter::make('status')
+                    ->label('Отображать на главной'),
             ])
-            
-            ->defaultSort('author')
+            ->defaultSort('created_at', 'desc')
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
             ])
