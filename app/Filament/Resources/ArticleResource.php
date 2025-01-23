@@ -83,6 +83,24 @@ class ArticleResource extends Resource
                         return $get('filter_disabled');
                     }),
 
+                    Select::make('id_profession')
+                    ->label('Профессия')
+                    ->options(function () {
+                        return Profession::query()->pluck('name_profession', 'id_profession')->toArray();
+                    })
+                    ->searchable()
+                    ->placeholder('Выберите профессии')
+                    ->nullable()
+                    ->reactive() // Делаем поле реактивным
+                    ->visible(function (callable $get) {
+                        // Получаем название типа статьи
+                        $typeId = $get('type_id'); // Получаем ID типа статьи
+                        return $typeId == 4; // Показываем поле, если тип статьи "Для профессии"
+                    })
+                    ->disabled(function (callable $get) {
+                        // Отключаем поле, если оно не должно быть доступным
+                        return $get('profession_disabled');
+                    }),
 
                 Select::make('tags')
                     ->label('Теги')
