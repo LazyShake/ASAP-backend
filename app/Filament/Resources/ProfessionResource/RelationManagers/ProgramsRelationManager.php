@@ -25,7 +25,8 @@ class ProgramsRelationManager extends RelationManager
                 Forms\Components\RichEditor::make('content_module')
                     ->label('Контент модуля')
                     ->required()
-                    ->maxLength(1000),
+                    ->maxLength(1000)
+                    ->multiple(),
                 Forms\Components\TextInput::make('number_module')
                     ->label('Номер модуля')
                     ->numeric()

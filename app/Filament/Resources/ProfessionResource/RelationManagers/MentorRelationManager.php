@@ -28,7 +28,8 @@ class MentorRelationManager extends RelationManager
                     ->maxLength(1000),
                 Forms\Components\TextInput::make('picture')
                     ->label('Ссылка на изображение')
-                    ->maxLength(255),
+                    ->url()
+                    ->nullable(),
                 Forms\Components\Toggle::make('status')
                     ->label('Отображать на главной')
                     ->default(false),
