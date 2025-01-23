@@ -14,7 +14,7 @@ class TrackerResource extends Resource
 {
     protected static ?string $model = Tracker::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-map-pin';
+    protected static ?string $navigationIcon = 'heroicon-o-map';
     protected static ?string $pluralLabel = 'Трекеры';
     protected static ?string $modelLabel = 'Трекер';
 
