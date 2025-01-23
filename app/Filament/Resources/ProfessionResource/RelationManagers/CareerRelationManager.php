@@ -7,8 +7,6 @@ use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CareerRelationManager extends RelationManager
 {
@@ -21,6 +19,22 @@ class CareerRelationManager extends RelationManager
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Название')
+                    ->required()
+                    ->maxLength(255),
+
+                Forms\Components\TextInput::make('price')
+                    ->label('Цена')
+                    ->numeric()
+                    ->required(),
+
+                Forms\Components\TextInput::make('vacancy')
+                    ->label('Количество вакансий')
+                    ->numeric()
+                    ->required(),
+
+                Forms\Components\TextInput::make('images_vacancy')
+                    ->label('Изображения вакансий')
                     ->required()
                     ->maxLength(255),
             ]);
@@ -30,11 +44,26 @@ class CareerRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Название')
+                    ->sortable()
+                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('price')
+                    ->label('Цена')
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('vacancy')
+                    ->label('Количество вакансий')
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('images_vacancy')
+                    ->label('Изображения вакансий'),
             ])
             ->filters([
-                //
+                // Можно добавить фильтры, если потребуется
             ])
+            ->defaultSort('name') // Сортировка по умолчанию по названию
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
             ])
@@ -45,5 +74,5 @@ class CareerRelationManager extends RelationManager
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
-    }    
+    }
 }
