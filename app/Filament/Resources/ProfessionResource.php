@@ -74,8 +74,7 @@ class ProfessionResource extends Resource
                     ->placeholder('Выберите навыки'),
                 Forms\Components\BelongsToSelect::make('id_type')
                     ->relationship('typeProfession', 'name_type')
-                    ->label('Тип профессии')
-                    ->required(),
+                    ->label('Тип профессии'),
 
                 // SEO поля
                 Forms\Components\TextInput::make('SEO_key_words')
