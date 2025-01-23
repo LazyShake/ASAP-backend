@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ProfessionResource\RelationManagers;
 
+use App\Models\Profession;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -28,7 +29,7 @@ class ProgressRelationManager extends RelationManager
                     ->maxLength(255),
                     Forms\Components\Select::make('profession') // Поле для выбора нескольких тегов
                     ->label('профессия')
-                    ->options(Skill::query()->pluck('name_profession', 'id_profession')) // Список тегов
+                    ->options(Profession::query()->pluck('name_profession', 'id_profession')) // Список тегов
                     ->searchable() // Позволяет искать по тегам
                     ->placeholder('Выберите профессии'),
             ]);
