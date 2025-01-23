@@ -23,6 +23,14 @@ class ProgressRelationManager extends RelationManager
                 Forms\Components\TextInput::make('before')
                     ->required()
                     ->maxLength(255),
+                    Forms\Components\TextInput::make('after')
+                    ->required()
+                    ->maxLength(255),
+                    Forms\Components\Select::make('profession') // Поле для выбора нескольких тегов
+                    ->label('профессия')
+                    ->options(Skill::query()->pluck('name_profession', 'id_profession')) // Список тегов
+                    ->searchable() // Позволяет искать по тегам
+                    ->placeholder('Выберите профессии'),
             ]);
     }
 
