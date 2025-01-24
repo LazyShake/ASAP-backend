@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tariffs', function (Blueprint $table) {
-            // Изменяем поле detailed_description на JSON, если оно уже существует
+            // Удаляем колонку, если она существует, и добавляем новую
             if (Schema::hasColumn('tariffs', 'detailed_description')) {
-                $table->json('detailed_description')->nullable()->change();
-            } else {
-                // Добавляем поле detailed_description, если его нет
-                $table->json('detailed_description')->nullable()->after('installment');
+                $table->dropColumn('detailed_description');
             }
+
+            // Добавляем поле detailed_description
+            $table->json('detailed_description')->nullable()->after('installment');
         });
     }
 
@@ -28,8 +28,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('tariffs', function (Blueprint $table) {
-            // Если нужно вернуть назад, можно изменить поле обратно на string или удалить его
-            $table->string('detailed_description')->nullable()->change();
+            // Если нужно вернуть назад, добавляем колонку обратно как string
+            $table->string('detailed_description')->nullable()->after('installment');
         });
     }
 };
