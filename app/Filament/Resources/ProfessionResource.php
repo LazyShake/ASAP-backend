@@ -38,8 +38,8 @@ class ProfessionResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('price')
                     ->label('Стоимость обучения')
-                    ->numeric()
-                    ->required(),
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('place')
                     ->label('Количество мест')
                     ->numeric(),

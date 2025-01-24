@@ -40,7 +40,8 @@ class TariffResource extends Resource
                     ->maxLength(255),
                 Forms\Components\Textarea::make('detailed_description')
                     ->label('Подробное описание')
-                    ->nullable(),
+                    ->nullable()
+                    ->multiple(),
             ]);
     }
 
