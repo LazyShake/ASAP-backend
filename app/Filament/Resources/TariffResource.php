@@ -38,9 +38,18 @@ class TariffResource extends Resource
                     ->label('Рассрочка')
                     ->required()
                     ->maxLength(255),
-                    Forms\Components\TextArea::make('detailed_description')
+                Forms\Components\Repeater::make('detailed_description')
                     ->label('Подробное описание')
-                    ->formatStateUsing(fn ($state) => $state ? implode(', ', $state) : '—'), // Ограничиваем длину вывода
+                    ->schema([
+                        Forms\Components\Textarea::make('description_item')
+                            ->label('Элемент описания')
+                            ->required()
+                            ->maxLength(500), // Можно указать максимальную длину для каждого элемента
+                    ])
+                    ->minItems(1) // Минимум один элемент
+                    ->maxItems(10) // Максимум 10 элементов
+                    ->columnSpan('full'), // Опционально: растягиваем компонент на всю ширину
+
             ]);
     }
 
@@ -53,7 +62,7 @@ class TariffResource extends Resource
                 Tables\Columns\TextColumn::make('short_description')
                     ->label('Краткое описание')
                     ->limit(50)
-                    ->tooltip(fn ($record) => $record->text), // Явно указываем, что это за текст
+                    ->tooltip(fn($record) => $record->text), // Явно указываем, что это за текст
                 Tables\Columns\TextColumn::make('price')
                     ->label('Цена'),
                 Tables\Columns\BooleanColumn::make('installment')
