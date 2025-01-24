@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('career', function (Blueprint $table) {
-            $table->integer('vacancies_hh')->after('images_vacancy'); // Количество вакансий по hh.ru
-            $table->integer('vacancies_habr')->after('vacancies_hh'); // Количество вакансий по Habr
-            $table->integer('freelance_orders')->after('vacancies_habr'); // Количество заказов на фрилансе
-            $table->integer('start_salary')->after('freelance_orders'); // Зарплата на старте
-            $table->integer('salary_after_1_year')->after('start_salary'); // Зарплата после 1 года работы
-            $table->integer('salary_after_3_years')->after('salary_after_1_year'); // Зарплата после 3 лет работы
+            $table->integer('vacancies_hh')->after('images_vacancy')->nullable(); // Количество вакансий по hh.ru
+            $table->integer('vacancies_habr')->after('vacancies_hh')->nullable(); // Количество вакансий по Habr
+            $table->integer('freelance_orders')->after('vacancies_habr')->nullable(); // Количество заказов на фрилансе
+            $table->integer('start_salary')->after('freelance_orders')->nullable(); // Зарплата на старте
+            $table->integer('salary_after_1_year')->after('start_salary')->nullable(); // Зарплата после 1 года работы
+            $table->integer('salary_after_3_years')->after('salary_after_1_year')->nullable(); // Зарплата после 3 лет работы
         });
     }
 
