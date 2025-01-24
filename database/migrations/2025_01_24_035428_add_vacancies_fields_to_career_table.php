@@ -7,16 +7,16 @@ use Illuminate\Support\Facades\Schema;
 class AddVacanciesFieldsToCareerTable extends Migration
 {
     public function up()
-    {
-        Schema::table('career', function (Blueprint $table) {
-            $table->integer('vacancies_hh')->default(0);
-            $table->integer('vacancies_habr')->default(0);
-            $table->integer('freelance_orders')->default(0);
-            $table->integer('start_salary')->default(0);
-            $table->integer('salary_after_1_year')->default(0);
-            $table->integer('salary_after_3_years')->default(0);
-        });
-    }
+{
+    Schema::table('career', function (Blueprint $table) {
+        $table->integer('vacancies_hh')->nullable();
+        $table->integer('vacancies_habr')->nullable();
+        $table->integer('freelance_orders')->nullable();
+        $table->integer('start_salary')->nullable();
+        $table->integer('salary_after_1_year')->nullable();
+        $table->integer('salary_after_3_years')->nullable();
+    });
+}
 
     public function down()
     {
