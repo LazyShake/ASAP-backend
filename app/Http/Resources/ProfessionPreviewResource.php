@@ -21,6 +21,7 @@ class ProfessionPreviewResource extends JsonResource
             'place' => $this->place,
             'price' => $this->price,
             'type' => $this->type,
+            'color' => $this->color->name,
         ];
     }
 }

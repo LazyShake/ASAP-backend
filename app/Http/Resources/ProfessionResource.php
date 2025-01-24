@@ -38,6 +38,7 @@ class ProfessionResource extends JsonResource
             'progress' => ProgressResource::collection($this->progress),
             'articles' => ArticleResource::collection($this->articles),
             'reviews' => ReviewResource::collection($this->reviews),
+            'color' => $this->color->name,
         ];
     }
 }
