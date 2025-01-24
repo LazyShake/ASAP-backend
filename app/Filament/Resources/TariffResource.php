@@ -40,8 +40,7 @@ class TariffResource extends Resource
                     ->maxLength(255),
                     Forms\Components\TextArea::make('detailed_description')
                     ->label('Подробное описание')
-                    ->formatStateUsing(fn ($state) => $state ? implode(', ', $state) : '—') // Соединяем элементы в строку
-                    ->limit(150), // Ограничиваем длину вывода
+                    ->formatStateUsing(fn ($state) => $state ? implode(', ', $state) : '—'), // Ограничиваем длину вывода
             ]);
     }
 
