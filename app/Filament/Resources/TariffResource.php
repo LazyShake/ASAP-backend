@@ -38,10 +38,10 @@ class TariffResource extends Resource
                     ->label('Рассрочка')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('detailed_description')
+                    Tables\Columns\TextColumn::make('detailed_description')
                     ->label('Подробное описание')
-                    ->nullable()
-                    ->multiple(),
+                    ->formatStateUsing(fn ($state) => $state ? implode(', ', $state) : '—') // Соединяем элементы в строку
+                    ->limit(150), // Ограничиваем длину вывода
             ]);
     }
 

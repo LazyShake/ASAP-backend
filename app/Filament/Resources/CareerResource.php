@@ -38,9 +38,44 @@ class CareerResource extends Resource
                     ->numeric()
                     ->required(),
 
-                    Forms\Components\TextInput::make('images_vacancy')
-                    ->label('Изображения вакансий')
+                Forms\Components\TextInput::make('images_vacancy')
+                    ->label('шрифт вакансии')
                     ->required()
+                    ->maxLength(255),
+
+                Forms\Components\TextInput::make('vacancies_hh')
+                    ->label('Вакансии HH.ru')
+                    ->numeric()
+                    ->nullable(),
+
+                Forms\Components\TextInput::make('vacancies_habr')
+                    ->label('Вакансии Habr')
+                    ->numeric()
+                    ->nullable(),
+
+                Forms\Components\TextInput::make('freelance_orders')
+                    ->label('Заказы на фрилансе')
+                    ->numeric()
+                    ->nullable(),
+
+                Forms\Components\TextInput::make('start_salary')
+                    ->label('Зарплата на старте')
+                    ->numeric()
+                    ->nullable(),
+
+                Forms\Components\TextInput::make('salary_after_1_year')
+                    ->label('Зарплата после 1 года')
+                    ->numeric()
+                    ->nullable(),
+
+                Forms\Components\TextInput::make('salary_after_3_years')
+                    ->label('Зарплата после 3 лет')
+                    ->numeric()
+                    ->nullable(),
+
+                Forms\Components\Textarea::make('growth_description')
+                    ->label('Описание роста')
+                    ->nullable()
                     ->maxLength(255),
             ]);
     }
@@ -63,7 +98,36 @@ class CareerResource extends Resource
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('images_vacancy')
-                    ->label('Изображения вакансий'),
+                    ->label('шрифт вакансии'),
+
+                Tables\Columns\TextColumn::make('vacancies_hh')
+                    ->label('Вакансии HH.ru')
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('vacancies_habr')
+                    ->label('Вакансии Habr')
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('freelance_orders')
+                    ->label('Заказы на фрилансе')
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('start_salary')
+                    ->label('Зарплата на старте')
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('salary_after_1_year')
+                    ->label('Зарплата после 1 года')
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('salary_after_3_years')
+                    ->label('Зарплата после 3 лет')
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('growth_description')
+                    ->label('Описание роста')
+                    ->limit(50)
+                    ->tooltip(fn ($record) => $record->growth_description),
             ])
             ->filters([
                 // Добавить фильтры, если нужно

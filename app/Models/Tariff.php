@@ -22,6 +22,11 @@ class Tariff extends Model
         'detailed_description',
     ];
 
+    protected $casts = [
+        'detailed_description' => 'array',
+    ];
+    
+
     // Указываем, что Laravel будет работать с временными метками created_at и updated_at
     public $timestamps = true;
 }
