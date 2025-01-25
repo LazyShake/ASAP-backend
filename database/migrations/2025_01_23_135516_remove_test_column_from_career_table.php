@@ -14,7 +14,9 @@ class RemoveTestColumnFromCareerTable extends Migration
     public function up()
     {
         Schema::table('career', function (Blueprint $table) {
-            $table->dropColumn('test');
+            if (Schema::hasColumn('career', 'test')) {
+                $table->dropColumn('test');
+            }
         });
     }
 
