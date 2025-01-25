@@ -66,7 +66,7 @@ class ProfessionResource extends Resource
                     ->relationship('color', 'name')
                     ->label('Цвет')
                     ->required(),
-                    Forms\Components\Select::make('skills') // Поле для выбора нескольких тегов
+                Forms\Components\Select::make('skills') // Поле для выбора нескольких тегов
                     ->label('Навыки')
                     ->multiple() // Указывает, что это множественный выбор
                     ->options(Skill::query()->pluck('name', 'id_skills')) // Список тегов
@@ -76,6 +76,11 @@ class ProfessionResource extends Resource
                     ->relationship('typeProfession', 'name_type')
                     ->label('Тип профессии')
                     ->required(),
+                // Новое поле skilltext
+                Forms\Components\TextInput::make('skilltext')
+                    ->label('Текст навыков')
+                    ->maxLength(500)
+                    ->placeholder('Введите описание навыков'),
 
                 // SEO поля
                 Forms\Components\TextInput::make('SEO_key_words')
@@ -116,6 +121,11 @@ class ProfessionResource extends Resource
                     ->searchable()
                     ->limit(50)
                     ->formatStateUsing(fn($state) => is_array($state) ? implode(', ', $state) : $state),
+                // Новое поле skilltext в таблице
+                Tables\Columns\TextColumn::make('skilltext')
+                    ->label('Текст навыков')
+                    ->sortable()
+                    ->searchable(),
 
                 // Отображение SEO полей в таблице
                 Tables\Columns\TextColumn::make('SEO_key_words')
