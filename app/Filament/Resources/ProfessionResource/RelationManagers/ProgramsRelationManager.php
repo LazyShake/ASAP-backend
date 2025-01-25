@@ -22,11 +22,16 @@ class ProgramsRelationManager extends RelationManager
                     ->label('Название модуля')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\RichEditor::make('content_module')
+                Forms\Components\Repeater::make('content_module')
                     ->label('Контент модуля')
-                    ->required()
-                    ->maxLength(1000)
-                    ->multiple(),
+                    ->schema([
+                        Forms\Components\TextInput::make('text')
+                            ->label('Текст')
+                            ->required()
+                            ->maxLength(255),
+                    ])
+                    ->columns(1) // Элементы будут выстраиваться в столбик
+                    ->createItemButtonLabel('Добавить текст'),
                 Forms\Components\TextInput::make('number_module')
                     ->label('Номер модуля')
                     ->numeric()
@@ -41,9 +46,12 @@ class ProgramsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('name_module')
                     ->label('Название модуля')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('content_module')
+                Tables\Columns\TextColumn::make('content_module')  // Для поля content_module
                     ->label('Контент')
-                    ->limit(50),
+                    ->formatStateUsing(fn($state) => is_array($state)
+                        ? implode(', ', array_column($state, 'text'))  // Преобразуем массив в строку
+                        : $state)
+                    ->limit(50),  // Ограничиваем длину отображаемого текста
                 Tables\Columns\TextColumn::make('number_module')
                     ->label('Номер модуля')
                     ->sortable(),
