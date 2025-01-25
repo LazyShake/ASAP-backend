@@ -49,7 +49,7 @@ class ProfessionResource extends Resource
                 Forms\Components\DatePicker::make('start_of_training')
                     ->label('Дата начала обучения')
                     ->required(),
-                Forms\Components\RichEditor::make('description')
+                Forms\Components\TextInput::make('description')
                     ->label('Описание')
                     ->maxLength(500),
                 Forms\Components\FileUpload::make('image')

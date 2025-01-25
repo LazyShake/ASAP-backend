@@ -25,6 +25,7 @@ class ProfessionResource extends JsonResource
             'place' => $this->place,
             'type' => $this->typeProfession->name ?? null,
             'mini_images' => $this->miniimage,
+            'image' => $this->image,
             'SEO' => [
                 'key_words' => $this->SEO_key_words, // добавлено поле ключевых слов
                 'title' => $this->SEO_title, // добавлено поле для заголовка
