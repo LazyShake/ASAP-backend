@@ -28,10 +28,17 @@ class ProgramResource extends Resource
                     ->label('Название модуля')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\RichEditor::make('content_module')
+                Forms\Components\Repeater::make('content_module')
                     ->label('Контент модуля')
-                    ->required()
-                    ->maxLength(1000),
+                    ->schema([
+                        Forms\Components\TextInput::make('text')
+                            ->label('Текст')
+                            ->required()
+                            ->maxLength(255),
+                    ])
+                    ->columns(1) // Элементы будут выстраиваться в столбик
+                    ->createItemButtonLabel('Добавить текст'),
+
                 Forms\Components\Select::make('id_profession')
                     ->label('Профессия')
                     ->options(Profession::all()->pluck('name_profession', 'id_profession'))
@@ -55,7 +62,9 @@ class ProgramResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('content_module')
                     ->label('Контент')
+                    ->formatStateUsing(fn($state) => is_array($state) ? implode(', ', array_column($state, 'text')) : $state)
                     ->limit(50),
+
                 Tables\Columns\TextColumn::make('profession.name_profession')
                     ->label('Профессия')
                     ->sortable()

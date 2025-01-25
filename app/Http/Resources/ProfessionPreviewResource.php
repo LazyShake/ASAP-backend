@@ -17,10 +17,10 @@ class ProfessionPreviewResource extends JsonResource
         return [
             'id_profession' => $this->id_profession,
             'name_profession' => $this->name_profession,
-            'mini_images' => $this->mini_images,
+            'mini_images' => $this->miniimage,
             'place' => $this->place,
             'price' => $this->price,
-            'type' => $this->type,
+            'type' => $this->typeProfession->name,
             'color' => $this->color->name,
         ];
     }

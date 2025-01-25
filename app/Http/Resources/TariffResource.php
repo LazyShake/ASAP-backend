@@ -13,7 +13,7 @@ class TariffResource extends JsonResource
             'name_tariff' => $this->name_tariff,
             'short_description' => $this->short_description,
             'price' => $this->price,
-            'instalment' => $this->instalment,
+            'instalment' => $this->installment,
             'detailed_description' => $this->detailed_description,
         ];
     }

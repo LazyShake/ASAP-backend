@@ -21,6 +21,11 @@ class Program extends Model
         'number_module',
     ];
 
+    protected $casts = [
+        'content_module' => 'array', // Автоматическое преобразование JSON в массив и обратно
+    ];
+    
+
     // Указываем, что Laravel будет работать с временными метками created_at и updated_at
     public $timestamps = true;
 

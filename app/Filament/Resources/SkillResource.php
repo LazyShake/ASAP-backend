@@ -29,9 +29,6 @@ class SkillResource extends Resource
                     ->label('Название навыка')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\RichEditor::make('text')
-                    ->label('Описание навыка')
-                    ->required(),
                 Forms\Components\Select::make('profession_id')
                     ->label('Профессия')
                     ->options(Profession::all()->pluck('name_profession', 'id_profession')->toArray())
@@ -46,10 +43,6 @@ class SkillResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Название'),
-                Tables\Columns\TextColumn::make('text')
-                    ->label('Описание')
-                    ->limit(50)
-                    ->tooltip(fn ($record) => $record->text), // Явно указываем, что это за текст
                 Tables\Columns\TextColumn::make('profession.name_profession')
                     ->label('Профессия'),
                 Tables\Columns\TextColumn::make('created_at')
