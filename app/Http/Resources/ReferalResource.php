@@ -10,7 +10,6 @@ class ReferalResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id_referal' => $this->id,
             'price' => $this->price,
         ];
     }

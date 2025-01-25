@@ -23,7 +23,7 @@ class ProfessionResource extends JsonResource
             'period' => $this->period,
             'start_of_training' => $this->start_of_training,
             'place' => $this->place,
-            'type' => $this->typeProfession->name ?? null,
+            'type' => $this->typeProfession->name_type ?? null,
             'mini_images' => $this->miniimage,
             'image' => $this->image,
             'SEO' => [
