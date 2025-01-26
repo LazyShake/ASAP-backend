@@ -49,7 +49,7 @@ class ProfessionResource extends Resource
                 Forms\Components\DatePicker::make('start_of_training')
                     ->label('Дата начала обучения')
                     ->required(),
-                Forms\Components\RichEditor::make('description')
+                Forms\Components\TextInput::make('description')
                     ->label('Описание')
                     ->maxLength(500),
                 Forms\Components\FileUpload::make('image')
@@ -66,11 +66,11 @@ class ProfessionResource extends Resource
                     ->relationship('color', 'name')
                     ->label('Цвет')
                     ->required(),
-                Forms\Components\Select::make('skills') // Поле для выбора нескольких тегов
+                Forms\Components\Select::make('skills')
                     ->label('Навыки')
-                    ->multiple() // Указывает, что это множественный выбор
-                    ->options(Skill::query()->pluck('name', 'id_skills')) // Список тегов
-                    ->searchable() // Позволяет искать по тегам
+                    ->multiple() // Позволяет множественный выбор
+                    ->relationship('skills', 'name') // Используйте связь с моделью
+                    ->searchable()
                     ->placeholder('Выберите навыки'),
                 Forms\Components\BelongsToSelect::make('id_type')
                     ->relationship('typeProfession', 'name_type')

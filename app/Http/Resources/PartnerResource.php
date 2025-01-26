@@ -9,8 +9,8 @@ class PartnerResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'name' => $this->name,
-            'logo' => $this->logo,
+            'name' => $this->name_partners,
+            'logo' => $this->logo_partners,
         ];
     }
 }

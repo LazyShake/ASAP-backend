@@ -81,7 +81,7 @@ class MainPageController extends Controller
 
     public function articles(Request $request)
     {
-        $articles = Article::where('type_id', null)
+        $articles = Article::where('type_id', 1)
             ->latest('created_at')
             ->take(2)
             ->get();

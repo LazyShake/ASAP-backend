@@ -11,8 +11,8 @@ class ProfessionGeneralResource extends JsonResource
         return [
             'name_profession' => $this->name_profession,
             'description' => $this->description,
-            'mini_image' => $this->mini_image,
-            'type' => $this->type,
+            'mini_image' => $this->miniimage,
+            'type' => $this->typeProfession->name_type,
             'place' => $this->place,
             'period' => $this->period,
         ];

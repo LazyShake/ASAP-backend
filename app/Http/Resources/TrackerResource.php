@@ -10,7 +10,7 @@ class TrackerResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name_trackers' => $this->name_trackers,
+            'name_tracker' => $this->name_tracker,
             'picture' => $this->picture,
             'description' => $this->description,
         ];

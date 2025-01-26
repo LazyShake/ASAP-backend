@@ -20,7 +20,7 @@ class ProfessionPreviewResource extends JsonResource
             'mini_images' => $this->miniimage,
             'place' => $this->place,
             'price' => $this->price,
-            'type' => $this->typeProfession->name,
+            'type' => $this->typeProfession->name_type,
             'color' => $this->color->name,
         ];
     }

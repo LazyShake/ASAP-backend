@@ -36,7 +36,7 @@ class MentorResource extends Resource
                     ->required()
                     ->maxLength(255),
 
-                RichEditor::make('description')
+                    TextInput::make('description')
                     ->label('Описание')
                     ->required()
                     ->maxLength(1000),
