@@ -13,7 +13,7 @@ class CreateProfessionSkillTable extends Migration
             $table->unsignedBigInteger('id_profession'); // Внешний ключ на professions
             $table->unsignedBigInteger('id_skills'); // Внешний ключ на skills
             $table->foreign('id_profession')->references('id_profession')->on('professions')->onDelete('cascade');
-            $table->foreign('id_skills')->references('id')->on('skills')->onDelete('cascade');
+            $table->foreign('id_skills')->references('id_skills')->on('skills')->onDelete('cascade');
             $table->timestamps();
         });
         
