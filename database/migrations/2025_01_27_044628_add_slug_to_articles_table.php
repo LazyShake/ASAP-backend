@@ -13,22 +13,29 @@ class AddSlugToArticlesTable extends Migration
      */
     public function up(): void
     {
-        // 1. Добавляем колонку `slug` с NULL временно
-        Schema::table('articles', function (Blueprint $table) {
-            $table->string('slug')->nullable()->after('title');
-        });
+        // Проверяем, есть ли уже колонка `slug`
+        if (!Schema::hasColumn('articles', 'slug')) {
+            // 1. Добавляем колонку `slug` с NULL временно
+            Schema::table('articles', function (Blueprint $table) {
+                $table->string('slug')->nullable()->after('name_article');
+            });
 
-        // 2. Заполняем `slug` для существующих записей
-        foreach (Article::all() as $article) {
-            $article->update([
-                'slug' => Str::slug($article->title),
-            ]);
+            // 2. Заполняем уникальные значения для `slug`
+            foreach (Article::all() as $article) {
+                $slug = Str::slug($article->name_article);
+                $originalSlug = $slug;
+                $counter = 1;
+
+                // Генерируем уникальный `slug`, если он уже существует
+                while (Article::where('slug', $slug)->exists()) {
+                    $slug = "{$originalSlug}-{$counter}";
+                    $counter++;
+                }
+
+                $article->update(['slug' => $slug]);
+            }
+
         }
-
-        // 3. Делаем колонку `slug` уникальной и NOT NULL
-        Schema::table('articles', function (Blueprint $table) {
-            $table->string('slug')->unique()->nullable(false)->change();
-        });
     }
 
     /**
@@ -36,8 +43,11 @@ class AddSlugToArticlesTable extends Migration
      */
     public function down(): void
     {
-        Schema::table('articles', function (Blueprint $table) {
-            $table->dropColumn('slug');
-        });
+        // Удаляем колонку `slug`, только если она существует
+        if (Schema::hasColumn('articles', 'slug')) {
+            Schema::table('articles', function (Blueprint $table) {
+                $table->dropColumn('slug');
+            });
+        }
     }
 }
