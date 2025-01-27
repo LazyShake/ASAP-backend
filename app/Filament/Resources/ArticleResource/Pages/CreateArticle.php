@@ -13,7 +13,7 @@ class CreateArticle extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         if (empty($data['slug'])) {
-            $data['slug'] = \App\Models\Article::generateUniqueSlug($data['title']);
+            $data['slug'] = \App\Models\Article::generateUniqueSlug($data['name_article']);
         }
 
         return $data;
