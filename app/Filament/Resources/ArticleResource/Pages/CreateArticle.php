@@ -9,4 +9,13 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateArticle extends CreateRecord
 {
     protected static string $resource = ArticleResource::class;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        if (empty($data['slug'])) {
+            $data['slug'] = \App\Models\Article::generateUniqueSlug($data['title']);
+        }
+
+        return $data;
+    }
 }

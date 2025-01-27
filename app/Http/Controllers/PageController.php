@@ -25,15 +25,15 @@ class PageController extends Controller
         ]);
     }
 
-    public function getArticle(int $articleId)
+    public function getArticle(Article $article)
     {
-        $article = Article::findOrFail($articleId);
-        $relatedArticles = Article::where('id_article', '!=', $articleId)->latest()->take(3)->get();
+        $main_article = $article;
+        $relatedArticles = Article::where('id_article', '!=', $article->id_article)->latest()->take(3)->get();
         $professions = Profession::all();
         $seoPage = SEOPage::find(2);
 
         return response()->json([
-            'article' => new DetailedArticleResource($article),
+            'article' => new DetailedArticleResource($main_article),
             'related_articles' => ArticleResource::collection($relatedArticles),
             'professions' => ProfessionPreviewResource::collection($professions),
             'seo_page' => $seoPage ? new SEOPageResource($seoPage) : null,

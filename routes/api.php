@@ -44,12 +44,12 @@ Route::post('/submit-phone', [FeedbackController::class, 'submitPhone'])->name('
 Route::get('/blog/articles/{id}', [ArticleController::class, 'showArticle']); // Показ статьи
 Route::post('/cta', [FeedbackController::class, 'sendToTelegram']); // API для CTA
 
-Route::get('/professions/{id}', [ProfessionController::class, 'show'])->name('profession.show');
+Route::get('/professions/{profession}', [ProfessionController::class, 'show'])->name('professions.show');
 
 Route::get('/blog', [PageController::class, 'index']);
 
 // Получить конкретную статью
-Route::get('/blog/articles/{articleId}', [PageController::class, 'getArticle']);
+Route::get('/blog/articles/{article}', [PageController::class, 'getArticle'])->name('');
 
 // Получить 3 последние статьи
 Route::get('/articles', [PageController::class, 'getRecentArticles']);

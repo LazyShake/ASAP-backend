@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Article extends Model
 {
@@ -16,6 +17,7 @@ class Article extends Model
     // Указываем столбцы, которые могут быть массово присваиваемыми
     protected $fillable = [
         'name_article',
+        'slug',
         'short_text',
         'content',
         'picture',
@@ -30,6 +32,15 @@ class Article extends Model
         'seo_description', // SEO описание
         'seo_keywords', // SEO ключевые слова
     ];
+
+    protected static function booted()
+    {
+        static::creating(function ($article) {
+            if (empty($article->slug)) {
+                $article->slug = Str::slug($article->title);
+            }
+        });
+    }
 
     public function type()
     {
@@ -54,6 +65,11 @@ class Article extends Model
     public static function getArticlesByProfession($professionId)
     {
         return self::where('id_profession', $professionId)->get();
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 
     // Указываем, что Laravel будет работать с временными метками created_at и updated_at

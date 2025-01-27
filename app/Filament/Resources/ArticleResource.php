@@ -34,6 +34,11 @@ class ArticleResource extends Resource
                     ->label('Название статьи')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('slug')
+                    ->label('Слаг')
+                    ->required()
+                    ->unique(Article::class, 'slug')
+                    ->disabled(),
                 Forms\Components\Textarea::make('short_text')
                     ->label('Краткий текст')
                     ->maxLength(500),
@@ -83,7 +88,7 @@ class ArticleResource extends Resource
                         return $get('filter_disabled');
                     }),
 
-                    Select::make('id_profession')
+                Select::make('id_profession')
                     ->label('Профессия')
                     ->options(function () {
                         return Profession::query()->pluck('name_profession', 'id_profession')->toArray();
