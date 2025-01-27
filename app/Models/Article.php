@@ -67,10 +67,10 @@ class Article extends Model
         return self::where('id_profession', $professionId)->get();
     }
 
-    public function getRouteKeyName()
+    /*public function getRouteKeyName()
     {
         return 'slug';
-    }
+    }*/
 
     // Указываем, что Laravel будет работать с временными метками created_at и updated_at
     public $timestamps = true;
