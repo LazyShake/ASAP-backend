@@ -28,6 +28,6 @@ class Skill extends Model
     // Связь с моделью Profession (многие к одному)
     public function profession()
     {
-        return $this->belongsTo(Profession::class, 'profession_id', 'id_profession');
+        return $this->belongsToMany(Profession::class, 'profession_id', 'id_profession');
     }
 }
