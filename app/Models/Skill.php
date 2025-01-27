@@ -19,7 +19,6 @@ class Skill extends Model
     protected $fillable = [
         'text',
         'name',
-        'profession_id',
     ];
 
     // Указать, что timestamps присутствуют
@@ -28,6 +27,6 @@ class Skill extends Model
     // Связь с моделью Profession (многие к одному)
     public function profession()
     {
-        return $this->belongsToMany(Profession::class, 'profession_id', 'id_profession');
+        return $this->belongsToMany(Profession::class, 'profession_skill', 'id_skills', 'id_profession');
     }
 }
