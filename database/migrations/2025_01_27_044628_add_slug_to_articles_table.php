@@ -35,10 +35,6 @@ class AddSlugToArticlesTable extends Migration
                 $article->update(['slug' => $slug]);
             }
 
-            // 3. Делаем колонку `slug` уникальной и NOT NULL
-            Schema::table('articles', function (Blueprint $table) {
-                $table->string('slug')->unique()->nullable(false)->change();
-            });
         }
     }
 
