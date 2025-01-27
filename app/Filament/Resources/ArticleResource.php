@@ -46,7 +46,7 @@ class ArticleResource extends Resource
                 Forms\Components\TextInput::make('slug')
                     ->label('Слаг')
                     ->required()
-                    ->unique(Article::class, 'slug', fn($query) => $query->where('slug', $this->record->slug ?? '')),
+                    ->unique(Article::class, 'slug'),
                     //->disabled(),
 
                 Forms\Components\Textarea::make('short_text')

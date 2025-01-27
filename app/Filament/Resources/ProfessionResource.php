@@ -39,7 +39,7 @@ class ProfessionResource extends Resource
                     Forms\Components\TextInput::make('slug')
                     ->required()
                     ->label('Slug')
-                    ->unique(Profession::class, 'slug', fn($query) => $query->where('slug', $this->record->slug ?? '')),
+                    ->unique(Profession::class, 'slug'),
                     //->disabled(), // Чтобы пользователь не мог изменять слаг вручную
                 Forms\Components\TextInput::make('price')
                     ->label('Стоимость обучения')
