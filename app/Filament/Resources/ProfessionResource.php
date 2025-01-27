@@ -71,11 +71,22 @@ class ProfessionResource extends Resource
                     ->relationship('color', 'name')
                     ->label('Цвет')
                     ->required(),
-                Forms\Components\MultiSelect::make('skills')
+                Forms\Components\Select::make('skills')
                     ->label('Навыки')
+                    ->multiple() // Поддержка нескольких тегов
                     ->relationship('skills', 'name') // Используйте связь с моделью
-                    ->searchable()
-                    ->placeholder('Выберите навыки'),
+                    ->searchable() // Включаем поиск
+                    ->getSearchResultsUsing(function (string $query) {
+                        // Фильтрация списка тегов
+                        return Skill::where('name', 'like', "%{$query}%")
+                            ->pluck('name', 'id_skills');
+                    })
+                    ->placeholder('Выберите навык или создайте новый')
+                    ->createOptionForm([
+                        Forms\Components\TextInput::make('name')
+                            ->required(),
+                    ]),
+
                 Forms\Components\BelongsToSelect::make('id_type')
                     ->relationship('typeProfession', 'name_type')
                     ->label('Тип профессии')
