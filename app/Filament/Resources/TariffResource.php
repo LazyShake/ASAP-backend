@@ -39,7 +39,7 @@ class TariffResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Repeater::make('detailed_description')
-                    ->label('Подробное описание')
+                    ->label('Услуги, входящие в тариф')
                     ->schema([
                         Forms\Components\Textarea::make('description_item')
                             ->label('Элемент описания')
