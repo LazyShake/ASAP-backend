@@ -10,10 +10,13 @@ class CreateProfessionSkillTable extends Migration
     {
         Schema::create('profession_skill', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_profession')->constrained('professions')->onDelete('cascade');
-            $table->foreignId('id_skills')->constrained('skills')->onDelete('cascade');
+            $table->unsignedBigInteger('id_profession'); // Внешний ключ на professions
+            $table->unsignedBigInteger('id_skills'); // Внешний ключ на skills
+            $table->foreign('id_profession')->references('id_profession')->on('professions')->onDelete('cascade');
+            $table->foreign('id_skills')->references('id')->on('skills')->onDelete('cascade');
             $table->timestamps();
         });
+        
     }
 
     public function down()
