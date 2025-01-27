@@ -157,7 +157,7 @@ class ProfessionResource extends Resource
         return [
             CareerRelationManager::class,
             ProgressRelationManager::class,
-            //SkillsRelationManager::class,
+            SkillsRelationManager::class,
             ReviewRelationManager::class,
             MentorRelationManager::class,
             ProgramsRelationManager::class,
