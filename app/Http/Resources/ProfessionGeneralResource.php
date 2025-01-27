@@ -10,6 +10,7 @@ class ProfessionGeneralResource extends JsonResource
     {
         return [
             'name_profession' => $this->name_profession,
+            'slug' => $this->slug,
             'description' => $this->description,
             'mini_image' => $this->miniimage,
             'type' => $this->typeProfession->name_type,
