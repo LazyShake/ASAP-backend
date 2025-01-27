@@ -218,9 +218,9 @@ class ArticleResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
-                    ->url(fn($record) => route('filament.resources.articles.edit', ['record' => $record->id])), // Используем id для ссылки
+                    ->url(fn($record) => route('filament.resources.articles.edit', $record->slug)), // Используем slug для ссылки
+
             ])
-            
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
