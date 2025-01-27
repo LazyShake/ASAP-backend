@@ -37,7 +37,7 @@ class Article extends Model
     {
         static::creating(function ($article) {
             if (empty($article->slug)) {
-                $article->slug = Str::slug($article->title);
+                $article->slug = Str::slug($article->name_article);
             }
         });
     }
