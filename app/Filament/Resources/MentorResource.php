@@ -36,14 +36,14 @@ class MentorResource extends Resource
                     ->required()
                     ->maxLength(255),
 
-                    TextInput::make('description')
+                TextInput::make('description')
                     ->label('Описание')
                     ->required()
                     ->maxLength(1000),
 
-                TextInput::make('picture')
+                Forms\Components\FileUpload::make('picture')
                     ->label('Ссылка на изображение')
-                    ->maxLength(255),
+                    ->image(),
 
                 Toggle::make('status')
                     ->label('Отображать на главной')

@@ -167,7 +167,7 @@ class ProfessionResource extends Resource
         return [
             CareerRelationManager::class,
             ProgressRelationManager::class,
-            SkillsRelationManager::class,
+            //SkillsRelationManager::class,
             ReviewRelationManager::class,
             MentorRelationManager::class,
             ProgramsRelationManager::class,
@@ -179,7 +179,7 @@ class ProfessionResource extends Resource
         return [
             'index' => ProfessionResource\Pages\ListProfessions::route('/'),
             'create' => ProfessionResource\Pages\CreateProfession::route('/create'),
-            'edit' => ProfessionResource\Pages\EditProfession::route('/{record}/edit'),
+            'edit' => ProfessionResource\Pages\EditProfession::route('/{slug}/edit'),
         ];
     }
 }
