@@ -11,13 +11,13 @@ class EditArticle extends EditRecord
 {
     protected static string $resource = ArticleResource::class;
 
-    public function mount($record): void
+    public function mount($slug): void
     {
-        // Проверяем, является ли $record slug или ID
-        $this->record = Article::where('slug', $record)->orWhere('id', $record)->firstOrFail();
+        // Ищем запись по slug
+        $article = Article::where('slug', $slug)->firstOrFail();
 
-        // Вызываем родительский метод с ID найденной записи
-        parent::mount($this->record->getKey());
+        // Передаем ID записи в родительский метод
+        parent::mount($article->getKey());
     }
 
     protected function getActions(): array
