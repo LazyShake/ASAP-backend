@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Profession extends Model
 {
@@ -24,6 +25,7 @@ class Profession extends Model
     // Поля, доступные для массового заполнения
     protected $fillable = [
         'name_profession',
+        'slug',
         'image',
         'price',
         'period',
@@ -39,6 +41,15 @@ class Profession extends Model
         'SEO_title',
         'SEO_description'
     ];
+
+    protected static function booted()
+    {
+        static::creating(function ($profession) {
+            if (empty($profession->slug)) {
+                $profession->slug = Str::slug($profession->name_profession);
+            }
+        });
+    }
 
     // Отношения
     public function career()
@@ -82,5 +93,10 @@ class Profession extends Model
     public function programs()
     {
         return $this->hasMany(Program::class, 'id_profession', 'id_profession');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

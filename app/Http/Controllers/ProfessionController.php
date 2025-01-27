@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\{ProfessionResource, ReferalResource, TariffResource, TrackerResource};
 use Illuminate\Http\Request;
 use App\Models\{Profession, Referal, Tracker, Tariff};
+use Illuminate\Support\Str;
 
 class ProfessionController extends Controller
 {
@@ -24,9 +25,9 @@ class ProfessionController extends Controller
         return ProfessionResource::collection($professions);
     }
 
-    public function show(int $id)
+    public function show(Profession $profession)
     {
-        $profession = Profession::with([
+        $profession->load([
             'career',
             'typeProfession',
             'color',
@@ -35,7 +36,7 @@ class ProfessionController extends Controller
             'reviews',
             'progress',
             'articles',
-        ])->findOrFail($id);
+        ]);
 
         $trackers = Tracker::all();
         $referals = Referal::all();
@@ -47,5 +48,39 @@ class ProfessionController extends Controller
             'referals' => ReferalResource::collection($referals),
             'tariffs' => TariffResource::collection($tariffs),
         ]);
+    }
+
+    public function update(Request $request, Profession $profession)
+    {
+        $validated = $request->validate([
+            'name_profession' => 'required|string|max:255',
+        ]);
+
+        $slug = $this->generateUniqueSlug(Profession::class, $validated['name_profession']);
+
+        $profession->update([
+            'name_profession' => $validated['name_profession'],
+            'slug' => $slug,
+        ]);
+
+        return response()->json([
+            'message' => 'Profession updated successfully',
+            'profession' => new ProfessionResource($profession),
+        ]);
+    }
+
+
+    private function generateUniqueSlug($model, $title)
+    {
+        $slug = Str::slug($title);
+        $originalSlug = $slug;
+
+        $counter = 1;
+        while ($model::where('slug', $slug)->exists()) {
+            $slug = "{$originalSlug}-{$counter}";
+            $counter++;
+        }
+
+        return $slug;
     }
 }
