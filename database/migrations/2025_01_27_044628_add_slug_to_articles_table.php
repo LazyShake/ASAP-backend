@@ -15,14 +15,22 @@ class AddSlugToArticlesTable extends Migration
     {
         // 1. Добавляем колонку `slug` с NULL временно
         Schema::table('articles', function (Blueprint $table) {
-            $table->string('slug')->nullable()->after('title');
+            $table->string('slug')->nullable()->after('name_article');
         });
 
-        // 2. Заполняем `slug` для существующих записей
+        // 2. Заполняем уникальные значения для `slug`
         foreach (Article::all() as $article) {
-            $article->update([
-                'slug' => Str::slug($article->title),
-            ]);
+            $slug = Str::slug($article->name_article);
+            $originalSlug = $slug;
+            $counter = 1;
+
+            // Генерируем уникальный `slug`, если он уже существует
+            while (Article::where('slug', $slug)->exists()) {
+                $slug = "{$originalSlug}-{$counter}";
+                $counter++;
+            }
+
+            $article->update(['slug' => $slug]);
         }
 
         // 3. Делаем колонку `slug` уникальной и NOT NULL
