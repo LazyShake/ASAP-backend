@@ -16,6 +16,8 @@ use Filament\Tables;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Actions\Action;
 use Illuminate\Support\Str;
+use Closure;
+
 
 
 class ArticleResource extends Resource
@@ -32,22 +34,23 @@ class ArticleResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name_article')
-                    ->label('Название статьи')
-                    ->required()
-                    ->maxLength(255)
-                    ->reactive() // Чтобы отслеживать изменения в поле
-                    /*->afterStateUpdated(function ($state, callable $set) {
-                        // Преобразуем название в слаг, используя str_slug (или аналогичную функцию)
-                        $slug = Str::slug($state);
-                        $set('slug', $slug); // Устанавливаем слаг в поле
-                    })*/,
+                    Forms\Components\TextInput::make('name_article')
+                    ->afterStateUpdated(function (Closure $get, Closure $set, ?string $state) {
+                        if (! $get('is_slug_changed_manually') && filled($state)) {
+                            $set('slug', Str::slug($state));
+                        }
+                    })
+                    ->reactive()
+                    ->required(),
 
-                Forms\Components\TextInput::make('slug')
-                    ->label('Слаг')
-                    ->required()
-                    ->unique(Article::class, 'slug'),
-                    //->disabled(),
+                    Forms\Components\TextInput::make('slug')
+                    ->afterStateUpdated(function (Closure $set) {
+                        $set('is_slug_changed_manually', true);
+                    })
+                    ->required(),
+                    Forms\Components\Hidden::make('is_slug_changed_manually')
+                    ->default(false)
+                    ->dehydrated(false),
 
                 Forms\Components\Textarea::make('short_text')
                     ->label('Краткий текст')
