@@ -41,7 +41,7 @@ Route::post('/submit-feedback', [FeedbackController::class, 'submitFeedback'])->
 Route::post('/submit-phone', [FeedbackController::class, 'submitPhone'])->name('phone.submit');
 
 // Просмотр конкретной статьи
-Route::get('/blog/articles/{id}', [ArticleController::class, 'showArticle']); // Показ статьи
+Route::get('/blog/articles/{slug}', [ArticleController::class, 'showArticle']); // Показ статьи
 Route::post('/cta', [FeedbackController::class, 'sendToTelegram']); // API для CTA
 
 Route::get('/professions/{profession}', [ProfessionController::class, 'show'])->name('professions.show');
@@ -49,7 +49,7 @@ Route::get('/professions/{profession}', [ProfessionController::class, 'show'])->
 Route::get('/blog', [PageController::class, 'index']);
 
 // Получить конкретную статью
-Route::get('/blog/articles/{article}', [PageController::class, 'getArticle'])->name('');
+Route::get('/blog/articles/{slug}', [PageController::class, 'getArticle'])->name('');
 
 // Получить 3 последние статьи
 Route::get('/articles', [PageController::class, 'getRecentArticles']);
