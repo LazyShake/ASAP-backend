@@ -36,11 +36,11 @@ class ProfessionResource extends Resource
                     ->label('Название профессии')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('slug')
+                    Forms\Components\TextInput::make('slug')
                     ->required()
                     ->label('Slug')
-                    ->unique(Profession::class, 'slug', fn($query) => $query->where('slug', $this->record->slug ?? ''))
-                    ->disabled(), // Чтобы пользователь не мог изменять слаг вручную
+                    ->unique(Profession::class, 'slug', fn($query) => $query->where('slug', $this->record->slug ?? '')),
+                    //->disabled(), // Чтобы пользователь не мог изменять слаг вручную
                 Forms\Components\TextInput::make('price')
                     ->label('Стоимость обучения')
                     ->required()

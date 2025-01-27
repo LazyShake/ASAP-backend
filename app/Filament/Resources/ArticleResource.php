@@ -37,17 +37,17 @@ class ArticleResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->reactive() // Чтобы отслеживать изменения в поле
-                    ->afterStateUpdated(function ($state, callable $set) {
+                    /*->afterStateUpdated(function ($state, callable $set) {
                         // Преобразуем название в слаг, используя str_slug (или аналогичную функцию)
                         $slug = Str::slug($state);
                         $set('slug', $slug); // Устанавливаем слаг в поле
-                    }),
+                    })*/,
 
                 Forms\Components\TextInput::make('slug')
                     ->label('Слаг')
                     ->required()
-                    ->unique(Article::class, 'slug')
-                    ->disabled(),
+                    ->unique(Article::class, 'slug', fn($query) => $query->where('slug', $this->record->slug ?? '')),
+                    //->disabled(),
 
                 Forms\Components\Textarea::make('short_text')
                     ->label('Краткий текст')
