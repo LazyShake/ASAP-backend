@@ -33,23 +33,24 @@ class ArticleController extends Controller
         return ArticleResource::collection($articles);
     }
 
-    public function showArticle($id)
-    {
-        $article = Article::with('type', 'profession')->findOrFail($id);
+    public function showArticle($slug)
+{
+    $article = Article::with('type', 'profession')->where('slug', $slug)->firstOrFail();
 
-        $relatedArticles = Article::where('type_id', $article->type->id_type)
-            ->where('id_article', '!=', $id)
-            ->take(3)
-            ->get();
+    $relatedArticles = Article::where('type_id', $article->type->id_type)
+        ->where('id_article', '!=', $article->id_article)
+        ->take(3)
+        ->get();
 
-        $professions = Profession::all();
+    $professions = Profession::all();
 
-        return response()->json([
-            'article' => new DetailedArticleResource($article),
-            'related_articles' => ArticleResource::collection($relatedArticles),
-            'professions' => ProfessionPreviewResource::collection($professions),
-        ]);
-    }
+    return response()->json([
+        'article' => new DetailedArticleResource($article),
+        'related_articles' => ArticleResource::collection($relatedArticles),
+        'professions' => ProfessionPreviewResource::collection($professions),
+    ]);
+}
+
 
     public function sendToTelegram(Request $request)
     {
