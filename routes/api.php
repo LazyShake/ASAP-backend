@@ -61,7 +61,7 @@ Route::prefix('main')->group(function () {
     Route::get('/first_screen', [MainPageController::class, 'firstScreen']);
     Route::get('/professions', [MainPageController::class, 'professions']);
     Route::get('/tariff/price', [MainPageController::class, 'tariffPrice']);
-    Route::get('/professions/{profession_id}/mini_images', [MainPageController::class, 'professionImages']);
+    Route::get('/professions/{slug}/mini_images', [MainPageController::class, 'professionImages']);
     Route::get('/mentors', [MainPageController::class, 'mentors']);
     Route::get('/statistics', [MainPageController::class, 'statistics']);
     Route::get('/reviews', [MainPageController::class, 'reviews']);
