@@ -15,6 +15,8 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Actions\Action;
+use Illuminate\Support\Str;
+
 
 class ArticleResource extends Resource
 {
@@ -33,12 +35,20 @@ class ArticleResource extends Resource
                 Forms\Components\TextInput::make('name_article')
                     ->label('Название статьи')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->reactive() // Чтобы отслеживать изменения в поле
+                    ->afterStateUpdated(function ($state, callable $set) {
+                        // Преобразуем название в слаг, используя str_slug (или аналогичную функцию)
+                        $slug = Str::slug($state);
+                        $set('slug', $slug); // Устанавливаем слаг в поле
+                    }),
+
                 Forms\Components\TextInput::make('slug')
                     ->label('Слаг')
                     ->required()
                     ->unique(Article::class, 'slug')
                     ->disabled(),
+
                 Forms\Components\Textarea::make('short_text')
                     ->label('Краткий текст')
                     ->maxLength(500),
@@ -205,7 +215,7 @@ class ArticleResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
-    ->url(fn($record) => route('filament.resources.articles.edit', $record->slug)), // Используем slug для ссылки
+                    ->url(fn($record) => route('filament.resources.articles.edit', $record->slug)), // Используем slug для ссылки
 
             ])
             ->bulkActions([
