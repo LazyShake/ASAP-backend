@@ -155,7 +155,9 @@ class ProfessionResource extends Resource
                 // Добавьте фильтры, если необходимо
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+    ->url(fn($record) => route('filament.resources.professions.edit', $record->slug)), // Используем slug для ссылки
+
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

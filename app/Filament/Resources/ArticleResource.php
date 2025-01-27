@@ -204,7 +204,9 @@ class ArticleResource extends Resource
                     ->relationship('filter', 'name_filter'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+    ->url(fn($record) => route('filament.resources.articles.edit', $record->slug)), // Используем slug для ссылки
+
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
