@@ -217,8 +217,8 @@ class ArticleResource extends Resource
                     ->relationship('filter', 'name_filter'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make()
-                    ->url(fn($record) => route('filament.resources.articles.edit', $record->slug)), // Используем slug для ссылки
+                Tables\Actions\EditAction::make('edit')
+                    ->url(fn($record) => route('filament.resources.articles.edit', ['record' => $record->slug])), // Используем slug для ссылки
 
             ])
             ->bulkActions([
@@ -231,7 +231,7 @@ class ArticleResource extends Resource
         return [
             'index' => Pages\ListArticles::route('/'),
             'create' => Pages\CreateArticle::route('/create'),
-            'edit' => Pages\EditArticle::route('/{slug}/edit'),
+            'edit' => Pages\EditArticle::route('/{record}/edit'),
         ];
     }
 }
