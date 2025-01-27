@@ -74,7 +74,7 @@ class Profession extends Model
 
     public function skills()
     {
-        return $this->belongsToMany(Skill::class, 'profession_id', 'id_profession');
+        return $this->belongsToMany(Skill::class, 'profession_skill','id_profession', 'id_skills');
     }
 
     public function reviews()
