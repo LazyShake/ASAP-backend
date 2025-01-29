@@ -27,9 +27,21 @@ class Tags extends Model
     static::deleting(function ($tag) {
         // Проверяем, есть ли связанные статьи
         if ($tag->articles()->exists()) {
-            throw new \Exception('Невозможно удалить тег, так как он связан с статьями.');
+            // Формируем отформатированный JSON
+            $response = [
+                'error' => true,
+                'message' => 'Невозможно удалить тег, так как он связан с статьями.',
+                'details' => [
+                    'relation' => 'articles',  // Указываем, с какой сущностью связан
+                    'related_model' => 'Article',  // Указываем модель, с которой связан
+                ]
+            ];
+    
+            // Выбрасываем исключение с отформатированным JSON
+            throw new \Exception(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         }
     });
+    
 }
 
 

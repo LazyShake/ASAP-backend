@@ -32,15 +32,25 @@ class color extends Model
 
     // Запрещаем удаление, если цвет используется в профессиях
     protected static function booted()
-    {
-        static::deleting(function ($color) {
-            // Получаем все профессии, использующие данный цвет
-            $professionsUsingColor = $color->getProfessionsUsingColor();
+{
+    static::deleting(function ($color) {
+        // Получаем все профессии, использующие данный цвет
+        $professionsUsingColor = $color->getProfessionsUsingColor();
 
-            if ($professionsUsingColor->isNotEmpty()) {
-                $professionNames = $professionsUsingColor->pluck('name_profession')->implode(', ');
-                throw new \Exception('Невозможно удалить цвет, так как он используется в следующих профессиях: ' . $professionNames);
-            }
-        });
-    }
+        if ($professionsUsingColor->isNotEmpty()) {
+            $professionNames = $professionsUsingColor->pluck('name_profession')->implode(', ');
+            
+            // Формируем массив для JSON-ответа
+            $response = [
+                'error' => true,
+                'message' => 'Невозможно удалить цвет, так как он используется в следующих профессиях: ' . $professionNames,
+                'details' => $professionsUsingColor->pluck('name_profession') // Возвращаем список профессий, использующих цвет
+            ];
+
+            // Выбрасываем исключение с отформатированным JSON
+            throw new \Exception(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        }
+    });
+}
+
 }

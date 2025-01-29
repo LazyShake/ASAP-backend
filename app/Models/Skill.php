@@ -26,9 +26,21 @@ class Skill extends Model
     static::deleting(function ($skill) {
         // Проверяем, есть ли связанные профессии
         if ($skill->profession()->exists()) {
-            throw new \Exception('Невозможно удалить навык, так как он связан с профессиями.');
+            // Формируем отформатированный JSON
+            $response = [
+                'error' => true,
+                'message' => 'Невозможно удалить навык, так как он связан с профессиями.',
+                'details' => [
+                    'relation' => 'profession',  // Указываем, с какой сущностью связано
+                    'related_model' => 'Profession',  // Указываем модель, с которой связана
+                ]
+            ];
+    
+            // Выбрасываем исключение с отформатированным JSON
+            throw new \Exception(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         }
     });
+    
 }
 
 

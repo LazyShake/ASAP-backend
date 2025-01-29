@@ -34,17 +34,25 @@ class ExampleLesson extends Model
         $relations = [
             'profession' => 'Профессия',
         ];
-
+    
         $usedIn = [];
-
+    
         foreach ($relations as $relation => $label) {
             if ($exampleLesson->$relation()->exists()) {
                 $usedIn[] = $label;
             }
         }
-
+    
         if (!empty($usedIn)) {
-            throw new \Exception('Нельзя удалить урок, так как он используется в: ' . implode(', ', $usedIn));
+            // Формируем массив для JSON-ответа
+            $response = [
+                'error' => true,
+                'message' => 'Невозможно удалить урок, так как он используется в: ' . implode(', ', $usedIn),
+                'details' => $usedIn // Возвращаем список, где используется урок
+            ];
+    
+            // Выбрасываем исключение с отформатированным JSON
+            throw new \Exception(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         }
     });
 }

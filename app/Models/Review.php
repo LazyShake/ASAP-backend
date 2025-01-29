@@ -30,9 +30,21 @@ class Review extends Model
 {
     static::deleting(function ($review) {
         if ($review->profession()->exists()) {
-            throw new \Exception('Невозможно удалить отзыв, так как он связан с профессией.');
+            // Формируем отформатированный JSON
+            $response = [
+                'error' => true,
+                'message' => 'Невозможно удалить отзыв, так как он связан с профессией.',
+                'details' => [
+                    'relation' => 'profession',  // Указываем, с какой сущностью связано
+                    'related_model' => 'Profession',  // Указываем модель, с которой связана
+                ]
+            ];
+    
+            // Выбрасываем исключение с отформатированным JSON
+            throw new \Exception(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         }
     });
+    
 }
 
 

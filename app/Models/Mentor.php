@@ -27,8 +27,19 @@ class Mentor extends Model
     protected static function booted()
 {
     static::deleting(function ($mentor) {
+        // Проверяем, связан ли ментор с профессией
         if ($mentor->profession()->exists()) {
-            throw new \Exception('Нельзя удалить ментора, так как он связан с профессией.');
+            // Формируем массив для JSON-ответа
+            $response = [
+                'error' => true,
+                'message' => 'Невозможно удалить ментора, так как он связан с профессией.',
+                'details' => [
+                    'profession' => $mentor->profession->name_profession, // Название профессии
+                ]
+            ];
+    
+            // Выбрасываем исключение с отформатированным JSON
+            throw new \Exception(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         }
     });
 }

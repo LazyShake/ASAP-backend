@@ -38,10 +38,22 @@ class Career extends Model
         static::deleting(function ($career) {
             // Получаем все профессии, использующие эту карьеру
             $professionsUsingCareer = $career->getProfessionsUsingCareer();
-
+        
             if ($professionsUsingCareer->isNotEmpty()) {
+                // Получаем имена профессий и объединяем их через запятую
                 $professionNames = $professionsUsingCareer->pluck('name_profession')->implode(', ');
-                throw new \Exception('Невозможно удалить карьеру, так как она используется в следующих профессиях: ' . $professionNames);
+        
+                // Генерируем отформатированный JSON
+                $errorData = [
+                    'error' => 'Произошла ошибка на сервере',
+                    'message' => 'Невозможно удалить карьеру, так как она используется в следующих профессиях: ' . $professionNames,
+                ];
+        
+                // Преобразуем в отформатированный JSON
+                $formattedError = json_encode($errorData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+                
+                // Выбрасываем исключение с отформатированным JSON
+                throw new \Exception($formattedError);
             }
         });
     }
