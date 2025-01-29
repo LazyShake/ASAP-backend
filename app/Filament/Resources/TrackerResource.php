@@ -28,6 +28,7 @@ class TrackerResource extends Resource
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('picture')
                     ->label('Фото')
+                    ->storeInDatabase()
                     ->image(),
                 Forms\Components\Textarea::make('description')
                     ->label('Описание')

@@ -17,6 +17,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Illuminate\Support\Str;
 
 class ProfessionResource extends Resource
 {
@@ -35,12 +36,14 @@ class ProfessionResource extends Resource
                 Forms\Components\TextInput::make('name_profession')
                     ->label('Название профессии')
                     ->required()
-                    ->maxLength(255),
-                    Forms\Components\TextInput::make('slug')
-                    ->required()
+                    ->reactive()
+                    ->afterStateUpdated(fn($state, callable $set) => $set('slug', Str::slug($state))),
+                Forms\Components\TextInput::make('slug')
                     ->label('Slug')
-                    ->unique(Profession::class, 'slug'),
-                    //->disabled(), // Чтобы пользователь не мог изменять слаг вручную
+                    ->required()
+                    ->unique()
+                    ->disabled(fn($record) => $record !== null) // Запрет изменения после создания
+                    ->helperText('Будет автоматически создан из названия.'),
                 Forms\Components\TextInput::make('price')
                     ->label('Стоимость обучения')
                     ->required()
@@ -59,9 +62,11 @@ class ProfessionResource extends Resource
                     ->maxLength(500),
                 Forms\Components\FileUpload::make('image')
                     ->label('Изображение')
+                    ->storeInDatabase()
                     ->image(),
                 Forms\Components\FileUpload::make('miniimage')
                     ->label('Мини-изображение')
+                    ->storeInDatabase()
                     ->image(),
                 Forms\Components\BelongsToSelect::make('id_career')
                     ->relationship('career', 'name')
@@ -155,8 +160,7 @@ class ProfessionResource extends Resource
                 // Добавьте фильтры, если необходимо
             ])
             ->actions([
-                Tables\Actions\EditAction::make()
-    ->url(fn($record) => route('filament.resources.professions.edit', $record->slug)), // Используем slug для ссылки
+                Tables\Actions\EditAction::make(),
 
             ])
             ->bulkActions([
@@ -181,7 +185,7 @@ class ProfessionResource extends Resource
         return [
             'index' => ProfessionResource\Pages\ListProfessions::route('/'),
             'create' => ProfessionResource\Pages\CreateProfession::route('/create'),
-            'edit' => ProfessionResource\Pages\EditProfession::route('/{slug}/edit'),
+            'edit' => ProfessionResource\Pages\EditProfession::route('/{record}/edit'),
         ];
     }
 }

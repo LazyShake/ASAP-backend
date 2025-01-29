@@ -28,9 +28,7 @@ class SeoFileResource extends Resource
             FileUpload::make('file')
                 ->label('Загрузить файл')
                 ->required()
-                ->disk('local')
-                ->directory('seo-files')
-                ->visibility('public'),
+                ->storeInDatabase(),
         ]);
     }
 

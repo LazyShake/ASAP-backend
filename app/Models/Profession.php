@@ -5,10 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Profession extends Model
 {
     use HasFactory;
+    use HasSlug;
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name_profession') // Генерация из поля title
+            ->saveSlugsTo('slug');      // Сохранение в поле slug
+    }
 
     // Указываем кастомное имя первичного ключа
     protected $primaryKey = 'id_profession';
@@ -95,7 +105,7 @@ class Profession extends Model
         return $this->hasMany(Program::class, 'id_profession', 'id_profession');
     }
 
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'slug';
     }

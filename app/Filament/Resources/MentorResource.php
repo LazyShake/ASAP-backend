@@ -42,7 +42,8 @@ class MentorResource extends Resource
                     ->maxLength(1000),
 
                 Forms\Components\FileUpload::make('picture')
-                    ->label('Ссылка на изображение')
+                    ->label('Изображение')
+                    ->storeInDatabase()
                     ->image(),
 
                 Toggle::make('status')

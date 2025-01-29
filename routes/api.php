@@ -28,10 +28,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login', [UserAuthController::class, 'login'])->middleware('guest');
 Route::post('/logout', [UserAuthController::class, 'logout'])->middleware('auth:sanctum');
 
+// Переименовываем маршрут csrf-cookie, чтобы избежать конфликта с маршрутом Sanctum
 Route::get(
     '/csrf-cookie',
     CsrfCookieController::class.'@show'
-)->middleware('web')->name('sanctum.csrf-cookie');
+)->middleware('web')->name('api.csrf-cookie');  // Изменено с sanctum.csrf-cookie
 
 Route::get('/feedback-form', function () {
     return view('feedback-form');
@@ -69,4 +70,3 @@ Route::prefix('main')->group(function () {
     Route::get('/articles', [MainPageController::class, 'articles']);
     Route::get('/referal_price', [MainPageController::class, 'referalPrice']);
 });
-
