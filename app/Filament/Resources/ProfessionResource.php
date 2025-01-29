@@ -62,9 +62,11 @@ class ProfessionResource extends Resource
                     ->maxLength(500),
                 Forms\Components\FileUpload::make('image')
                     ->label('Изображение')
+                    ->storeInDatabase()
                     ->image(),
                 Forms\Components\FileUpload::make('miniimage')
                     ->label('Мини-изображение')
+                    ->storeInDatabase()
                     ->image(),
                 Forms\Components\BelongsToSelect::make('id_career')
                     ->relationship('career', 'name')
