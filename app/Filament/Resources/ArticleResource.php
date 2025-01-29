@@ -32,10 +32,7 @@ class ArticleResource extends Resource
 
     protected static ?string $modelLabel = 'Статья';
 
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()->whereNotNull('slug');
-    }
+    
 
 
     public static function form(Form $form): Form
