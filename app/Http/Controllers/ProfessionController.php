@@ -25,30 +25,33 @@ class ProfessionController extends Controller
         return ProfessionResource::collection($professions);
     }
 
-    public function show(Profession $profession)
-    {
-        $profession->load([
-            'career',
-            'typeProfession',
-            'color',
-            'skills',
-            'mentors',
-            'reviews',
-            'progress',
-            'articles',
-        ]);
+    public function show($slug)
+{
+    $profession = Profession::where('slug', $slug)->firstOrFail();
 
-        $trackers = Tracker::all();
-        $referals = Referal::all();
-        $tariffs = Tariff::all();
+    $profession->load([
+        'career',
+        'typeProfession',
+        'color',
+        'skills',
+        'mentors',
+        'reviews',
+        'progress',
+        'articles',
+    ]);
 
-        return response()->json([
-            'profession' => new ProfessionResource($profession),
-            'trackers' => TrackerResource::collection($trackers),
-            'referals' => ReferalResource::collection($referals),
-            'tariffs' => TariffResource::collection($tariffs),
-        ]);
-    }
+    $trackers = Tracker::all();
+    $referals = Referal::all();
+    $tariffs = Tariff::all();
+
+    return response()->json([
+        'profession' => new ProfessionResource($profession),
+        'trackers' => TrackerResource::collection($trackers),
+        'referals' => ReferalResource::collection($referals),
+        'tariffs' => TariffResource::collection($tariffs),
+    ]);
+}
+
 
     public function update(Request $request, Profession $profession)
     {
