@@ -10,6 +10,7 @@ class EditProfession extends EditRecord
 {
     protected static string $resource = ProfessionResource::class;
 
+
     protected function getActions(): array
     {
         return [

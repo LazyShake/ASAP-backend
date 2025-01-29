@@ -17,6 +17,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Actions\Action;
 use Illuminate\Support\Str;
 use Closure;
+use Illuminate\Database\Eloquent\Builder;
+use Filament\Resources\Pages\EditRecord;
 
 
 
@@ -30,57 +32,63 @@ class ArticleResource extends Resource
 
     protected static ?string $modelLabel = 'Статья';
 
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->whereNotNull('slug');
+    }
+
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                    Forms\Components\TextInput::make('name_article')
-                    ->afterStateUpdated(function (Closure $get, Closure $set, ?string $state) {
-                        if (! $get('is_slug_changed_manually') && filled($state)) {
-                            $set('slug', Str::slug($state));
-                        }
-                    })
+                Forms\Components\TextInput::make('name_article')
+                    ->label('Название статьи')
+                    ->required()
                     ->reactive()
-                    ->required(),
+                    ->default(fn($get) => $get('record.name_article')) // Привязка к значению из модели
+                    ->afterStateUpdated(fn($state, callable $set) => $set('slug', Str::slug($state))),
 
-                    Forms\Components\TextInput::make('slug')
-                    ->afterStateUpdated(function (Closure $set) {
-                        $set('is_slug_changed_manually', true);
-                    })
-                    ->required(),
-                    Forms\Components\Hidden::make('is_slug_changed_manually')
-                    ->default(false)
-                    ->dehydrated(false),
+                Forms\Components\TextInput::make('slug')
+                    ->label('Slug')
+                    ->required()
+                    ->unique()
+                    ->disabled(fn($record) => $record !== null) // Запрет изменения после создания
+                    ->helperText('Будет автоматически создан из названия.')
+                    ->default(fn($get) => $get('record.slug')),
 
                 Forms\Components\Textarea::make('short_text')
                     ->label('Краткий текст')
-                    ->maxLength(500),
+                    ->maxLength(500)
+                    ->default(fn($get) => $get('record.short_text')),
+
                 Forms\Components\RichEditor::make('content')
                     ->label('Контент')
-                    ->required(),
+                    ->required()
+                    ->default(fn($get) => $get('record.content')),
+
                 Forms\Components\FileUpload::make('picture')
                     ->label('Изображение')
-                    ->image(),
+                    ->image()
+                    ->default(fn($get) => $get('record.picture')),
 
-                // Поле для выбора или создания нового типа статьи
                 Select::make('type_id')
                     ->label('Тип статьи')
                     ->options(Type::query()->pluck('name_type', 'id_type'))
                     ->searchable()
                     ->placeholder('Выберите тип')
                     ->required()
-                    ->reactive() // Обработка изменения значения
+                    ->reactive()
+                    ->default(fn($get) => $get('record.type_id')) // Привязка к значению из модели
                     ->afterStateUpdated(function ($state, callable $set) {
-                        // Если тип равен "Кейс" или "Другое", выбираем первый фильтр и отключаем выбор
                         if ($state === 1 || $state === 2) {
-                            $set('filter_id', Filter::first()->id); // Устанавливаем первый фильтр
-                            $set('filter_disabled', true); // Отключаем поле фильтра
+                            $set('filter_id', Filter::first()->id);
+                            $set('filter_disabled', true);
                         } else {
-                            $set('filter_id', null); // Сбрасываем фильтр
-                            $set('filter_disabled', false); // Включаем возможность выбора фильтра
+                            $set('filter_id', null);
+                            $set('filter_disabled', false);
                         }
                     }),
-
 
                 Select::make('filter_id')
                     ->label('Фильтр')
@@ -90,16 +98,15 @@ class ArticleResource extends Resource
                     ->searchable()
                     ->placeholder('Выберите фильтр')
                     ->nullable()
-                    ->reactive() // Делаем поле реактивным
+                    ->reactive()
                     ->visible(function (callable $get) {
-                        // Получаем название типа статьи
-                        $typeId = $get('type_id'); // Получаем ID типа статьи
-                        return $typeId == 4; // Показываем поле, если тип статьи "Для профессии"
+                        $typeId = $get('type_id');
+                        return $typeId == 4;
                     })
                     ->disabled(function (callable $get) {
-                        // Отключаем поле, если оно не должно быть доступным
                         return $get('filter_disabled');
-                    }),
+                    })
+                    ->default(fn($get) => $get('record.filter_id')), // Привязка к значению из модели
 
                 Select::make('id_profession')
                     ->label('Профессия')
@@ -109,58 +116,60 @@ class ArticleResource extends Resource
                     ->searchable()
                     ->placeholder('Выберите профессии')
                     ->nullable()
-                    ->reactive() // Делаем поле реактивным
+                    ->reactive()
                     ->visible(function (callable $get) {
-                        // Получаем название типа статьи
-                        $typeId = $get('type_id'); // Получаем ID типа статьи
-                        return $typeId == 4; // Показываем поле, если тип статьи "Для профессии"
+                        $typeId = $get('type_id');
+                        return $typeId == 4;
                     })
                     ->disabled(function (callable $get) {
-                        // Отключаем поле, если оно не должно быть доступным
                         return $get('profession_disabled');
-                    }),
+                    })
+                    ->default(fn($get) => $get('record.id_profession')), // Привязка к значению из модели
 
                 Select::make('tags')
                     ->label('Теги')
-                    ->multiple() // Поддержка нескольких тегов
-                    ->relationship('tags', 'name_tag') // Указываем связь
-                    ->searchable() // Включаем поиск
+                    ->multiple()
+                    ->relationship('tags', 'name_tag')
+                    ->searchable()
                     ->getSearchResultsUsing(function (string $query) {
-                        // Фильтрация списка тегов
                         return Tags::where('name_tag', 'like', "%{$query}%")
                             ->pluck('name_tag', 'id_tag');
                     })
                     ->placeholder('Выберите теги или создайте новый')
                     ->createOptionForm([
-                        Forms\Components\TextInput::make('name_tag')
-                            ->required(),
-                    ]),
-
+                        Forms\Components\TextInput::make('name_tag')->required(),
+                    ])
+                    ->default(fn($get) => $get('record.tags')->pluck('id_tag')->toArray()), // Привязка к значениям из модели
 
                 Forms\Components\TextInput::make('link')
                     ->label('Ссылка')
                     ->url()
                     ->maxLength(255)
                     ->nullable()
-                    ->reactive() // Делаем поле реактивным
+                    ->reactive()
                     ->visible(function (callable $get) {
-                        // Получаем название типа статьи
-                        $typeId = $get('type_id'); // Получаем ID типа статьи
-                        return $typeId == 3; // Показываем поле, если тип статьи "Для профессии"
+                        $typeId = $get('type_id');
+                        return $typeId == 3;
                     })
                     ->disabled(function (callable $get) {
-                        // Отключаем поле, если оно не должно быть доступным
                         return $get('link_disabled');
-                    }),
+                    })
+                    ->default(fn($get) => $get('record.link')),
+
                 Forms\Components\TextInput::make('owner_name')
                     ->label('Имя автора')
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->default(fn($get) => $get('record.owner_name')),
+
                 Forms\Components\Textarea::make('owner_description')
                     ->label('Описание автора')
-                    ->maxLength(500),
+                    ->maxLength(500)
+                    ->default(fn($get) => $get('record.owner_description')),
+
                 Forms\Components\FileUpload::make('owner_picture')
                     ->label('Фото автора')
-                    ->image(),
+                    ->image()
+                    ->default(fn($get) => $get('record.owner_picture')),
             ]);
     }
 
@@ -217,10 +226,7 @@ class ArticleResource extends Resource
                     ->relationship('filter', 'name_filter'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make('edit')
-    ->url(fn($record) => route('filament.resources.articles.edit', ['slug' => $record->slug])) // Используем slug
-
-
+                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -232,7 +238,7 @@ class ArticleResource extends Resource
         return [
             'index' => Pages\ListArticles::route('/'),
             'create' => Pages\CreateArticle::route('/create'),
-            'edit' => Pages\EditArticle::route('/{slug}/edit'),
+            'edit' => Pages\EditArticle::route('/{record}/edit'),
         ];
     }
 }

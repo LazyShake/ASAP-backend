@@ -5,14 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Article extends Model
 {
     use HasFactory;
+    use HasSlug;
 
     protected $primaryKey = 'id_article';
     // Указываем таблицу, если имя модели отличается от имени таблицы
     protected $table = 'articles';
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name_article') // Генерация из поля title
+            ->saveSlugsTo('slug');      // Сохранение в поле slug
+    }
 
     // Указываем столбцы, которые могут быть массово присваиваемыми
     protected $fillable = [
@@ -67,7 +77,7 @@ class Article extends Model
         return self::where('id_profession', $professionId)->get();
     }
 
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'slug';
     }
