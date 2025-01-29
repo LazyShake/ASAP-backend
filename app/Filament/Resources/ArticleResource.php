@@ -49,7 +49,7 @@ class ArticleResource extends Resource
                 Forms\Components\TextInput::make('slug')
                     ->label('Slug')
                     ->required()
-                    ->unique()
+                    ->unique(ignoreRecord: true)
                     ->disabled(fn($record) => $record !== null) // Запрет изменения после создания
                     ->helperText('Будет автоматически создан из названия.')
                     ->default(fn($get) => $get('record.slug')),
