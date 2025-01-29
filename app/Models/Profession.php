@@ -105,8 +105,4 @@ class Profession extends Model
         return $this->hasMany(Program::class, 'id_profession', 'id_profession');
     }
 
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
 }
