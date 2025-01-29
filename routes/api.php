@@ -45,7 +45,7 @@ Route::post('/submit-phone', [FeedbackController::class, 'submitPhone'])->name('
 Route::get('/blog/articles/{slug}', [ArticleController::class, 'showArticle']); // Показ статьи
 Route::post('/cta', [FeedbackController::class, 'sendToTelegram']); // API для CTA
 
-Route::get('/professions/{profession}', [ProfessionController::class, 'show'])->name('professions.show');
+Route::get('/professions/{slug}', [ProfessionController::class, 'show'])->name('professions.show');
 
 Route::get('/blog', [PageController::class, 'index']);
 
