@@ -26,7 +26,6 @@ class FirstImageResource extends Resource
                 Forms\Components\FileUpload::make('image')
                     ->label('Изображение')
                     ->image()
-                    ->storeInDatabase()
                     ->required(),
             ]);
     }

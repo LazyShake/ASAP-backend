@@ -27,8 +27,7 @@ class SeoFileResource extends Resource
         return $form->schema([
             FileUpload::make('file')
                 ->label('Загрузить файл')
-                ->required()
-                ->storeInDatabase(),
+                ->required(),
         ]);
     }
 
