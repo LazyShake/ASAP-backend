@@ -18,4 +18,29 @@ class color extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function professions()
+    {
+        return $this->hasMany(Profession::class, 'id_color', 'id_color');
+    }
+
+    // Метод для получения профессий, использующих данный цвет
+    public function getProfessionsUsingColor()
+    {
+        return $this->professions()->get();
+    }
+
+    // Запрещаем удаление, если цвет используется в профессиях
+    protected static function booted()
+    {
+        static::deleting(function ($color) {
+            // Получаем все профессии, использующие данный цвет
+            $professionsUsingColor = $color->getProfessionsUsingColor();
+
+            if ($professionsUsingColor->isNotEmpty()) {
+                $professionNames = $professionsUsingColor->pluck('name_profession')->implode(', ');
+                throw new \Exception('Невозможно удалить цвет, так как он используется в следующих профессиях: ' . $professionNames);
+            }
+        });
+    }
 }

@@ -21,6 +21,17 @@ class Skill extends Model
         'name',
     ];
 
+    protected static function booted()
+{
+    static::deleting(function ($skill) {
+        // Проверяем, есть ли связанные профессии
+        if ($skill->profession()->exists()) {
+            throw new \Exception('Невозможно удалить навык, так как он связан с профессиями.');
+        }
+    });
+}
+
+
     // Указать, что timestamps присутствуют
     public $timestamps = true;
 

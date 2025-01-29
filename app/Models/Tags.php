@@ -22,6 +22,17 @@ class Tags extends Model
         'name_tag',
     ];
 
+    protected static function booted()
+{
+    static::deleting(function ($tag) {
+        // Проверяем, есть ли связанные статьи
+        if ($tag->articles()->exists()) {
+            throw new \Exception('Невозможно удалить тег, так как он связан с статьями.');
+        }
+    });
+}
+
+
     public function articles()
     {
         return $this->belongsToMany(Article::class, 'article_tag', 'tag_id', 'article_id');

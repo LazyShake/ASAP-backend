@@ -22,6 +22,16 @@ class Progress extends Model
         'id_profession',
     ];
 
+    protected static function booted()
+{
+    static::deleting(function ($progress) {
+        if ($progress->profession()->exists()) {
+            throw new \Exception('Нельзя удалить запись прогресса, так как она связана с профессией.');
+        }
+    });
+}
+
+
     public static function getProgressByProfession($professionId)
     {
         return self::where('id_profession', $professionId)->get();
