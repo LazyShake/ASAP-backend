@@ -32,12 +32,27 @@ class Type extends Model
         static::deleting(function ($type) {
             // Получаем все статьи, ссылающиеся на данный тип
             $articlesUsingType = $type->articles;
-
+        
             if ($articlesUsingType->isNotEmpty()) {
+                // Формируем список названий статей
                 $articleTitles = $articlesUsingType->pluck('name_article')->implode(', ');
-                throw new \Exception('Невозможно удалить тип, так как он используется в статьях: ' . $articleTitles);
+        
+                // Формируем отформатированный JSON
+                $response = [
+                    'error' => true,
+                    'message' => 'Невозможно удалить тип, так как он используется в статьях.',
+                    'details' => [
+                        'relation' => 'articles',  // Указываем, с какой сущностью связан
+                        'related_model' => 'Article',  // Указываем модель, с которой связан
+                        'articles' => $articleTitles,  // Список статей, использующих данный тип
+                    ]
+                ];
+        
+                // Выбрасываем исключение с отформатированным JSON
+                throw new \Exception(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
             }
         });
+        
     }
 
     // Указываем, что Laravel не должен ожидать поля timestamps, если их нет

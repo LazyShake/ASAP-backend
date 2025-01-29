@@ -26,9 +26,21 @@ class Progress extends Model
 {
     static::deleting(function ($progress) {
         if ($progress->profession()->exists()) {
-            throw new \Exception('Нельзя удалить запись прогресса, так как она связана с профессией.');
+            // Формируем отформатированный JSON
+            $response = [
+                'error' => true,
+                'message' => 'Невозможно удалить запись прогресса, так как она связана с профессией.',
+                'details' => [
+                    'relation' => 'profession',  // Указываем, с какой сущностью связано
+                    'related_model' => 'Profession',  // Указываем модель, с которой связана
+                ]
+            ];
+    
+            // Выбрасываем исключение с отформатированным JSON
+            throw new \Exception(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         }
     });
+    
 }
 
 

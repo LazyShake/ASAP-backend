@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ProgressResource\Pages;
 use App\Models\Progress;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -30,15 +31,13 @@ class ProgressResource extends Resource
     {
         return $form
             ->schema([
-                Textarea::make('before')
+                FileUpload::make('before')
                     ->label('До')
-                    ->required()
-                    ->maxLength(500),
+                    ->image(),
 
-                Textarea::make('after')
+                FileUpload::make('after')
                     ->label('После')
-                    ->required()
-                    ->maxLength(500),
+                    ->image(),
 
                 Select::make('id_profession')
                     ->label('Профессия')

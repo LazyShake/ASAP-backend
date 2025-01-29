@@ -69,9 +69,9 @@ class Profession extends Model
                 'skills' => 'Навыки',
                 'progress' => 'Прогресс',
             ];
-
+        
             $usedIn = [];
-
+        
             // Получаем связанные записи, которые используют эту профессию
             foreach ($relations as $relation => $name) {
                 if ($profession->$relation()->exists()) {
@@ -79,13 +79,22 @@ class Profession extends Model
                     $usedIn[] = $name;
                 }
             }
-
-            // Если есть связи, выбрасываем исключение с подробной информацией
+        
+            // Если есть связи, выбрасываем исключение с отформатированным JSON
             if (!empty($usedIn)) {
-                $usedInList = implode(', ', $usedIn);
-                throw new \Exception('Нельзя удалить профессию, так как она связана с: ' . $usedInList);
+                $response = [
+                    'error' => true,
+                    'message' => 'Невозможно удалить профессию, так как она связана с: ' . implode(', ', $usedIn),
+                    'details' => [
+                        'used_in' => $usedIn,  // Список мест, где используется профессия
+                    ]
+                ];
+        
+                // Выбрасываем исключение с отформатированным JSON
+                throw new \Exception(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
             }
         });
+        
     }
 
 

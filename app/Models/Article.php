@@ -77,7 +77,15 @@ class Article extends Model
         }
 
         if (!empty($usedIn)) {
-            throw new \Exception('Нельзя удалить статью, так как она используется в: ' . implode(', ', $usedIn));
+            $usedInList = implode(', ', $usedIn);
+            // Формируем массив для JSON-ответа
+            $response = [
+                'error' => true,
+                'message' => 'Невозможно удалить статью, так как она используется в следующих: ' . $usedInList,
+                'details' => $usedIn // Добавляем список зависимых сущностей
+            ];
+            // Выбрасываем исключение с отформатированным JSON
+            throw new \Exception(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         }
     });
 }

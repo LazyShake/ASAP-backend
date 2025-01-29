@@ -27,19 +27,31 @@ class Program extends Model
         $relations = [
             'profession' => 'Профессия',
         ];
-
+    
         $usedIn = [];
-
+    
+        // Проверяем, есть ли связи с профессией
         foreach ($relations as $relation => $name) {
             if ($program->$relation()->exists()) {
                 $usedIn[] = $name;
             }
         }
-
+    
+        // Если есть связи, выбрасываем исключение с отформатированным JSON
         if (!empty($usedIn)) {
-            throw new \Exception('Нельзя удалить программу, так как она связана с: ' . implode(', ', $usedIn));
+            $response = [
+                'error' => true,
+                'message' => 'Невозможно удалить программу, так как она связана с: ' . implode(', ', $usedIn),
+                'details' => [
+                    'used_in' => $usedIn,  // Список мест, где используется программа
+                ]
+            ];
+    
+            // Выбрасываем исключение с отформатированным JSON
+            throw new \Exception(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         }
     });
+    
 }
 
     protected $casts = [

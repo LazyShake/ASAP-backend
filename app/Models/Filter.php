@@ -22,11 +22,20 @@ class Filter extends Model
         static::deleting(function ($filter) {
             // Получаем статьи, использующие данный фильтр
             $articlesUsingFilter = $filter->articles()->get();
-
+        
             if ($articlesUsingFilter->isNotEmpty()) {
                 // Формируем список названий статей
                 $articleTitles = $articlesUsingFilter->pluck('name_article')->implode(', ');
-                throw new \Exception('Нельзя удалить фильтр, так как он используется в следующих статьях: ' . $articleTitles);
+        
+                // Формируем массив для JSON-ответа
+                $response = [
+                    'error' => true,
+                    'message' => 'Невозможно удалить фильтр, так как он используется в следующих статьях: ' . $articleTitles,
+                    'details' => $articlesUsingFilter->pluck('name_article') // Возвращаем список названий статей
+                ];
+        
+                // Выбрасываем исключение с отформатированным JSON
+                throw new \Exception(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
             }
         });
     }
