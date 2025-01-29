@@ -44,13 +44,43 @@ class Article extends Model
     ];
 
     protected static function booted()
-    {
-        static::creating(function ($article) {
-            if (empty($article->slug)) {
-                $article->slug = Str::slug($article->name_article);
+{
+    // Автоматическое создание slug при создании статьи
+    static::creating(function ($article) {
+        if (empty($article->slug)) {
+            $article->slug = Str::slug($article->name_article);
+        }
+    });
+
+    // Автоматическое обновление slug при редактировании, если он не был изменен вручную
+    static::updating(function ($article) {
+        if ($article->isDirty('name_article') && !$article->isDirty('slug')) {
+            $article->slug = Str::slug($article->name_article);
+        }
+    });
+
+    // Запрет удаления статьи, если на нее ссылаются другие записи
+    static::deleting(function ($article) {
+        $relations = [
+            'tags' => 'Теги',
+            'type' => 'Тип статьи',
+            'profession' => 'Профессия',
+            'filter' => 'Фильтр',
+        ];
+
+        $usedIn = [];
+
+        foreach ($relations as $relation => $label) {
+            if ($article->$relation()->exists()) {
+                $usedIn[] = $label;
             }
-        });
-    }
+        }
+
+        if (!empty($usedIn)) {
+            throw new \Exception('Нельзя удалить статью, так как она используется в: ' . implode(', ', $usedIn));
+        }
+    });
+}
 
     public function type()
     {

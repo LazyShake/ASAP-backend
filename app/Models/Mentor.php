@@ -24,6 +24,16 @@ class Mentor extends Model
         'workplace',
     ];
 
+    protected static function booted()
+{
+    static::deleting(function ($mentor) {
+        if ($mentor->profession()->exists()) {
+            throw new \Exception('Нельзя удалить ментора, так как он связан с профессией.');
+        }
+    });
+}
+
+
     // Указываем, что Laravel будет работать с временными метками created_at и updated_at
     public $timestamps = true;
 
@@ -46,11 +56,5 @@ class Mentor extends Model
                    ->get();
     }
 
-    // Получаем только трекеров (роль = 'tracker')
-    public static function getTrackers($professionId)
-    {
-        return self::where('id_profession', $professionId)
-                   ->where('role', 'tracker')
-                   ->get();
-    }
+   
 }

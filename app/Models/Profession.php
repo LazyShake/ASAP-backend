@@ -59,7 +59,35 @@ class Profession extends Model
                 $profession->slug = Str::slug($profession->name_profession);
             }
         });
+
+        static::deleting(function ($profession) {
+            $relations = [
+                'mentors' => 'Менторы',
+                'articles' => 'Статьи',
+                'programs' => 'Программы',
+                'reviews' => 'Отзывы',
+                'skills' => 'Навыки',
+                'progress' => 'Прогресс',
+            ];
+
+            $usedIn = [];
+
+            // Получаем связанные записи, которые используют эту профессию
+            foreach ($relations as $relation => $name) {
+                if ($profession->$relation()->exists()) {
+                    // Формируем список, где используются записи профессии
+                    $usedIn[] = $name;
+                }
+            }
+
+            // Если есть связи, выбрасываем исключение с подробной информацией
+            if (!empty($usedIn)) {
+                $usedInList = implode(', ', $usedIn);
+                throw new \Exception('Нельзя удалить профессию, так как она связана с: ' . $usedInList);
+            }
+        });
     }
+
 
     // Отношения
     public function career()

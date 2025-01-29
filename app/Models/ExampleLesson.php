@@ -20,6 +20,36 @@ class ExampleLesson extends Model
         'id_profession',
     ];
 
+    protected static function booted()
+{
+    // Автоматическое заполнение ссылки, если она не задана
+    static::creating(function ($exampleLesson) {
+        if (empty($exampleLesson->link)) {
+            $exampleLesson->link = 'https://default-link.com/lesson/' . $exampleLesson->id_example_lesson;
+        }
+    });
+
+    // Запрет удаления, если на урок ссылаются другие таблицы
+    static::deleting(function ($exampleLesson) {
+        $relations = [
+            'profession' => 'Профессия',
+        ];
+
+        $usedIn = [];
+
+        foreach ($relations as $relation => $label) {
+            if ($exampleLesson->$relation()->exists()) {
+                $usedIn[] = $label;
+            }
+        }
+
+        if (!empty($usedIn)) {
+            throw new \Exception('Нельзя удалить урок, так как он используется в: ' . implode(', ', $usedIn));
+        }
+    });
+}
+
+
     // Указываем, что Laravel будет работать с временными метками created_at и updated_at
     public $timestamps = true;
 

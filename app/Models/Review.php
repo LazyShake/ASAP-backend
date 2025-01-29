@@ -26,6 +26,16 @@ class Review extends Model
         'job_after',
     ];
 
+    protected static function booted()
+{
+    static::deleting(function ($review) {
+        if ($review->profession()->exists()) {
+            throw new \Exception('Невозможно удалить отзыв, так как он связан с профессией.');
+        }
+    });
+}
+
+
     // Указываем, что Laravel будет работать с временными метками created_at и updated_at
     public $timestamps = true;
 

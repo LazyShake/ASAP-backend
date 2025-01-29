@@ -21,6 +21,27 @@ class Program extends Model
         'number_module',
     ];
 
+    protected static function booted()
+{
+    static::deleting(function ($program) {
+        $relations = [
+            'profession' => 'Профессия',
+        ];
+
+        $usedIn = [];
+
+        foreach ($relations as $relation => $name) {
+            if ($program->$relation()->exists()) {
+                $usedIn[] = $name;
+            }
+        }
+
+        if (!empty($usedIn)) {
+            throw new \Exception('Нельзя удалить программу, так как она связана с: ' . implode(', ', $usedIn));
+        }
+    });
+}
+
     protected $casts = [
         'content_module' => 'array', // Автоматическое преобразование JSON в массив и обратно
     ];
