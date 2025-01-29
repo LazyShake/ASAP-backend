@@ -28,7 +28,6 @@ class PartnerResource extends Resource
                 Forms\Components\FileUpload::make('logo_partners')
                     ->label('Логотип')
                     ->image()
-                    ->storeInDatabase()
                     ->nullable(),
             ]);
     }

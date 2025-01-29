@@ -43,7 +43,6 @@ class MentorResource extends Resource
 
                 Forms\Components\FileUpload::make('picture')
                     ->label('Изображение')
-                    ->storeInDatabase()
                     ->image(),
 
                 Toggle::make('status')

@@ -67,7 +67,6 @@ class ArticleResource extends Resource
                 Forms\Components\FileUpload::make('picture')
                     ->label('Изображение')
                     ->image()
-                    ->storeInDatabase()
                     ->default(fn($get) => $get('record.picture')),
 
                 Select::make('type_id')
@@ -167,7 +166,6 @@ class ArticleResource extends Resource
                 Forms\Components\FileUpload::make('owner_picture')
                     ->label('Фото автора')
                     ->image()
-                    ->storeInDatabase()
                     ->default(fn($get) => $get('record.owner_picture')),
             ]);
     }
