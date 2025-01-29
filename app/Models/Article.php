@@ -13,16 +13,16 @@ class Article extends Model
     use HasFactory;
     use HasSlug;
 
-    protected $primaryKey = 'id_article';
-    // Указываем таблицу, если имя модели отличается от имени таблицы
-    protected $table = 'articles';
-
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name_article') // Генерация из поля title
             ->saveSlugsTo('slug');      // Сохранение в поле slug
     }
+
+    protected $primaryKey = 'id_article';
+    // Указываем таблицу, если имя модели отличается от имени таблицы
+    protected $table = 'articles';
 
     // Указываем столбцы, которые могут быть массово присваиваемыми
     protected $fillable = [
