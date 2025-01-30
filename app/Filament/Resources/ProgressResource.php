@@ -50,13 +50,6 @@ class ProgressResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('before')
-                    ->label('До')
-                    ->limit(50),
-
-                TextColumn::make('after')
-                    ->label('После')
-                    ->limit(50),
 
                 TextColumn::make('profession.name_profession')
                     ->label('Профессия')
