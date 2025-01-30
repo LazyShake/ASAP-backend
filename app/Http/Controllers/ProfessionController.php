@@ -20,6 +20,7 @@ class ProfessionController extends Controller
             'reviews',
             'progress',
             'articles',
+            'tariff',
         ])->paginate(10);
 
         return ProfessionResource::collection($professions);
@@ -38,17 +39,16 @@ class ProfessionController extends Controller
         'reviews',
         'progress',
         'articles',
+        'tariff',
     ]);
 
     $trackers = Tracker::all();
     $referals = Referal::all();
-    $tariffs = Tariff::all();
 
     return response()->json([
         'profession' => new ProfessionResource($profession),
         'trackers' => TrackerResource::collection($trackers),
         'referals' => ReferalResource::collection($referals),
-        'tariffs' => TariffResource::collection($tariffs),
     ]);
 }
 
