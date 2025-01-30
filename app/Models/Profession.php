@@ -142,4 +142,10 @@ class Profession extends Model
         return $this->hasMany(Program::class, 'id_profession', 'id_profession');
     }
 
+    public function tariff()
+    {
+        return $this->belongsTo(Tariff::class, 'id_tariff', 'id_tariff');
+    }
+
+
 }
