@@ -23,20 +23,6 @@ class CareerRelationManager extends RelationManager
                     ->required()
                     ->maxLength(255),
 
-                Forms\Components\TextInput::make('price')
-                    ->label('Цена')
-                    ->numeric()
-                    ->required(),
-
-                Forms\Components\TextInput::make('vacancy')
-                    ->label('Количество вакансий')
-                    ->numeric()
-                    ->required(),
-
-                Forms\Components\TextInput::make('font')
-                    ->label('Шрифт вакансии')
-                    ->required()
-                    ->maxLength(255),
 
                 Forms\Components\TextInput::make('hh')
                     ->label('Вакансии HH.ru')
@@ -68,10 +54,6 @@ class CareerRelationManager extends RelationManager
                     ->numeric()
                     ->nullable(),
 
-                Forms\Components\Textarea::make('description')
-                    ->label('Описание роста')
-                    ->nullable()
-                    ->maxLength(255),
             ]);
     }
 
@@ -84,16 +66,6 @@ class CareerRelationManager extends RelationManager
                     ->sortable()
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('price')
-                    ->label('Цена')
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('vacancy')
-                    ->label('Количество вакансий')
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('font')
-                    ->label('Шрифт вакансии'),
 
                 Tables\Columns\TextColumn::make('hh')
                     ->label('Вакансии HH.ru')
@@ -119,10 +91,7 @@ class CareerRelationManager extends RelationManager
                     ->label('Зарплата после 3 лет')
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('description')
-                    ->label('Описание роста')
-                    ->limit(50)
-                    ->tooltip(fn ($record) => $record->description),
+
             ])
             ->defaultSort('name') // Сортировка по умолчанию по названию
             ->headerActions([
