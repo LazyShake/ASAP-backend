@@ -12,6 +12,7 @@ use App\Filament\Resources\ProfessionResource\RelationManagers\MentorRelationMan
 use App\Filament\Resources\ProfessionResource\RelationManagers\ProgramsRelationManager;
 use App\Models\Profession;
 use App\Models\Skill;
+use App\Models\Tariff; // Добавлено
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -42,8 +43,7 @@ class ProfessionResource extends Resource
                     ->label('Slug')
                     ->required()
                     ->unique(ignoreRecord: true)
-                    ->disabled(fn($record) => $record !== null) // Запрет изменения после создания
-                    ->helperText('Будет автоматически создан из названия.'),
+                    ->disabled(fn($record) => $record !== null), // Запрет изменения после создания
                 Forms\Components\TextInput::make('price')
                     ->label('Стоимость обучения')
                     ->required()
@@ -62,11 +62,9 @@ class ProfessionResource extends Resource
                     ->maxLength(500),
                 Forms\Components\FileUpload::make('image')
                     ->label('Изображение')
-
                     ->image(),
                 Forms\Components\FileUpload::make('miniimage')
                     ->label('Мини-изображение')
-
                     ->image(),
                 Forms\Components\BelongsToSelect::make('id_career')
                     ->relationship('career', 'name')
@@ -82,7 +80,6 @@ class ProfessionResource extends Resource
                     ->relationship('skills', 'name') // Используйте связь с моделью
                     ->searchable() // Включаем поиск
                     ->getSearchResultsUsing(function (string $query) {
-                        // Фильтрация списка тегов
                         return Skill::where('name', 'like', "%{$query}%")
                             ->pluck('name', 'id_skills');
                     })
@@ -91,17 +88,14 @@ class ProfessionResource extends Resource
                         Forms\Components\TextInput::make('name')
                             ->required(),
                     ]),
-
                 Forms\Components\BelongsToSelect::make('id_type')
                     ->relationship('typeProfession', 'name_type')
                     ->label('Тип профессии')
                     ->required(),
-                // Новое поле skilltext
                 Forms\Components\TextInput::make('skilltext')
                     ->label('Текст навыков')
                     ->maxLength(500)
                     ->placeholder('Введите описание навыков'),
-
                 // SEO поля
                 Forms\Components\TextInput::make('SEO_key_words')
                     ->label('Ключевые слова SEO')
@@ -112,6 +106,13 @@ class ProfessionResource extends Resource
                 Forms\Components\Textarea::make('SEO_description')
                     ->label('Описание SEO')
                     ->maxLength(500),
+
+                // Добавлено поле для выбора тарифа с дефолтным значением
+                Forms\Components\BelongsToSelect::make('id_tariff')
+                    ->relationship('tariff', 'name_tariff')
+                    ->label('Тариф')
+                    ->required()
+                    ->default(Tariff::find(1)?->id_tariff), // Устанавливаем дефолтный тариф с ID 1
             ]);
     }
 
@@ -123,7 +124,6 @@ class ProfessionResource extends Resource
                     ->label('Название профессии')
                     ->sortable()
                     ->searchable(),
-
                 Tables\Columns\TextColumn::make('price')
                     ->label('Стоимость обучения')
                     ->sortable(),
@@ -131,10 +131,9 @@ class ProfessionResource extends Resource
                     ->label('Количество мест'),
                 Tables\Columns\TextColumn::make('period')
                     ->label('Период обучения'),
-
                 Tables\Columns\TextColumn::make('start_of_training')
                     ->label('Дата начала обучения')
-                    ->date('d.m.Y') // Форматирование даты
+                    ->date('d.m.Y')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('skills.name')
                     ->label('Навыки')
@@ -147,21 +146,21 @@ class ProfessionResource extends Resource
                     ->label('Текст навыков')
                     ->sortable()
                     ->searchable(),
-
-                // Отображение SEO полей в таблице
                 Tables\Columns\TextColumn::make('SEO_key_words')
                     ->label('Ключевые слова SEO'),
                 Tables\Columns\TextColumn::make('SEO_title')
                     ->label('Заголовок SEO'),
                 Tables\Columns\TextColumn::make('SEO_description')
                     ->label('Описание SEO'),
+                // Колонка для тарифа
+                Tables\Columns\TextColumn::make('tariff.name_tariff')
+                    ->label('Тариф'),
             ])
             ->filters([
                 // Добавьте фильтры, если необходимо
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
