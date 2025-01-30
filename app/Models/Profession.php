@@ -49,7 +49,8 @@ class Profession extends Model
         'skilltext',
         'SEO_key_words',
         'SEO_title',
-        'SEO_description'
+        'SEO_description',
+        'id_tariff',
     ];
 
     protected static function booted()
@@ -144,7 +145,7 @@ class Profession extends Model
 
     public function tariff()
     {
-        return $this->belongsTo(Tariff::class, 'id_tariff', 'id_tariff');
+        return $this->belongsTo(Tariff::class, 'id_tariff');
     }
 
 
