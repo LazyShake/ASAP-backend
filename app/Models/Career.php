@@ -16,16 +16,12 @@ class Career extends Model
     // Поля, которые можно массово заполнять
     protected $fillable = [
         'name',
-        'price',
-        'vacancy',
-        'font',
         'hh',
         'habr',
         'freelance',
         'start_vage',
         'one_year_vage',
         'three_year_vage',
-        'description',
     ];
 
     public function professions()

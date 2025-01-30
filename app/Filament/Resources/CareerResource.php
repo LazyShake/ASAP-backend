@@ -28,20 +28,6 @@ class CareerResource extends Resource
                     ->required()
                     ->maxLength(255),
 
-                Forms\Components\TextInput::make('price')
-                    ->label('Цена')
-                    ->numeric()
-                    ->required(),
-
-                Forms\Components\TextInput::make('vacancy')
-                    ->label('Количество вакансий')
-                    ->numeric()
-                    ->required(),
-
-                Forms\Components\TextInput::make('font')
-                    ->label('Шрифт вакансии')
-                    ->required()
-                    ->maxLength(255),
 
                 Forms\Components\Textarea::make('hh')
                     ->label('Вакансии HH.ru')
@@ -70,10 +56,6 @@ class CareerResource extends Resource
                     ->numeric()
                     ->nullable(),
 
-                Forms\Components\Textarea::make('description')
-                    ->label('Описание роста')
-                    ->nullable()
-                    ->maxLength(255),
             ]);
     }
 
@@ -86,16 +68,6 @@ class CareerResource extends Resource
                     ->sortable()
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('price')
-                    ->label('Цена')
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('vacancy')
-                    ->label('Количество вакансий')
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('font')
-                    ->label('Шрифт вакансии'),
 
                 Tables\Columns\TextColumn::make('hh')
                     ->label('Вакансии HH.ru')
@@ -121,10 +93,7 @@ class CareerResource extends Resource
                     ->label('Зарплата после 3 лет')
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('description')
-                    ->label('Описание роста')
-                    ->limit(50)
-                    ->tooltip(fn ($record) => $record->description),
+
             ])
             ->filters([
                 // Добавить фильтры, если нужно
