@@ -106,13 +106,6 @@ class ProfessionResource extends Resource
                 Forms\Components\Textarea::make('SEO_description')
                     ->label('Описание SEO')
                     ->maxLength(500),
-
-                // Добавлено поле для выбора тарифа с дефолтным значением
-                Forms\Components\BelongsToSelect::make('id_tariff')
-                    ->relationship('tariff', 'name_tariff')
-                    ->label('Тариф')
-                    ->required()
-                    ->default(Tariff::find(1)?->id_tariff), // Устанавливаем дефолтный тариф с ID 1
             ]);
     }
 
@@ -152,9 +145,7 @@ class ProfessionResource extends Resource
                     ->label('Заголовок SEO'),
                 Tables\Columns\TextColumn::make('SEO_description')
                     ->label('Описание SEO'),
-                // Колонка для тарифа
-                Tables\Columns\TextColumn::make('tariff.name_tariff')
-                    ->label('Тариф'),
+                // Колонка для тарифа,
             ])
             ->filters([
                 // Добавьте фильтры, если необходимо
