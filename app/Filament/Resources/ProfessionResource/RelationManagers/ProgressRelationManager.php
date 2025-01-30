@@ -21,11 +21,13 @@ class ProgressRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('before')
+                Forms\Components\FileUpload::make('before')
                     ->required()
+                    ->image()
                     ->maxLength(255),
-                    Forms\Components\TextInput::make('after')
+                    Forms\Components\FileUpload::make('after')
                     ->required()
+                    ->image()
                     ->maxLength(255),
                     Forms\Components\Select::make('profession') // Поле для выбора нескольких тегов
                     ->label('профессия')
