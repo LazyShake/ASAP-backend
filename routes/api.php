@@ -56,7 +56,7 @@ Route::get('/blog/articles/{slug}', [PageController::class, 'getArticle'])->name
 Route::get('/articles', [PageController::class, 'getRecentArticles']);
 
 // Получить список профессий
-Route::get('/professions', [PageController::class, 'getProfessions']);
+Route::get('/professions', [PageController::class, 'index']);
 
 Route::prefix('main')->group(function () {
     Route::get('/first_screen', [MainPageController::class, 'firstScreen']);
