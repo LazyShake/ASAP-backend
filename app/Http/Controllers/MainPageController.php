@@ -10,6 +10,7 @@ use App\Http\Resources\StatisticResource;
 use App\Http\Resources\ReviewResource;
 use App\Http\Resources\PartnerResource;
 use App\Http\Resources\ArticleResource;
+use App\Http\Resources\TariffResource;
 use App\Models\FirstImage;
 use App\Models\Profession;
 use App\Models\Tariff;
@@ -42,10 +43,10 @@ class MainPageController extends Controller
     }
 
     public function tariffPrice()
-    {
-        $price = Tariff::max('price');
-        return response()->json(['price' => $price]);
-    }
+{
+    $tariffs = Tariff::all();  // Получаем все тарифы
+    return TariffResource::collection($tariffs);  // Возвращаем коллекцию тарифов, преобразованную через ресурс
+}
 
     public function professionImages($professionId)
     {

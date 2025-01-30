@@ -60,11 +60,6 @@ class ProgramResource extends Resource
                     ->label('Название модуля')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('content_module')
-                    ->label('Контент')
-                    ->formatStateUsing(fn($state) => is_array($state) ? implode(', ', array_column($state, 'text')) : $state)
-                    ->limit(50),
-
                 Tables\Columns\TextColumn::make('profession.name_profession')
                     ->label('Профессия')
                     ->sortable()

@@ -48,15 +48,15 @@ class ReviewResource extends Resource
                     ->default(false),
                 Forms\Components\TextInput::make('place_job')
                     ->label('Место работы')
-                    ->nullable()
+                    ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('job_before')
                     ->label('Профессия до обучения')
-                    ->nullable()
+                    ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('job_after')
                     ->label('Профессия после обучения')
-                    ->nullable()
+                    ->required()
                     ->maxLength(255),
             ]);
     }
