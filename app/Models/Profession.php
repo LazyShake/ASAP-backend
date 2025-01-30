@@ -50,7 +50,6 @@ class Profession extends Model
         'SEO_key_words',
         'SEO_title',
         'SEO_description',
-        'id_tariff',
     ];
 
     protected static function booted()
@@ -143,10 +142,6 @@ class Profession extends Model
         return $this->hasMany(Program::class, 'id_profession', 'id_profession');
     }
 
-    public function tariff()
-    {
-        return $this->belongsTo(Tariff::class, 'id_tariff');
-    }
 
 
 }

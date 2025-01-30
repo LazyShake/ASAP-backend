@@ -16,7 +16,6 @@ class ProfessionGeneralResource extends JsonResource
             'type' => $this->typeProfession->name_type,
             'place' => $this->place,
             'period' => $this->period,
-            'tariff' => TariffResource::collection($this->tariff),
         ];
     }
 }
