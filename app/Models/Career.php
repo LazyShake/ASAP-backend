@@ -18,7 +18,14 @@ class Career extends Model
         'name',
         'price',
         'vacancy',
-        'images_vacancy',
+        'font',
+        'hh',
+        'habr',
+        'freelance',
+        'start_vage',
+        'one_year_vage',
+        'three_year_vage',
+        'description',
     ];
 
     public function professions()

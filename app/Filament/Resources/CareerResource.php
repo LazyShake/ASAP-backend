@@ -38,42 +38,39 @@ class CareerResource extends Resource
                     ->numeric()
                     ->required(),
 
-                Forms\Components\TextInput::make('images_vacancy')
-                    ->label('шрифт вакансии')
+                Forms\Components\TextInput::make('font')
+                    ->label('Шрифт вакансии')
                     ->required()
                     ->maxLength(255),
 
-                Forms\Components\TextInput::make('vacancies_hh')
+                Forms\Components\Textarea::make('hh')
                     ->label('Вакансии HH.ru')
-                    ->numeric()
                     ->nullable(),
 
-                Forms\Components\TextInput::make('vacancies_habr')
+                Forms\Components\Textarea::make('habr')
                     ->label('Вакансии Habr')
-                    ->numeric()
                     ->nullable(),
 
-                Forms\Components\TextInput::make('freelance_orders')
+                Forms\Components\Textarea::make('freelance')
                     ->label('Заказы на фрилансе')
-                    ->numeric()
                     ->nullable(),
 
-                Forms\Components\TextInput::make('start_salary')
+                Forms\Components\TextInput::make('start_vage')
                     ->label('Зарплата на старте')
                     ->numeric()
                     ->nullable(),
 
-                Forms\Components\TextInput::make('salary_after_1_year')
+                Forms\Components\TextInput::make('one_year_vage')
                     ->label('Зарплата после 1 года')
                     ->numeric()
                     ->nullable(),
 
-                Forms\Components\TextInput::make('salary_after_3_years')
+                Forms\Components\TextInput::make('three_year_vage')
                     ->label('Зарплата после 3 лет')
                     ->numeric()
                     ->nullable(),
 
-                Forms\Components\Textarea::make('growth_description')
+                Forms\Components\Textarea::make('description')
                     ->label('Описание роста')
                     ->nullable()
                     ->maxLength(255),
@@ -97,37 +94,37 @@ class CareerResource extends Resource
                     ->label('Количество вакансий')
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('images_vacancy')
-                    ->label('шрифт вакансии'),
+                Tables\Columns\TextColumn::make('font')
+                    ->label('Шрифт вакансии'),
 
-                Tables\Columns\TextColumn::make('vacancies_hh')
+                Tables\Columns\TextColumn::make('hh')
                     ->label('Вакансии HH.ru')
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('vacancies_habr')
+                Tables\Columns\TextColumn::make('habr')
                     ->label('Вакансии Habr')
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('freelance_orders')
+                Tables\Columns\TextColumn::make('freelance')
                     ->label('Заказы на фрилансе')
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('start_salary')
+                Tables\Columns\TextColumn::make('start_vage')
                     ->label('Зарплата на старте')
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('salary_after_1_year')
+                Tables\Columns\TextColumn::make('one_year_vage')
                     ->label('Зарплата после 1 года')
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('salary_after_3_years')
+                Tables\Columns\TextColumn::make('three_year_vage')
                     ->label('Зарплата после 3 лет')
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('growth_description')
+                Tables\Columns\TextColumn::make('description')
                     ->label('Описание роста')
                     ->limit(50)
-                    ->tooltip(fn ($record) => $record->growth_description),
+                    ->tooltip(fn ($record) => $record->description),
             ])
             ->filters([
                 // Добавить фильтры, если нужно
