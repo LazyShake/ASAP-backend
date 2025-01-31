@@ -35,7 +35,10 @@ class ProgramResource extends Resource
                             ->label('Заголовок')
                             ->required()
                             ->maxLength(255),
-                
+                        Forms\Components\TextInput::make('text')
+                            ->label('Текст')
+                            ->required()
+                            ->maxLength(255),
                         Forms\Components\Repeater::make('sub_items')
                             ->label('Подэлементы')
                             ->schema([
