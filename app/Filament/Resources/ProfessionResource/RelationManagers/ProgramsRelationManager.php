@@ -29,9 +29,6 @@ class ProgramsRelationManager extends RelationManager
                             ->label('Заголовок')
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\TextInput::make('text')
-                            ->label('Текст')
-                            ->maxLength(255),
                         Forms\Components\Repeater::make('sub_items')
                             ->label('Подэлементы')
                             ->schema([
