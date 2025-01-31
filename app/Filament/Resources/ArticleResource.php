@@ -174,6 +174,7 @@ class ArticleResource extends Resource
                 Forms\Components\FileUpload::make('owner_picture')
                     ->label('Фото автора')
                     ->image()
+                    ->imagePreviewHeight(150)
                     ->default(fn($get) => $get('record.owner_picture')),
             ]);
     }

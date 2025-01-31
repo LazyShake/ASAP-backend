@@ -65,8 +65,8 @@ class ProfessionResource extends Resource
                     ->maxLength(500),
                 Forms\Components\FileUpload::make('image')
                     ->label('Изображение')
-                    ->required()
-                    ->previewable(true) // Включает предпросмотр
+                    
+                    ->imagePreviewHeight(150)
             ->preserveFilenames()
             ->store(function ($file) {
                 // Указываем, что файл нужно сохранить в public диск и папку 'after'
@@ -75,8 +75,8 @@ class ProfessionResource extends Resource
                     ->image(),
                 Forms\Components\FileUpload::make('miniimage')
                     ->label('Мини-изображение')
-                    ->required()
-                    ->previewable(true) // Включает предпросмотр
+                    
+                    ->imagePreviewHeight(150)
                     ->store(function ($file) {
                         // Указываем, что файл нужно сохранить в public диск и папку 'after'
                         return $file->store('profession/mini_image', 'public');

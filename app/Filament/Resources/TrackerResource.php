@@ -28,8 +28,8 @@ class TrackerResource extends Resource
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('picture')
                     ->label('Фото')
-                    ->required()
-                    ->previewable(true) // Включает предпросмотр
+                    
+                    ->imagePreviewHeight(150)
                     ->preserveFilenames()
                     ->store(function ($file) {
                         // Указываем, что файл нужно сохранить в public диск и папку 'after'

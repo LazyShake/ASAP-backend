@@ -33,7 +33,7 @@ class ProgressResource extends Resource
             ->schema([
                 FileUpload::make('before')
                     ->label('До')
-                    ->previewable(true) // Включает предпросмотр
+                    ->imagePreviewHeight(150)
                     ->preserveFilenames()
                     ->store(function ($file) {
                         // Указываем, что файл нужно сохранить в public диск и папку 'after'
@@ -43,7 +43,7 @@ class ProgressResource extends Resource
 
                 FileUpload::make('after')
                     ->label('После')
-                    ->previewable(true) // Включает предпросмотр
+                    ->imagePreviewHeight(150)
                     ->preserveFilenames()
                     ->store(function ($file) {
                         // Указываем, что файл нужно сохранить в public диск и папку 'after'
