@@ -65,20 +65,18 @@ class ProfessionResource extends Resource
                     ->maxLength(500),
                 Forms\Components\FileUpload::make('image')
                     ->label('Изображение')
-                    
                     ->imagePreviewHeight(150)
             ->preserveFilenames()
-            ->disk('public') // Указываем диск
-    ->directory('profession/image') 
-                    ->image(),
+                    ->image()
+                    ->disk('public') // Указываем диск
+    ->directory('profession/image') ,
                 Forms\Components\FileUpload::make('miniimage')
                     ->label('Мини-изображение')
-                    
                     ->imagePreviewHeight(150)
-                    ->disk('public') // Указываем диск
-    ->directory('profession/mini_image') 
             ->preserveFilenames()
-                    ->image(),
+                    ->image()
+                    ->disk('public') // Указываем диск
+    ->directory('profession/mini_image'),
                 /*Forms\Components\BelongsToSelect::make('id_career')
                     ->relationship('career', 'name')
                     ->label('Карьера')
