@@ -69,7 +69,6 @@ class ArticleResource extends Resource
                     ->label('Изображение')
                     ->required()
                     ->image()
-                    ->previewable(true) // Включает предпросмотр
             ->preserveFilenames()
             ->disk('public') // Указываем диск
     ->directory('article') 
