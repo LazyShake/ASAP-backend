@@ -24,74 +24,25 @@ use Illuminate\Http\Request;
 
 class MainPageController extends Controller
 {
-    public function seoData()
+    public function mainPageData(Request $request)
     {
-        $seo = SEOPage::findOrFail(1);
-        return new SEOPageResource($seo);
-    }
-
-    public function firstScreen()
-    {
-        $firstScreen = FirstImage::first();
-        return new FirstImageResource($firstScreen);
-    }
-
-    public function professions()
-    {
-        $professions = Profession::all();
-        return ProfessionGeneralResource::collection($professions);
-    }
-
-    public function tariffPrice()
-{
-    $tariffs = Tariff::all();  // Получаем все тарифы
-    return TariffResource::collection($tariffs);  // Возвращаем коллекцию тарифов, преобразованную через ресурс
-}
-
-    public function professionImages($professionId)
-    {
-        $profession = Profession::findOrFail($professionId);
-        return new ProfessionGeneralResource($profession);
-    }
-
-    public function mentors(Request $request)
-    {
-        $mentors = Mentor::where('status', true)
-            ->paginate($request->get('recordsPerPage', 4));
-        return MentorResource::collection($mentors);
-    }
-
-    public function statistics()
-    {
-        $statistics = Statistic::all();
-        return StatisticResource::collection($statistics);
-    }
-
-    public function reviews(Request $request)
-    {
-        $reviews = Review::where('status', true)
-            ->paginate($request->get('recordsPerPage', 2));
-        return ReviewResource::collection($reviews);
-    }
-
-    public function partners()
-    {
-        $partners = Partner::all();
-        return PartnerResource::collection($partners);
-    }
-
-    public function articles(Request $request)
-    {
-        $articles = Article::where('type_id', 1)
-            ->latest('created_at')
-            ->take(2)
-            ->get();
-        return ArticleResource::collection($articles);
-    }
-
-    public function referalPrice()
-    {
-        $referalPrice = config('settings.referal_price', '5000 р');
-        return response()->json(['referal_price' => $referalPrice]);
+        return response()->json([
+            'seo' => new SEOPageResource(SEOPage::find(1)),
+            'first_screen' => new FirstImageResource(FirstImage::first()),
+            'professions' => ProfessionGeneralResource::collection(Profession::all()),
+            'tariffs' => TariffResource::collection(Tariff::all()),
+            'mentors' => MentorResource::collection(
+                Mentor::where('status', true)->paginate($request->get('recordsPerPage', 4))
+            ),
+            'statistics' => StatisticResource::collection(Statistic::all()),
+            'reviews' => ReviewResource::collection(
+                Review::where('status', true)->paginate($request->get('recordsPerPage', 2))
+            ),
+            'partners' => PartnerResource::collection(Partner::all()),
+            'articles' => ArticleResource::collection(
+                Article::where('type_id', 1)->latest('created_at')->take(2)->get()
+            ),
+            'referal_price' => config('settings.referal_price', '5000 р'),
+        ]);
     }
 }

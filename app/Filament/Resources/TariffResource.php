@@ -37,6 +37,7 @@ class TariffResource extends Resource
                 Forms\Components\TextInput::make('installment')
                     ->label('Рассрочка')
                     ->required()
+                    ->numeric()
                     ->maxLength(255),
                 Forms\Components\Repeater::make('detailed_description')
                     ->label('Услуги, входящие в тариф')
@@ -65,7 +66,7 @@ class TariffResource extends Resource
                     ->tooltip(fn($record) => $record->text), // Явно указываем, что это за текст
                 Tables\Columns\TextColumn::make('price')
                     ->label('Цена'),
-                Tables\Columns\BooleanColumn::make('installment')
+                Tables\Columns\TextColumn::make('installment')
                     ->label('Рассрочка'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Дата создания')

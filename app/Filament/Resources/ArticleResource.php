@@ -56,6 +56,7 @@ class ArticleResource extends Resource
 
                 Forms\Components\Textarea::make('short_text')
                     ->label('Краткий текст')
+                    ->required()
                     ->maxLength(500)
                     ->default(fn($get) => $get('record.short_text')),
 
@@ -66,7 +67,14 @@ class ArticleResource extends Resource
 
                 Forms\Components\FileUpload::make('picture')
                     ->label('Изображение')
+                    ->required()
                     ->image()
+                    ->previewable(true) // Включает предпросмотр
+            ->preserveFilenames()
+            ->store(function ($file) {
+                // Указываем, что файл нужно сохранить в public диск и папку 'after'
+                return $file->store('article', 'public');
+            })
                     ->default(fn($get) => $get('record.picture')),
 
                 Select::make('type_id')

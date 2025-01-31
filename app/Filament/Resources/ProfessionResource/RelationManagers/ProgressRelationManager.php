@@ -23,12 +23,10 @@ class ProgressRelationManager extends RelationManager
             ->schema([
                 Forms\Components\FileUpload::make('before')
                     ->required()
-                    ->image()
-                    ->maxLength(255),
+                    ->image(),
                     Forms\Components\FileUpload::make('after')
                     ->required()
-                    ->image()
-                    ->maxLength(255),
+                    ->image(),
                     Forms\Components\Select::make('profession') // Поле для выбора нескольких тегов
                     ->label('профессия')
                     ->options(Profession::query()->pluck('name_profession', 'id_profession')) // Список тегов

@@ -31,28 +31,34 @@ class CareerResource extends Resource
 
                 Forms\Components\Textarea::make('hh')
                     ->label('Вакансии HH.ru')
+                    ->required()
                     ->nullable(),
 
                 Forms\Components\Textarea::make('habr')
                     ->label('Вакансии Habr')
+                    ->required()
                     ->nullable(),
 
                 Forms\Components\Textarea::make('freelance')
                     ->label('Заказы на фрилансе')
+                    ->required()
                     ->nullable(),
 
                 Forms\Components\TextInput::make('start_vage')
                     ->label('Зарплата на старте')
+                    ->required()
                     ->numeric()
                     ->nullable(),
 
                 Forms\Components\TextInput::make('one_year_vage')
                     ->label('Зарплата после 1 года')
+                    ->required()
                     ->numeric()
                     ->nullable(),
 
                 Forms\Components\TextInput::make('three_year_vage')
                     ->label('Зарплата после 3 лет')
+                    ->required()
                     ->numeric()
                     ->nullable(),
 

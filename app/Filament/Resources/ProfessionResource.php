@@ -50,26 +50,43 @@ class ProfessionResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('place')
                     ->label('Количество мест')
+                    ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('period')
                     ->label('Период обучения')
+                    ->required()
                     ->maxLength(255),
                 Forms\Components\DatePicker::make('start_of_training')
                     ->label('Дата начала обучения')
                     ->required(),
                 Forms\Components\TextInput::make('description')
                     ->label('Описание')
+                    ->required()
                     ->maxLength(500),
                 Forms\Components\FileUpload::make('image')
                     ->label('Изображение')
+                    ->required()
+                    ->previewable(true) // Включает предпросмотр
+            ->preserveFilenames()
+            ->store(function ($file) {
+                // Указываем, что файл нужно сохранить в public диск и папку 'after'
+                return $file->store('profession/image', 'public');
+            })
                     ->image(),
                 Forms\Components\FileUpload::make('miniimage')
                     ->label('Мини-изображение')
+                    ->required()
+                    ->previewable(true) // Включает предпросмотр
+                    ->store(function ($file) {
+                        // Указываем, что файл нужно сохранить в public диск и папку 'after'
+                        return $file->store('profession/mini_image', 'public');
+                    })
+            ->preserveFilenames()
                     ->image(),
-                Forms\Components\BelongsToSelect::make('id_career')
+                /*Forms\Components\BelongsToSelect::make('id_career')
                     ->relationship('career', 'name')
                     ->label('Карьера')
-                    ->required(),
+                    ->required(),*/
                 Forms\Components\BelongsToSelect::make('id_color')
                     ->relationship('color', 'name')
                     ->label('Цвет')
@@ -94,6 +111,7 @@ class ProfessionResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('skilltext')
                     ->label('Текст навыков')
+                    ->required()
                     ->maxLength(500)
                     ->placeholder('Введите описание навыков'),
                 // SEO поля

@@ -26,6 +26,12 @@ class FirstImageResource extends Resource
                 Forms\Components\FileUpload::make('image')
                     ->label('Изображение')
                     ->image()
+                    ->previewable(true) // Включает предпросмотр
+            ->preserveFilenames()
+            ->store(function ($file) {
+                // Указываем, что файл нужно сохранить в public диск и папку 'after'
+                return $file->store('first_image', 'public');
+            })
                     ->required(),
             ]);
     }

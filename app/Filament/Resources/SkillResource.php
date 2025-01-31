@@ -32,6 +32,7 @@ class SkillResource extends Resource
                 Forms\Components\Select::make('profession_id')
                     ->label('Профессия')
                     ->options(Profession::all()->pluck('name_profession', 'id_profession')->toArray())
+                    ->required()
                     ->searchable()
                     ->nullable(),
             ]);
