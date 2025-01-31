@@ -27,9 +27,9 @@ class PartnerResource extends Resource
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('logo_partners')
                     ->label('Логотип')
-                    ->required()
+                    
                     ->image()
-                    ->previewable(true) // Включает предпросмотр
+                    ->imagePreviewHeight(150)
             ->preserveFilenames()
             ->store(function ($file) {
                 // Указываем, что файл нужно сохранить в public диск и папку 'after'

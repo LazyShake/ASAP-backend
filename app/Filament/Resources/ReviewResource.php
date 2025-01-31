@@ -29,8 +29,7 @@ class ReviewResource extends Resource
                     ->required(),
                 Forms\Components\FileUpload::make('picture')
                     ->label('Фото отзыва')
-                    ->required()
-                    ->previewable(true) // Включает предпросмотр
+                    ->imagePreviewHeight(150)
             ->preserveFilenames()
             ->store(function ($file) {
                 // Указываем, что файл нужно сохранить в public диск и папку 'after'
