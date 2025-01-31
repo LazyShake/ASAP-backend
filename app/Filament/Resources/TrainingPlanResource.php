@@ -27,10 +27,8 @@ class TrainingPlanResource extends Resource
                     ->image()
                     ->imagePreviewHeight(150)
                     ->preserveFilenames()
-                    ->store(function ($file) {
-                        // Указываем, что файл нужно сохранить в public диск и папку 'after'
-                        return $file->store('training_plan', 'public');
-                    }),
+                    ->disk('public') // Указываем диск
+    ->directory('training_plan') ,
             ]);
     }
 

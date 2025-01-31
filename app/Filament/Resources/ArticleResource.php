@@ -71,10 +71,8 @@ class ArticleResource extends Resource
                     ->image()
                     ->previewable(true) // Включает предпросмотр
             ->preserveFilenames()
-            ->store(function ($file) {
-                // Указываем, что файл нужно сохранить в public диск и папку 'after'
-                return $file->store('article', 'public');
-            })
+            ->disk('public') // Указываем диск
+    ->directory('article') 
                     ->default(fn($get) => $get('record.picture')),
 
                 Select::make('type_id')

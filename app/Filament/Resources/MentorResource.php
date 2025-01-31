@@ -46,10 +46,8 @@ class MentorResource extends Resource
                     
                     ->imagePreviewHeight(150)
             ->preserveFilenames()
-            ->store(function ($file) {
-                // Указываем, что файл нужно сохранить в public диск и папку 'after'
-                return $file->store('mentor', 'public');
-            })
+            ->disk('public') // Указываем диск
+    ->directory('mentor') 
                     ->image(),
 
                 Toggle::make('status')

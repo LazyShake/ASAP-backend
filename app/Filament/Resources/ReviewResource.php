@@ -31,10 +31,8 @@ class ReviewResource extends Resource
                     ->label('Фото отзыва')
                     ->imagePreviewHeight(150)
             ->preserveFilenames()
-            ->store(function ($file) {
-                // Указываем, что файл нужно сохранить в public диск и папку 'after'
-                return $file->store('review', 'public');
-            })
+            ->disk('public') // Указываем диск
+    ->directory('review') 
                     ->image(),
                 Forms\Components\TextInput::make('video')
                     ->label('Ссылка на видео')
