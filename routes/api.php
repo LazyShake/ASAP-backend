@@ -58,15 +58,5 @@ Route::get('/articles', [PageController::class, 'getRecentArticles']);
 // Получить список профессий
 Route::get('/professions', [PageController::class, 'index']);
 
-Route::prefix('main')->group(function () {
-    Route::get('/first_screen', [MainPageController::class, 'firstScreen']);
-    Route::get('/professions', [MainPageController::class, 'professions']);
-    Route::get('/tariff', [MainPageController::class, 'tariffPrice']);
-    Route::get('/professions/{slug}/mini_images', [MainPageController::class, 'professionImages']);
-    Route::get('/mentors', [MainPageController::class, 'mentors']);
-    Route::get('/statistics', [MainPageController::class, 'statistics']);
-    Route::get('/reviews', [MainPageController::class, 'reviews']);
-    Route::get('/partners', [MainPageController::class, 'partners']);
-    Route::get('/articles', [MainPageController::class, 'articles']);
-    Route::get('/referal_price', [MainPageController::class, 'referalPrice']);
-});
+Route::get('/main', [MainPageController::class, 'mainPageData']);
+

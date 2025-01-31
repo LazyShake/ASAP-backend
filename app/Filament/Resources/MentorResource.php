@@ -43,6 +43,13 @@ class MentorResource extends Resource
 
                 Forms\Components\FileUpload::make('picture')
                     ->label('Изображение')
+                    ->required()
+                    ->previewable(true) // Включает предпросмотр
+            ->preserveFilenames()
+            ->store(function ($file) {
+                // Указываем, что файл нужно сохранить в public диск и папку 'after'
+                return $file->store('mentor', 'public');
+            })
                     ->image(),
 
                 Toggle::make('status')

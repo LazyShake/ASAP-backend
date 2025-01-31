@@ -29,6 +29,13 @@ class ReviewResource extends Resource
                     ->required(),
                 Forms\Components\FileUpload::make('picture')
                     ->label('Фото отзыва')
+                    ->required()
+                    ->previewable(true) // Включает предпросмотр
+            ->preserveFilenames()
+            ->store(function ($file) {
+                // Указываем, что файл нужно сохранить в public диск и папку 'after'
+                return $file->store('review', 'public');
+            })
                     ->image(),
                 Forms\Components\TextInput::make('video')
                     ->label('Ссылка на видео')
@@ -38,6 +45,7 @@ class ReviewResource extends Resource
                     ->label('Профессия')
                     ->options(Profession::all()->pluck('name_profession', 'id_profession')->toArray())
                     ->searchable()
+                    ->required()
                     ->nullable(),
                 Forms\Components\TextInput::make('owner')
                     ->label('Автор отзыва')

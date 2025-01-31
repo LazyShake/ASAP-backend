@@ -28,9 +28,17 @@ class TrackerResource extends Resource
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('picture')
                     ->label('Фото')
+                    ->required()
+                    ->previewable(true) // Включает предпросмотр
+                    ->preserveFilenames()
+                    ->store(function ($file) {
+                        // Указываем, что файл нужно сохранить в public диск и папку 'after'
+                        return $file->store('picture', 'public');
+                    })
                     ->image(),
                 Forms\Components\Textarea::make('description')
                     ->label('Описание')
+                    ->required()
                     ->nullable(),
             ]);
     }
@@ -46,7 +54,7 @@ class TrackerResource extends Resource
                 Tables\Columns\TextColumn::make('description')
                     ->label('Описание')
                     ->limit(50)
-                    ->tooltip(fn ($record) => $record->text), // Явно указываем, что это за текст
+                    ->tooltip(fn($record) => $record->text), // Явно указываем, что это за текст
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Дата создания')
                     ->dateTime('d.m.Y H:i'),

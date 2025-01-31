@@ -46,12 +46,6 @@ class ProgramsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('name_module')
                     ->label('Название модуля')
                     ->sortable(),
-                    Tables\Columns\TextColumn::make('content_module')
-                    ->label('Контент')
-                    ->formatStateUsing(fn($state) => $state 
-                        ? implode(', ', collect(json_decode($state, true))->pluck('text')->toArray()) 
-                        : null) // Декодируем JSON, извлекаем 'text' и объединяем в строку
-                    ->limit(50), // Ограничиваем длину отображаемого текста
                 Tables\Columns\TextColumn::make('number_module')
                     ->label('Номер модуля')
                     ->sortable(),
