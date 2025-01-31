@@ -21,7 +21,7 @@ class Program extends Model
         'number_module',
     ];
 
-    protected static function booted()
+    /*protected static function booted()
 {
     static::deleting(function ($program) {
         $relations = [
@@ -52,7 +52,7 @@ class Program extends Model
         }
     });
     
-}
+}*/
 
     protected $casts = [
         'content_module' => 'array', // Автоматическое преобразование JSON в массив и обратно
