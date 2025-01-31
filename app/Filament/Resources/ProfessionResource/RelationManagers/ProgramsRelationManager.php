@@ -22,16 +22,27 @@ class ProgramsRelationManager extends RelationManager
                     ->label('Название модуля')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Repeater::make('content_module')
+                    Forms\Components\Repeater::make('content_module')
                     ->label('Контент модуля')
                     ->schema([
-                        Forms\Components\TextInput::make('text')
-                            ->label('Текст')
+                        Forms\Components\TextInput::make('title')
+                            ->label('Заголовок')
                             ->required()
                             ->maxLength(255),
+                
+                        Forms\Components\Repeater::make('sub_items')
+                            ->label('Подэлементы')
+                            ->schema([
+                                Forms\Components\TextInput::make('text')
+                                    ->label('Текст')
+                                    ->required()
+                                    ->maxLength(255),
+                            ])
+                            ->createItemButtonLabel('Добавить подэлемент')
+                            ->columns(1), // Вложенные элементы тоже идут в столбик
                     ])
-                    ->columns(1) // Элементы будут выстраиваться в столбик
-                    ->createItemButtonLabel('Добавить текст'),
+                    ->columns(1) // Основные элементы в столбик
+                    ->createItemButtonLabel('Добавить модуль'),
                 Forms\Components\TextInput::make('number_module')
                     ->label('Номер модуля')
                     ->numeric()
