@@ -50,7 +50,7 @@ Route::get('/professions/{slug}', [ProfessionController::class, 'show'])->name('
 Route::get('/blog', [PageController::class, 'index']);
 
 // Получить конкретную статью
-Route::get('/blog/articles/{slug}', [PageController::class, 'getArticle'])->name('');
+//Route::get('/blog/articles/{slug}', [PageController::class, 'getArticle'])->name('');
 
 // Получить 3 последние статьи
 Route::get('/articles', [PageController::class, 'getRecentArticles']);
