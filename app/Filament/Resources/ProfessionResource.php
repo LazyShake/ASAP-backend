@@ -68,19 +68,15 @@ class ProfessionResource extends Resource
                     
                     ->imagePreviewHeight(150)
             ->preserveFilenames()
-            ->store(function ($file) {
-                // Указываем, что файл нужно сохранить в public диск и папку 'after'
-                return $file->store('profession/image', 'public');
-            })
+            ->disk('public') // Указываем диск
+    ->directory('profession/image') 
                     ->image(),
                 Forms\Components\FileUpload::make('miniimage')
                     ->label('Мини-изображение')
                     
                     ->imagePreviewHeight(150)
-                    ->store(function ($file) {
-                        // Указываем, что файл нужно сохранить в public диск и папку 'after'
-                        return $file->store('profession/mini_image', 'public');
-                    })
+                    ->disk('public') // Указываем диск
+    ->directory('profession/mini_image') 
             ->preserveFilenames()
                     ->image(),
                 /*Forms\Components\BelongsToSelect::make('id_career')

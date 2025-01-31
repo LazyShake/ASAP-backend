@@ -31,10 +31,8 @@ class TrackerResource extends Resource
                     
                     ->imagePreviewHeight(150)
                     ->preserveFilenames()
-                    ->store(function ($file) {
-                        // Указываем, что файл нужно сохранить в public диск и папку 'after'
-                        return $file->store('picture', 'public');
-                    })
+                    ->disk('public') // Указываем диск
+    ->directory('tracker') 
                     ->image(),
                 Forms\Components\Textarea::make('description')
                     ->label('Описание')

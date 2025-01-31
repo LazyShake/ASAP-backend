@@ -35,20 +35,16 @@ class ProgressResource extends Resource
                     ->label('До')
                     ->imagePreviewHeight(150)
                     ->preserveFilenames()
-                    ->store(function ($file) {
-                        // Указываем, что файл нужно сохранить в public диск и папку 'after'
-                        return $file->store('before', 'public');
-                    })
+                    ->disk('public') // Указываем диск
+    ->directory('before') 
                     ->image(),
 
                 FileUpload::make('after')
                     ->label('После')
                     ->imagePreviewHeight(150)
                     ->preserveFilenames()
-                    ->store(function ($file) {
-                        // Указываем, что файл нужно сохранить в public диск и папку 'after'
-                        return $file->store('after', 'public');
-                    })
+                    ->disk('public') // Указываем диск
+    ->directory('after') 
                     ->image(),
 
                 Select::make('id_profession')
