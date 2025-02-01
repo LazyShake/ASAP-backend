@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Carbon\Carbon;
 
 class ArticleResource extends JsonResource
 {
@@ -23,7 +24,8 @@ class ArticleResource extends JsonResource
             'link' => $this->link, // Ссылка на полную статью
             'owner_name' => $this->owner_name, // Имя владельца статьи
             'owner_picture' => $this->owner_picture, // Фото владельца
-            'date' => $this->date, // Дата публикации
+            'created_at' => Carbon::parse($this->created_at)->translatedFormat('j F Y'), // Дата создания
+            'updated_at' => Carbon::parse($this->updated_at)->translatedFormat('j F Y'), // Дата обновления
         ];
     }
 }

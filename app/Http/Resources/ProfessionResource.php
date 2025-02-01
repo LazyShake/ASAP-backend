@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Carbon\Carbon;
 
 class ProfessionResource extends JsonResource
 {
@@ -21,7 +22,7 @@ class ProfessionResource extends JsonResource
             'description' => $this->description,
             'price' => "От {$this->price} ₽",
             'period' => $this->period,
-            'start_of_training' => $this->start_of_training,
+            'start_of_training' => Carbon::parse($this->start_of_training)->translatedFormat('j F Y'),
             'place' => $this->place,
             'type' => $this->typeProfession->name_type ?? null,
             'mini_images' => $this->miniimage,
