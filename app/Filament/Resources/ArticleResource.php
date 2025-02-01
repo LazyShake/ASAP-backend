@@ -140,8 +140,8 @@ class ArticleResource extends Resource
                     ->placeholder('Выберите теги или создайте новый')
                     ->createOptionForm([
                         Forms\Components\TextInput::make('name_tag')->required(),
-                    ])
-                    ->default(fn($get) => $get('record.tags')->pluck('id_tag')->toArray()), // Привязка к значениям из модели
+                    ]),
+                    //->default(fn($get) => $get('record.tags')->pluck('id_tag')->toArray()), // Привязка к значениям из модели
 
                 Forms\Components\TextInput::make('link')
                     ->label('Ссылка')
