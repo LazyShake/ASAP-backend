@@ -27,11 +27,11 @@ class ProgressRelationManager extends RelationManager
                     Forms\Components\FileUpload::make('after')
                     ->required()
                     ->image(),
-                    Forms\Components\Select::make('profession') // Поле для выбора нескольких тегов
+                    /*Forms\Components\Select::make('profession') // Поле для выбора нескольких тегов
                     ->label('профессия')
                     ->options(Profession::query()->pluck('name_profession', 'id_profession')) // Список тегов
                     ->searchable() // Позволяет искать по тегам
-                    ->placeholder('Выберите профессии'),
+                    ->placeholder('Выберите профессии'),*/
             ]);
     }
 
