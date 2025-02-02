@@ -29,12 +29,12 @@ class SkillResource extends Resource
                     ->label('Название навыка')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Select::make('profession_id')
+                /*Forms\Components\Select::make('profession_id')
                     ->label('Профессия')
                     ->options(Profession::all()->pluck('name_profession', 'id_profession')->toArray())
                     ->required()
                     ->searchable()
-                    ->nullable(),
+                    ->nullable(),*/
             ]);
     }
 
@@ -44,16 +44,16 @@ class SkillResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Название'),
-                Tables\Columns\TextColumn::make('profession.name_profession')
-                    ->label('Профессия'),
+                /*Tables\Columns\TextColumn::make('profession.name_profession')
+                    ->label('Профессия'),*/
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Дата создания')
                     ->dateTime('d.m.Y H:i'),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('profession_id')
+                /*Tables\Filters\SelectFilter::make('profession_id')
                     ->label('Профессия')
-                    ->options(Profession::all()->pluck('name_profession', 'id')->toArray()),
+                    ->options(Profession::all()->pluck('name_profession', 'id')->toArray()),*/
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

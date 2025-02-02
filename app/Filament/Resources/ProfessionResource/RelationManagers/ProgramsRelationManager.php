@@ -14,6 +14,10 @@ class ProgramsRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'name_module';
 
+    protected static ?string $title = 'Программа';
+protected static ?string $pluralTitle = 'Программы';
+
+
     public static function form(Form $form): Form
     {
         return $form

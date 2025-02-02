@@ -16,11 +16,16 @@ class ColorRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    protected static ?string $title = 'Цвет';
+protected static ?string $pluralTitle = 'Цвета';
+
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                ->lable('Название')
                     ->required()
                     ->maxLength(255),
             ]);
