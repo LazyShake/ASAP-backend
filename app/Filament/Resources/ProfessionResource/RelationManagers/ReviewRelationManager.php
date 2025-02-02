@@ -14,6 +14,10 @@ class ReviewRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'owner';
 
+    protected static ?string $title = 'Отзыв';
+protected static ?string $pluralTitle = 'Отзывы';
+
+
     public static function form(Form $form): Form
     {
         return $form

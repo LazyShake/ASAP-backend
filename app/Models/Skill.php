@@ -21,7 +21,7 @@ class Skill extends Model
         'name',
     ];
 
-    protected static function booted()
+    /*protected static function booted()
 {
     static::deleting(function ($skill) {
         // Проверяем, есть ли связанные профессии
@@ -41,7 +41,7 @@ class Skill extends Model
         }
     });
     
-}
+}*/
 
 
     // Указать, что timestamps присутствуют

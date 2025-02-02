@@ -16,11 +16,16 @@ class SkillsRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    protected static ?string $title = 'Навык';
+protected static ?string $pluralTitle = 'Навыки';
+
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                ->lable('Название')
                     ->required()
                     ->maxLength(255),
             ]);

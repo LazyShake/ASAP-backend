@@ -14,6 +14,10 @@ class CareerRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    protected static ?string $title = 'Карьера';
+protected static ?string $pluralTitle = 'Карьеры';
+
+
     public static function form(Form $form): Form
     {
         return $form

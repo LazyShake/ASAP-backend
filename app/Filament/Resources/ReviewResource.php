@@ -28,7 +28,7 @@ class ReviewResource extends Resource
                     ->label('Текст отзыва')
                     ->required(),
                 Forms\Components\FileUpload::make('picture')
-                    ->label('Фото отзыва')
+                    ->label('Изображение')
                     ->imagePreviewHeight(150)
             ->preserveFilenames()
             ->disk('public') // Указываем диск

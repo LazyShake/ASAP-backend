@@ -16,11 +16,16 @@ class TypeProfessionRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'name_type';
 
+    protected static ?string $title = 'Тип профессии';
+protected static ?string $pluralTitle = 'Типы профессии';
+
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name_type')
+                ->lable('Название типа')
                     ->required()
                     ->maxLength(255),
             ]);

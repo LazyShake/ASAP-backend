@@ -17,14 +17,20 @@ class ProgressRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'before';
 
+    protected static ?string $title = 'Прогресс';
+protected static ?string $pluralTitle = 'Прогресс';
+
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\FileUpload::make('before')
+                ->lable('До')
                     ->required()
                     ->image(),
                     Forms\Components\FileUpload::make('after')
+                    ->lable('После')
                     ->required()
                     ->image(),
                     /*Forms\Components\Select::make('profession') // Поле для выбора нескольких тегов

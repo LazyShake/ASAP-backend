@@ -14,6 +14,10 @@ class MentorRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'name_mentors';
 
+    protected static ?string $title = 'Ментор';
+protected static ?string $pluralTitle = 'Менторы';
+
+
     public static function form(Form $form): Form
     {
         return $form
