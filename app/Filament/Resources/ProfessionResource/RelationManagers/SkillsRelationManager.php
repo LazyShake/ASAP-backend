@@ -25,7 +25,7 @@ protected static ?string $pluralTitle = 'Навыки';
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                ->lable('Название')
+                ->label('Название')
                     ->required()
                     ->maxLength(255),
             ]);
