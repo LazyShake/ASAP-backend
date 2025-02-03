@@ -26,7 +26,8 @@ class SEOPageResource extends Resource
                 Forms\Components\TextInput::make('page_name')
                     ->label('Название страницы')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->disabled(),
                 Forms\Components\TextInput::make('SEO_title')
                     ->label('SEO Заголовок')
                     ->maxLength(255),
@@ -65,7 +66,6 @@ class SEOPageResource extends Resource
     {
         return [
             'index' => SEOPageResource\Pages\ListSEOPages::route('/'),
-            'create' => SEOPageResource\Pages\CreateSEOPage::route('/create'),
             'edit' => SEOPageResource\Pages\EditSEOPage::route('/{record}/edit'),
         ];
     }

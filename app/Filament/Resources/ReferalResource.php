@@ -51,7 +51,7 @@ class ReferalResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                
             ]);
     }
 
@@ -59,7 +59,6 @@ class ReferalResource extends Resource
     {
         return [
             'index' => Pages\ListReferals::route('/'),
-            'create' => Pages\CreateReferal::route('/create'),
             'edit' => Pages\EditReferal::route('/{record}/edit'),
         ];
     }

@@ -45,7 +45,6 @@ class TestResource extends Resource
     {
         return [
             'index' => Pages\ListTests::route('/'),
-            'create' => Pages\CreateTest::route('/create'),
             'edit' => Pages\EditTest::route('/{record}/edit'),
         ];
     }
