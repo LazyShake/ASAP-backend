@@ -56,10 +56,10 @@ class SkillResource extends Resource
                     ->options(Profession::all()->pluck('name_profession', 'id')->toArray()),*/
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()->label('Удалить'),
             ]);
     }
 
@@ -67,8 +67,8 @@ class SkillResource extends Resource
     {
         return [
             'index' => Pages\ListSkills::route('/'),
-            'create' => Pages\CreateSkill::route('/create'),
-            'edit' => Pages\EditSkill::route('/{record}/edit'),
+            'Создать' => Pages\CreateSkill::route('/create'),
+            'Редактировать' => Pages\EditSkill::route('/{record}/edit'),
         ];
     }
 }

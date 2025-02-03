@@ -62,10 +62,11 @@ class ExampleLessonResource extends Resource
                     ->relationship('profession', 'name_profession'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()
+                ->label('Удалить'),
             ]);
     }
 
@@ -73,8 +74,8 @@ class ExampleLessonResource extends Resource
     {
         return [
             'index' => Pages\ListExampleLessons::route('/'),
-            'create' => Pages\CreateExampleLesson::route('/create'),
-            'edit' => Pages\EditExampleLesson::route('/{record}/edit'),
+            'Создать' => Pages\CreateExampleLesson::route('/create'),
+            'Редактировать' => Pages\EditExampleLesson::route('/{record}/edit'),
         ];
     }
 }

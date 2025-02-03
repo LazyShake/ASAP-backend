@@ -61,10 +61,10 @@ class TrackerResource extends Resource
                 // Можно добавить фильтры, если необходимо
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()->label('Удалить'),
             ]);
     }
 
@@ -72,8 +72,8 @@ class TrackerResource extends Resource
     {
         return [
             'index' => Pages\ListTrackers::route('/'),
-            'create' => Pages\CreateTracker::route('/create'),
-            'edit' => Pages\EditTracker::route('/{record}/edit'),
+            'Создать' => Pages\CreateTracker::route('/create'),
+            'Редактировать' => Pages\EditTracker::route('/{record}/edit'),
         ];
     }
 }

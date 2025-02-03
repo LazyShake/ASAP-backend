@@ -44,10 +44,10 @@ class TypeResource extends Resource
                 // Можно добавить фильтры, если необходимо
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()->label('Удалить'),
             ]);
     }
 
@@ -55,8 +55,8 @@ class TypeResource extends Resource
     {
         return [
             'index' => Pages\ListTypes::route('/'),
-            'create' => Pages\CreateType::route('/create'),
-            'edit' => Pages\EditType::route('/{record}/edit'),
+            'Создать' => Pages\CreateType::route('/create'),
+            'Редактировать' => Pages\EditType::route('/{record}/edit'),
         ];
     }
 }

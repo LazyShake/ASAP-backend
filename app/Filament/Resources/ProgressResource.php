@@ -72,11 +72,11 @@ class ProgressResource extends Resource
                 // Добавьте фильтры, если нужно
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
+                Tables\Actions\DeleteAction::make()->label('Удалить'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()->label('Удалить'),
             ]);
     }
 
@@ -91,8 +91,8 @@ class ProgressResource extends Resource
     {
         return [
             'index' => Pages\ListProgress::route('/'),
-            'create' => Pages\CreateProgress::route('/create'),
-            'edit' => Pages\EditProgress::route('/{record}/edit'),
+            'Создать' => Pages\CreateProgress::route('/create'),
+            'Редактировать' => Pages\EditProgress::route('/{record}/edit'),
         ];
     }
 }

@@ -91,11 +91,11 @@ class MentorResource extends Resource
                 // Добавьте фильтры, если требуется
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
+                Tables\Actions\DeleteAction::make()->label('Удалить'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()->label('Удалить'),
             ]);
     }
 
@@ -110,8 +110,8 @@ class MentorResource extends Resource
     {
         return [
             'index' => Pages\ListMentors::route('/'),
-            'create' => Pages\CreateMentor::route('/create'),
-            'edit' => Pages\EditMentor::route('/{record}/edit'),
+            'Создать' => Pages\CreateMentor::route('/create'),
+            'Редактировать' => Pages\EditMentor::route('/{record}/edit'),
         ];
     }
 }

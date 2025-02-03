@@ -86,10 +86,10 @@ class ProgramResource extends Resource
                     ->relationship('profession', 'name_profession'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()->label('Удалить'),
             ]);
     }
 
@@ -97,8 +97,8 @@ class ProgramResource extends Resource
     {
         return [
             'index' => Pages\ListPrograms::route('/'),
-            'create' => Pages\CreateProgram::route('/create'),
-            'edit' => Pages\EditProgram::route('/{record}/edit'),
+            'Создать' => Pages\CreateProgram::route('/create'),
+            'Редактировать' => Pages\EditProgram::route('/{record}/edit'),
         ];
     }
 }

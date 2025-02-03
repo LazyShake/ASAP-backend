@@ -76,10 +76,10 @@ class TariffResource extends Resource
                 // Можно добавить фильтры, если необходимо
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()->label('Удалить'),
             ]);
     }
 
@@ -87,8 +87,8 @@ class TariffResource extends Resource
     {
         return [
             'index' => Pages\ListTariffs::route('/'),
-            'create' => Pages\CreateTariff::route('/create'),
-            'edit' => Pages\EditTariff::route('/{record}/edit'),
+            'Создать' => Pages\CreateTariff::route('/create'),
+            'Редактировать' => Pages\EditTariff::route('/{record}/edit'),
         ];
     }
 }

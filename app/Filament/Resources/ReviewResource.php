@@ -102,10 +102,10 @@ class ReviewResource extends Resource
                     ->label('Отображать на главной'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()->label('Удалить'),
             ]);
     }
 
@@ -113,8 +113,8 @@ class ReviewResource extends Resource
     {
         return [
             'index' => Pages\ListReviews::route('/'),
-            'create' => Pages\CreateReview::route('/create'),
-            'edit' => Pages\EditReview::route('/{record}/edit'),
+            'Создать' => Pages\CreateReview::route('/create'),
+            'Редактировать' => Pages\EditReview::route('/{record}/edit'),
         ];
     }
 }

@@ -55,10 +55,10 @@ class SEOPageResource extends Resource
                     ->label('SEO Описание'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()->label('Удалить'),
             ]);
     }
 
@@ -66,7 +66,7 @@ class SEOPageResource extends Resource
     {
         return [
             'index' => SEOPageResource\Pages\ListSEOPages::route('/'),
-            'edit' => SEOPageResource\Pages\EditSEOPage::route('/{record}/edit'),
+            'Редактировать' => SEOPageResource\Pages\EditSEOPage::route('/{record}/edit'),
         ];
     }
 }
