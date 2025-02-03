@@ -41,7 +41,7 @@ class FirstImageResource extends Resource
                 Tables\Columns\ImageColumn::make('image')
                     ->label('Изображение')
                     ->disk('public') // Указываем диск
-                    ->url(fn($record) => asset('storage/first_image/' . $record->image)),
+                    ->url(fn($record) => asset('storage/' . $record->image)),
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->label('Редактировать'),
