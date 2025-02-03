@@ -229,10 +229,12 @@ class ArticleResource extends Resource
                     ->relationship('filter', 'name_filter'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                ->label('Редактировать'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()
+                ->label('Удалить'),
             ]);
     }
 
@@ -240,8 +242,8 @@ class ArticleResource extends Resource
     {
         return [
             'index' => Pages\ListArticles::route('/'),
-            'create' => Pages\CreateArticle::route('/create'),
-            'edit' => Pages\EditArticle::route('/{record}/edit'),
+            'Создать' => Pages\CreateArticle::route('/create'),
+            'Редактировать' => Pages\EditArticle::route('/{record}/edit'),
         ];
     }
 }

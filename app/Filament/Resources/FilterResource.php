@@ -60,10 +60,11 @@ class FilterResource extends Resource
                     }),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()
+                ->label('Удалить'),
             ]);
     }
 
@@ -71,8 +72,8 @@ class FilterResource extends Resource
     {
         return [
             'index' => Pages\ListFilters::route('/'),
-            'create' => Pages\CreateFilter::route('/create'),
-            'edit' => Pages\EditFilter::route('/{record}/edit'),
+            'Создать' => Pages\CreateFilter::route('/create'),
+            'Редактировать' => Pages\EditFilter::route('/{record}/edit'),
         ];
     }
 }

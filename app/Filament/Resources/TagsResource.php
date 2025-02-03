@@ -42,10 +42,10 @@ class TagsResource extends Resource
                     ->dateTime('d.m.Y H:i'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()->label('Удалить'),
             ]);
     }
 
@@ -53,8 +53,8 @@ class TagsResource extends Resource
     {
         return [
             'index' => Pages\ListTags::route('/'),
-            'create' => Pages\CreateTags::route('/create'),
-            'edit' => Pages\EditTags::route('/{record}/edit'),
+            'Создать' => Pages\CreateTags::route('/create'),
+            'Редактировать' => Pages\EditTags::route('/{record}/edit'),
         ];
     }
 }

@@ -105,10 +105,11 @@ class CareerResource extends Resource
                 // Добавить фильтры, если нужно
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()
+                ->label('Удалить'),
             ]);
     }
 
@@ -116,8 +117,8 @@ class CareerResource extends Resource
     {
         return [
             'index' => Pages\ListCareers::route('/'),
-            'create' => Pages\CreateCareer::route('/create'),
-            'edit' => Pages\EditCareer::route('/{record}/edit'),
+            'Создать' => Pages\CreateCareer::route('/create'),
+            'Редактировать' => Pages\EditCareer::route('/{record}/edit'),
         ];
     }
 }

@@ -48,7 +48,7 @@ class ReferalResource extends Resource
             ])
             ->filters([])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
             ])
             ->bulkActions([
                 
@@ -59,7 +59,7 @@ class ReferalResource extends Resource
     {
         return [
             'index' => Pages\ListReferals::route('/'),
-            'edit' => Pages\EditReferal::route('/{record}/edit'),
+            'Редактировать' => Pages\EditReferal::route('/{record}/edit'),
         ];
     }
 }

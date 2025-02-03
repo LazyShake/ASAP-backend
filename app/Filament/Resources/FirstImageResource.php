@@ -38,7 +38,7 @@ class FirstImageResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image')->label('Изображение'),
+                Tables\Columns\ImageColumn::make('image')->label('Изображение')->label('Удалить'),
             ])
             ->filters([]);
     }
@@ -47,7 +47,7 @@ class FirstImageResource extends Resource
     {
         return [
             'index' => Pages\ListFirstImages::route('/'),
-            'edit' => Pages\EditFirstImage::route('/{record}/edit'),
+            'Редактировать' => Pages\EditFirstImage::route('/{record}/edit'),
         ];
     }
 }

@@ -46,7 +46,7 @@ class TrainingPlanResource extends Resource
                 // Можно добавить фильтры, если необходимо
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
             ])
             ->bulkActions([
             ]);
@@ -56,7 +56,7 @@ class TrainingPlanResource extends Resource
     {
         return [
             'index' => Pages\ListTrainingPlans::route('/'),
-            'edit' => Pages\EditTrainingPlan::route('/{record}/edit'),
+            'Редактировать' => Pages\EditTrainingPlan::route('/{record}/edit'),
         ];
     }
 }

@@ -43,10 +43,11 @@ class ColorResource extends Resource
                 // Добавить фильтры, если нужно
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()
+                ->label('Удалить'),
             ]);
     }
 
@@ -54,8 +55,8 @@ class ColorResource extends Resource
     {
         return [
             'index' => Pages\ListColors::route('/'),
-            'create' => Pages\CreateColor::route('/create'),
-            'edit' => Pages\EditColor::route('/{record}/edit'),
+            'Создать' => Pages\CreateColor::route('/create'),
+            'Редактировать' => Pages\EditColor::route('/{record}/edit'),
         ];
     }
 }

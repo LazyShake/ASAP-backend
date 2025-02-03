@@ -44,10 +44,10 @@ class TypeProfessionResource extends Resource
                 // Можно добавить фильтры, если необходимо
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()->label('Удалить'),
             ]);
     }
 
@@ -55,8 +55,8 @@ class TypeProfessionResource extends Resource
     {
         return [
             'index' => Pages\ListTypeProfessions::route('/'),
-            'create' => Pages\CreateTypeProfession::route('/create'),
-            'edit' => Pages\EditTypeProfession::route('/{record}/edit'),
+            'Создать' => Pages\CreateTypeProfession::route('/create'),
+            'Редактировать' => Pages\EditTypeProfession::route('/{record}/edit'),
         ];
     }
 }

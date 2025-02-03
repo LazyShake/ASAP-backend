@@ -101,13 +101,14 @@ protected static ?string $pluralTitle = 'Карьеры';
             ->headerActions([
                 Tables\Actions\CreateAction::make()
                     ->visible(fn ($livewire) => !$livewire->getRelationship()->exists()) // Скрываем кнопку, если есть запись
+                    ->label('Создать'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
+                Tables\Actions\DeleteAction::make()->label('Удалить'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()->label('Удалить'),
             ]);
     }
 }
