@@ -27,11 +27,12 @@ class FirstImageResource extends Resource
                     ->label('Изображение')
                     ->image()
                     ->imagePreviewHeight(150)
-            ->preserveFilenames()
-            ->disk('public') // Указываем диск
-    ->directory('first_image') 
-    ->visibility('public')
-                    
+                    ->maxSize(10240) // Ограничение в 10MB
+                    ->preserveFilenames()
+                    ->disk('public') // Указываем диск
+                    ->directory('first_image')
+                    ->visibility('public')
+
             ]);
     }
 
