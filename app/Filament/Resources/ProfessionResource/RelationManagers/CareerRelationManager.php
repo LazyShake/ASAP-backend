@@ -99,7 +99,8 @@ protected static ?string $pluralTitle = 'Карьеры';
             ])
             ->defaultSort('name') // Сортировка по умолчанию по названию
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                    ->visible(fn ($livewire) => !$livewire->getRelationship()->exists()) // Скрываем кнопку, если есть запись
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

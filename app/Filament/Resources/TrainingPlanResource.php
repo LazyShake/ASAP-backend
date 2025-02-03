@@ -49,7 +49,6 @@ class TrainingPlanResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 
@@ -57,7 +56,6 @@ class TrainingPlanResource extends Resource
     {
         return [
             'index' => Pages\ListTrainingPlans::route('/'),
-            'create' => Pages\CreateTrainingPlan::route('/create'),
             'edit' => Pages\EditTrainingPlan::route('/{record}/edit'),
         ];
     }

@@ -47,7 +47,6 @@ class FirstImageResource extends Resource
     {
         return [
             'index' => Pages\ListFirstImages::route('/'),
-            'create' => Pages\CreateFirstImage::route('/create'),
             'edit' => Pages\EditFirstImage::route('/{record}/edit'),
         ];
     }

@@ -47,7 +47,6 @@ class StatisticResource extends Resource
     {
         return [
             'index' => Pages\ListStatistics::route('/'),
-            'create' => Pages\CreateStatistic::route('/create'),
             'edit' => Pages\EditStatistic::route('/{record}/edit'),
         ];
     }
