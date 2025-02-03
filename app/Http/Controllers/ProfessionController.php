@@ -47,7 +47,7 @@ class ProfessionController extends Controller
     return response()->json([
         'profession' => new ProfessionResource($profession),
         'trackers' => TrackerResource::collection($trackers),
-        'referals' => ReferalResource::collection(Referal::first()),
+        'referals' => new ReferalResource(Referal::first()),
         'tariffs' => TariffResource::collection($tariffs),
     ]);
 }
