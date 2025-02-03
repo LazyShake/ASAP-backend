@@ -32,7 +32,7 @@ class MainPageController extends Controller
             'professions' => ProfessionGeneralResource::collection(Profession::all()),
             'tariffs' => TariffResource::collection(Tariff::all()),
             'mentors' => MentorResource::collection(
-                Mentor::where('status', true)
+                Mentor::where('status', true)->paginate($request->get('recordsPerPage', 4))
             ),
             'statistics' => StatisticResource::collection(Statistic::all()),
             'reviews' => ReviewResource::collection(
