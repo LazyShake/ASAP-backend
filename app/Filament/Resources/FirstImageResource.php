@@ -29,7 +29,7 @@ class FirstImageResource extends Resource
                     ->imagePreviewHeight(150)
                     ->preserveFilenames()
                     ->disk('public') // Указываем диск
-                    ->directory('first_image')
+                    //->directory('first_image')
 
             ]);
     }
