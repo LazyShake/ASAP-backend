@@ -10,8 +10,18 @@ class CreateFilter extends CreateRecord
 {
     protected static string $resource = FilterResource::class;
 
-    protected function getButtonLabel(): string
+    protected function getCreateButtonLabel(): string
     {
-        return 'Создать';
+        return 'Добавить';
+    }
+
+    protected function getCreateAnotherButtonLabel(): string
+    {
+        return 'Добавить и создать еще';
+    }
+
+    protected function getCancelButtonLabel(): string
+    {
+        return 'Отменить';
     }
 }
