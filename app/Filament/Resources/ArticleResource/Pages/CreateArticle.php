@@ -18,4 +18,9 @@ class CreateArticle extends CreateRecord
 
         return $data;
     }
+
+    protected function getButtonLabel(): string
+    {
+        return 'Создать';
+    }
 }

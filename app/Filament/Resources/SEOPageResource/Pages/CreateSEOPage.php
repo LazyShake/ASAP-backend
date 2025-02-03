@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateSEOPage extends CreateRecord
 {
     protected static string $resource = SEOPageResource::class;
+
+    protected function getButtonLabel(): string
+    {
+        return 'Создать';
+    }
 }

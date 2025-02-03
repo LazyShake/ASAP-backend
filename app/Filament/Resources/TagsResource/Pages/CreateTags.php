@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateTags extends CreateRecord
 {
     protected static string $resource = TagsResource::class;
+
+    protected function getButtonLabel(): string
+    {
+        return 'Создать';
+    }
 }

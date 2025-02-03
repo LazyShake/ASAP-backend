@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateTypeProfession extends CreateRecord
 {
     protected static string $resource = TypeProfessionResource::class;
+
+    protected function getButtonLabel(): string
+    {
+        return 'Создать';
+    }
 }

@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateReferal extends CreateRecord
 {
     protected static string $resource = ReferalResource::class;
+
+    protected function getButtonLabel(): string
+    {
+        return 'Создать';
+    }
 }

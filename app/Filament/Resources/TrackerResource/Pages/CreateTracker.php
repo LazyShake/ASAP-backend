@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateTracker extends CreateRecord
 {
     protected static string $resource = TrackerResource::class;
+
+    protected function getButtonLabel(): string
+    {
+        return 'Создать';
+    }
 }
