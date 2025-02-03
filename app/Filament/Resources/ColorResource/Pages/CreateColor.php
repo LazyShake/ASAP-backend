@@ -9,9 +9,19 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateColor extends CreateRecord
 {
     protected static string $resource = ColorResource::class;
-    
-    protected function getButtonLabel(): string
+
+    protected function getCreateButtonLabel(): string
     {
-        return 'Создать';
+        return 'Добавить';
+    }
+
+    protected function getCreateAnotherButtonLabel(): string
+    {
+        return 'Добавить и создать еще';
+    }
+
+    protected function getCancelButtonLabel(): string
+    {
+        return 'Отменить';
     }
 }
