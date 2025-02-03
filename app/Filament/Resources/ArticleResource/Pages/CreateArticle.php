@@ -19,23 +19,17 @@ class CreateArticle extends CreateRecord
         return $data;
     }
 
-    protected function getActions(): array
-    {
-        return [
-            // Переопределяем стандартную кнопку "Create"
-            \Filament\Actions\Action::make('create')
-                ->label('Добавить') // Новый текст для кнопки
-                ->action(fn() => $this->create()),
+    protected function getFooterActions(): array
+{
+    return [
+        Filament\Actions\Action::make('create')
+            ->label('Добавить'),
+        
+        Filament\Actions\Action::make('createAndCreateAnother')
+            ->label('Добавить и создать еще'),
 
-            // Переопределяем кнопку "Create and Create Another"
-            \Filament\Actions\Action::make('createAndCreateAnother')
-                ->label('Добавить и создать еще') // Новый текст для кнопки
-                ->action(fn() => $this->createAndCreateAnother()),
-
-            // Переопределяем кнопку "Cancel"
-            \Filament\Actions\Action::make('cancel')
-                ->label('Отменить') // Новый текст для кнопки
-                ->action(fn() => $this->cancel()),
-        ];
-    }
+        Filament\Actions\Action::make('cancel')
+            ->label('Отменить'),
+    ];
+}
 }
