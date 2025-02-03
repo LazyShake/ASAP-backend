@@ -44,7 +44,7 @@ class MainPageController extends Controller
             'articles' => ArticleResource::collection(
                 Article::where('type_id', 1)->latest('created_at')->take(2)->get()
             ),
-            'referal_price' => ReferalResource::collection(Referal::all()),
+            'referal_price' => ReferalResource::collection(Referal::first()),
         ]);
     }
 }
