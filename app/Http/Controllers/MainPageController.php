@@ -11,6 +11,7 @@ use App\Http\Resources\ReviewResource;
 use App\Http\Resources\PartnerResource;
 use App\Http\Resources\ArticleResource;
 use App\Http\Resources\TariffResource;
+use App\Http\Resources\ReferalResource;
 use App\Models\FirstImage;
 use App\Models\Profession;
 use App\Models\Tariff;
@@ -20,6 +21,7 @@ use App\Models\Review;
 use App\Models\Partner;
 use App\Models\Article;
 use App\Models\SEOPage;
+use App\Models\Referal;
 use Illuminate\Http\Request;
 
 class MainPageController extends Controller
@@ -42,7 +44,7 @@ class MainPageController extends Controller
             'articles' => ArticleResource::collection(
                 Article::where('type_id', 1)->latest('created_at')->take(2)->get()
             ),
-            'referal_price' => config('settings.referal_price', '5000 р'),
+            'referal_price' => ReferalResource::collection(Referal::all()),
         ]);
     }
 }
