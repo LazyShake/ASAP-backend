@@ -26,11 +26,11 @@ protected static ?string $pluralTitle = 'Прогресс';
         return $form
             ->schema([
                 Forms\Components\FileUpload::make('before')
-                ->lable('До')
+                ->label('До')
                     ->required()
                     ->image(),
                     Forms\Components\FileUpload::make('after')
-                    ->lable('После')
+                    ->label('После')
                     ->required()
                     ->image(),
                     /*Forms\Components\Select::make('profession') // Поле для выбора нескольких тегов

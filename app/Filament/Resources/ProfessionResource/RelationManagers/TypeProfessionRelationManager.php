@@ -25,7 +25,7 @@ protected static ?string $pluralTitle = 'Типы профессии';
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name_type')
-                ->lable('Название типа')
+                ->label('Название типа')
                     ->required()
                     ->maxLength(255),
             ]);
