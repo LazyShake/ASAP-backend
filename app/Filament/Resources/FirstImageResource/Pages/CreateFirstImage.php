@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateFirstImage extends CreateRecord
 {
     protected static string $resource = FirstImageResource::class;
+
+    protected function getButtonLabel(): string
+    {
+        return 'Создать';
+    }
 }

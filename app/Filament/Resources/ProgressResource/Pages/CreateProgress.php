@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateProgress extends CreateRecord
 {
     protected static string $resource = ProgressResource::class;
+
+    protected function getButtonLabel(): string
+    {
+        return 'Создать';
+    }
 }

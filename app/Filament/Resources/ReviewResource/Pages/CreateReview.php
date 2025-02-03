@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateReview extends CreateRecord
 {
     protected static string $resource = ReviewResource::class;
+
+    protected function getButtonLabel(): string
+    {
+        return 'Создать';
+    }
 }

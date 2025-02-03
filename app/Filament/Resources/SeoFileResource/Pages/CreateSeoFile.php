@@ -16,4 +16,9 @@ class CreateSeoFile extends CreateRecord
         // Обработка данных перед созданием записи
         return $data;
     }
+
+    protected function getButtonLabel(): string
+    {
+        return 'Создать';
+    }
 }

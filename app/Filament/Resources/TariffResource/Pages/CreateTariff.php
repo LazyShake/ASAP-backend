@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateTariff extends CreateRecord
 {
     protected static string $resource = TariffResource::class;
+
+    protected function getButtonLabel(): string
+    {
+        return 'Создать';
+    }
 }
