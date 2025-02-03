@@ -38,7 +38,13 @@ class FirstImageResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image')->label('Изображение')->label('Удалить'),
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('Изображение')
+                    ->disk('public') // Указываем диск
+                    ->url(fn($record) => asset('storage/first_image/' . $record->image)),
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make()->label('Редактировать'),
             ])
             ->filters([]);
     }
