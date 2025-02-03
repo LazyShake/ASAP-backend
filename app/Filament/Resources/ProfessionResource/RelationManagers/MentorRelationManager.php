@@ -26,7 +26,7 @@ protected static ?string $pluralTitle = 'Менторы';
                     ->label('Имя')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\RichEditor::make('description')
+                Forms\Components\TextInput::make('description')
                     ->label('Описание')
                     ->required()
                     ->maxLength(1000),
