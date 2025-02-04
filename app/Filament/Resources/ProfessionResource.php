@@ -163,7 +163,7 @@ class ProfessionResource extends Resource
                 // Добавьте фильтры, если необходимо
             ])
             ->actions([
-                Tables\Actions\EditAction::make()->label('Редактировать'),
+                Tables\Actions\EditAction::make()->label('Редактировать')->modal(false),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make()
