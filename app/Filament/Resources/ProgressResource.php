@@ -33,17 +33,19 @@ class ProgressResource extends Resource
             ->schema([
                 FileUpload::make('before')
                     ->label('До')
-                    ->imagePreviewHeight(150)
+                    
             ->preserveFilenames()
                     ->image()
-                    ->disk('public'), 
+                    //->disk('public')
+                    ->default(fn($get) => $get('record.before')), 
 
                 FileUpload::make('after')
                     ->label('После')
-                    ->imagePreviewHeight(150)
+                    
             ->preserveFilenames()
                     ->image()
-                    ->disk('public'), 
+                    //->disk('public')
+                    ->default(fn($get) => $get('record.after')), 
 
                 Select::make('id_profession')
                     ->label('Профессия')
@@ -64,7 +66,8 @@ class ProgressResource extends Resource
                 ->size(50),
                 TextColumn::make('profession.name_profession')
                     ->label('Профессия')
-                    ->sortable(),
+                    ->sortable()
+                    ,
 
                 TextColumn::make('created_at')
                     ->label('Дата создания')
