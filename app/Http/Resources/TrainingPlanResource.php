@@ -11,7 +11,7 @@ class TrainingPlanResource extends JsonResource
     {
         return [
             'id_training_plan' => $this->id_training_plan,
-            'images' => $this->images,
+            'image' => $this->image,
         ];
     }
 }
