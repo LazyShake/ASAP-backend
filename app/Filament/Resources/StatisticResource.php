@@ -40,6 +40,9 @@ class StatisticResource extends Resource
                 Tables\Columns\TextColumn::make('name_statistics')->label('Название')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('quantity')->label('Количество')->sortable(),
             ])
+            ->actions([
+                Tables\Actions\EditAction::make()->label('Редактировать'),
+            ])
             ->filters([]);
     }
 

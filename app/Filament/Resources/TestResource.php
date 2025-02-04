@@ -38,6 +38,9 @@ class TestResource extends Resource
                 ->label('Ссылка')
                 ->url(fn ($record) => $record->link, true), // Указываем, что ссылка должна открываться в новой вкладке
         ])
+        ->actions([
+            Tables\Actions\EditAction::make()->label('Редактировать'),
+        ])
         ->filters([]);
 }
 

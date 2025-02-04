@@ -17,4 +17,9 @@ class EditProfession extends EditRecord
             Actions\DeleteAction::make()->label('Удалить'),
         ];
     }
+
+    protected function shouldOpenInModal(): bool
+    {
+        return false;
+    }
 }

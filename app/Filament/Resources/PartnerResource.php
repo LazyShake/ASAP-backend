@@ -44,6 +44,9 @@ class PartnerResource extends Resource
                 Tables\Columns\TextColumn::make('name_partners')->label('Название партнера')->sortable()->searchable(),
                 Tables\Columns\ImageColumn::make('logo_partners')->label('Логотип'),
             ])
+            ->actions([
+                Tables\Actions\EditAction::make()->label('Редактировать'),
+            ])
             ->filters([]);
     }
 
