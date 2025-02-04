@@ -32,7 +32,7 @@ class ArticleResource extends Resource
 
     protected static ?string $modelLabel = 'Статья';
 
-    
+
 
 
     public static function form(Form $form): Form
@@ -69,9 +69,9 @@ class ArticleResource extends Resource
                     ->label('Изображение')
                     ->required()
                     ->image()
-            ->preserveFilenames()
-            ->disk('public') // Указываем диск
-    ->directory('article') 
+                    ->preserveFilenames()
+                    ->disk('public') // Указываем диск
+                    ->directory('article')
                     ->default(fn($get) => $get('record.picture')),
 
                 Select::make('type_id')
@@ -141,7 +141,7 @@ class ArticleResource extends Resource
                     ->createOptionForm([
                         Forms\Components\TextInput::make('name_tag')->required(),
                     ]),
-                    //->default(fn($get) => $get('record.tags')->pluck('id_tag')->toArray()), // Привязка к значениям из модели
+                //->default(fn($get) => $get('record.tags')->pluck('id_tag')->toArray()), // Привязка к значениям из модели
 
                 Forms\Components\TextInput::make('link')
                     ->label('Ссылка')
@@ -230,11 +230,11 @@ class ArticleResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
-                ->label('Редактировать'),
+                    ->label('Редактировать'),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make()
-                ->label('Удалить'),
+                    ->label('Удалить'),
             ]);
     }
 
