@@ -31,8 +31,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
     'telegram' => [
-        'bot_token' => env('TELEGRAM_BOT_TOKEN'),
-        'chat_id' => env('TELEGRAM_CHAT_ID'),
+        'bot_token' => '7349659555:AAEgLb3y1rW2Cf5Z55K3cAZa6fMuvo0g250',//env('TELEGRAM_BOT_TOKEN'),
+        'chat_id' => '1330421429',//env('TELEGRAM_CHAT_ID'),
     ],
 
 
