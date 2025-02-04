@@ -25,7 +25,6 @@ class TrainingPlanResource extends Resource
                 Forms\Components\FileUpload::make('image')
                     ->label('Изображение')
                     ->image()
-                    ->imagePreviewHeight(150)
                     ->preserveFilenames()
                     ->disk('public') // Указываем диск
     ->directory('training_plan') ,
