@@ -28,11 +28,17 @@ protected static ?string $pluralTitle = 'Прогресс';
                 Forms\Components\FileUpload::make('before')
                 ->label('До')
                     ->required()
-                    ->image(),
+                    ->imagePreviewHeight(150)
+            ->preserveFilenames()
+                    ->image()
+                    ->disk('public'), 
                     Forms\Components\FileUpload::make('after')
                     ->label('После')
                     ->required()
-                    ->image(),
+                    ->imagePreviewHeight(150)
+            ->preserveFilenames()
+                    ->image()
+                    ->disk('public'), 
                     /*Forms\Components\Select::make('profession') // Поле для выбора нескольких тегов
                     ->label('профессия')
                     ->options(Profession::query()->pluck('name_profession', 'id_profession')) // Список тегов
