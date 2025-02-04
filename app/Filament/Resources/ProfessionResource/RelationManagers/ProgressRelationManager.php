@@ -45,7 +45,8 @@ protected static ?string $pluralTitle = 'Прогресс';
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('before'),
+                Tables\Columns\ImageColumn::make('before')->label('До')->size(50),
+                Tables\Columns\ImageColumn::make('after')->label('После')->size(50),
             ])
             ->filters([
                 //

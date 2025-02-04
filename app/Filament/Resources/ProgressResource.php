@@ -33,18 +33,16 @@ class ProgressResource extends Resource
             ->schema([
                 FileUpload::make('before')
                     ->label('До')
-                    ->imagePreviewHeight(150)
                     ->preserveFilenames()
                     ->disk('public') // Указываем диск
-    ->directory('before') 
+
                     ->image(),
 
                 FileUpload::make('after')
                     ->label('После')
-                    ->imagePreviewHeight(150)
                     ->preserveFilenames()
                     ->disk('public') // Указываем диск
-    ->directory('after') 
+
                     ->image(),
 
                 Select::make('id_profession')
