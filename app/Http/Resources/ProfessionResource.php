@@ -36,7 +36,7 @@ class ProfessionResource extends JsonResource
             'skills' => SkillResource::collection($this->skills),
             'skilltext' => $this->skilltext, // Добавлено новое поле
             'career' => CareerResource::make($this->career),
-            'training_plan' => TrainingPlanResource::make($this->trainingPlan),
+            
             'programs' => ProgramResource::collection($this->programs),
             'progress' => ProgressResource::collection($this->progress),
             'articles' => ArticleResource::collection($this->articles),
