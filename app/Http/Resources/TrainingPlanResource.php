@@ -10,7 +10,7 @@ class TrainingPlanResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id_training_plan' => $this->id_training_plan,
+            //'id_training_plan' => $this->id_training_plan,
             'image' => $this->image,
         ];
     }
