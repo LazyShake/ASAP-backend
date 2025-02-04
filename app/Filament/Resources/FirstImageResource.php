@@ -26,11 +26,11 @@ class FirstImageResource extends Resource
                 Forms\Components\FileUpload::make('image')
                     ->label('Изображение')
                     ->image()
-                    //->imagePreviewHeight(150)
+                    ->imagePreviewHeight(150)
                     ->preserveFilenames()
                     //->disk('public') // Указываем диск
                     //->directory('first_image')
-
+                    ->visibility('public')
             ]);
     }
 

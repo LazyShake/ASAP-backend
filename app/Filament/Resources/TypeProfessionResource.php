@@ -17,7 +17,7 @@ class TypeProfessionResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-cog';
     protected static ?string $pluralLabel = 'Типы профессий';
     protected static ?string $modelLabel = 'Тип профессии';
-    //protected static bool $shouldRegisterNavigation = false;
+    protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Form $form): Form
     {
