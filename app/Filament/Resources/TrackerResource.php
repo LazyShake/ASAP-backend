@@ -23,7 +23,7 @@ class TrackerResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name_tracker')
-                    ->label('Название трекера')
+                    ->label('Имя трекера')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('picture')
@@ -45,8 +45,8 @@ class TrackerResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name_trackers')
-                    ->label('Название трекера'),
+                Tables\Columns\TextColumn::make('name_tracker')
+                    ->label('Имя трекера'),
                 Tables\Columns\ImageColumn::make('picture')
                     ->label('Фото'),
                 Tables\Columns\TextColumn::make('description')
