@@ -29,18 +29,20 @@ protected static ?string $pluralTitle = 'Прогресс';
                 ->label('До')
                     ->required()
                     
-            ->preserveFilenames()
+                    ->required()
                     ->image()
-                    ->disk('public')
-                    ->default(fn($get) => $get('record.before')), 
+                    ->preserveFilenames()
+                    ->disk('public') // Указываем диск
+                    ->directory('article')
+                    ->default(fn($get) => $get('record.before')),
                     Forms\Components\FileUpload::make('after')
                     ->label('После')
                     ->required()
-                    
-            ->preserveFilenames()
                     ->image()
-                    ->disk('public')
-                    ->default(fn($get) => $get('record.after')), 
+                    ->preserveFilenames()
+                    ->disk('public') // Указываем диск
+                    ->directory('article')
+                    ->default(fn($get) => $get('record.after')),
                     /*Forms\Components\Select::make('profession') // Поле для выбора нескольких тегов
                     ->label('профессия')
                     ->options(Profession::query()->pluck('name_profession', 'id_profession')) // Список тегов

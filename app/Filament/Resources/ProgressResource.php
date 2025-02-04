@@ -34,18 +34,22 @@ class ProgressResource extends Resource
                 FileUpload::make('before')
                     ->label('До')
                     
-            ->preserveFilenames()
+                    ->required()
                     ->image()
-                    //->disk('public')
-                    ->default(fn($get) => $get('record.before')), 
+                    ->preserveFilenames()
+                    ->disk('public') // Указываем диск
+                    ->directory('article')
+                    ->default(fn($get) => $get('record.before')),
 
                 FileUpload::make('after')
                     ->label('После')
                     
-            ->preserveFilenames()
+                    ->required()
                     ->image()
-                    //->disk('public')
-                    ->default(fn($get) => $get('record.after')), 
+                    ->preserveFilenames()
+                    ->disk('public') // Указываем диск
+                    ->directory('article')
+                    ->default(fn($get) => $get('record.after')),
 
                 Select::make('id_profession')
                     ->label('Профессия')
