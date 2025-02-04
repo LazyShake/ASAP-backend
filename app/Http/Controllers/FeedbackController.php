@@ -5,50 +5,27 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Log;
+
 
 class FeedbackController extends Controller
 {
-    public function submitFeedback(Request $request)
-    {
-        try {
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-                'phone' => 'required|regex:/^\+?[0-9]{10,15}$/',
-                'message' => 'required|string',
-            ]);
-
-            // Отправка данных в Telegram
-            $this->sendToTelegram([
-                'name' => $validated['name'],
-                'phone' => $validated['phone'],
-                'message' => $validated['message'],
-            ]);
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Спасибо! Мы свяжемся с вами в ближайшее время.',
-            ]);
-        } catch (ValidationException $e) {
-            return response()->json([
-                'success' => false,
-                'errors' => $this->translateErrors($e->errors()),
-            ], 422);
-        }
-    }
-
     public function submitPhone(Request $request)
     {
         try {
+            // Валидация данных
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
                 'phone' => 'required|regex:/^\+?[0-9]{10,15}$/',
             ]);
 
-            // Отправка данных в Telegram
-            $this->sendToTelegram([
-                'name' => $validated['name'],
-                'phone' => $validated['phone'],
-            ]);
+            // Формируем сообщение для Telegram
+            $message = "📩 *Новая заявка:*\n";
+            $message .= "👤 *Имя:* {$validated['name']}\n";
+            $message .= "📞 *Телефон:* {$validated['phone']}";
+
+            // Отправляем данные в Telegram
+            $this->sendToTelegram($message);
 
             return response()->json([
                 'success' => true,
@@ -59,30 +36,48 @@ class FeedbackController extends Controller
                 'success' => false,
                 'errors' => $this->translateErrors($e->errors()),
             ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Не удалось отправить данные. Попробуйте позже.',
+            ], 500);
         }
     }
 
     /**
      * Отправка сообщения в Telegram
      */
-    private function sendToTelegram(array $data)
+    private function sendToTelegram(string $message)
     {
         $botToken = config('services.telegram.bot_token');
         $chatId = config('services.telegram.chat_id');
 
-        $message = "Новое обращение:\n";
-        foreach ($data as $key => $value) {
-            $message .= ucfirst($key) . ": " . $value . "\n";
+        if (!$botToken || !$chatId) {
+            Log::error('Телеграм-бот: Не указан токен или chat_id.');
+            throw new \Exception('Ошибка отправки в Telegram.');
         }
 
-        $client = new Client();
-        $client->post("https://api.telegram.org/bot{$botToken}/sendMessage", [
-            'form_params' => [
-                'chat_id' => $chatId,
-                'text' => $message,
-                'parse_mode' => 'HTML',
-            ],
-        ]);
+        try {
+            $client = new Client();
+            $response = $client->post("https://api.telegram.org/bot{$botToken}/sendMessage", [
+                'form_params' => [
+                    'chat_id' => $chatId,
+                    'text' => $message,
+                    'parse_mode' => 'Markdown',
+                ],
+            ]);
+
+            $body = json_decode($response->getBody(), true);
+
+            if (!$body['ok']) {
+                throw new \Exception('Ошибка отправки в Telegram: ' . $body['description']);
+            }
+
+            Log::info('Телеграм-бот: сообщение успешно отправлено.');
+        } catch (\Exception $e) {
+            Log::error('Ошибка отправки в Telegram: ' . $e->getMessage());
+            throw new \Exception('Ошибка отправки в Telegram.');
+        }
     }
 
     /**
@@ -107,14 +102,12 @@ class FeedbackController extends Controller
         $translations = [
             'name' => 'Поле имя',
             'phone' => 'Поле телефон',
-            'message' => 'Поле сообщение',
             'required' => 'обязательно для заполнения',
             'string' => 'должно быть строкой',
             'max' => 'превышает допустимую длину',
             'regex' => 'имеет неверный формат',
         ];
 
-        // Переводим стандартные ключи
         foreach ($translations as $key => $translation) {
             $message = str_replace($key, $translation, $message);
         }
