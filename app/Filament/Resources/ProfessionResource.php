@@ -163,7 +163,7 @@ class ProfessionResource extends Resource
                 // Добавьте фильтры, если необходимо
             ])
             ->actions([
-                Tables\Actions\EditAction::make()->label('Редактировать')->modal(false),
+                Tables\Actions\EditAction::make()->label('Редактировать'),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make()
@@ -187,8 +187,8 @@ class ProfessionResource extends Resource
     {
         return [
             'index' => ProfessionResource\Pages\ListProfessions::route('/'),
-            'Создать' => ProfessionResource\Pages\CreateProfession::route('/create'),
-            'Редактировать' => ProfessionResource\Pages\EditProfession::route('/{record}/edit'),
+            'create' => ProfessionResource\Pages\CreateProfession::route('/create'),
+            'edit' => ProfessionResource\Pages\EditProfession::route('/{record}/edit'),
         ];
     }
 }
