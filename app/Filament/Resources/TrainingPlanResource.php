@@ -27,7 +27,8 @@ class TrainingPlanResource extends Resource
                     ->image()
                     ->preserveFilenames()
                     ->disk('public') // Указываем диск
-    ->directory('training_plan') ,
+                    ->directory('training_plan') 
+                    ->default(fn($get) => $get('record.image')),
             ]);
     }
 
