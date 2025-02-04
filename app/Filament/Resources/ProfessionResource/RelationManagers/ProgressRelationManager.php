@@ -52,7 +52,6 @@ protected static ?string $pluralTitle = 'Прогресс';
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                    ->visible(fn ($livewire) => !$livewire->getRelationship()->exists()) // Скрываем кнопку, если есть запись
                     ->label('Создать'),
             ])
             ->actions([
