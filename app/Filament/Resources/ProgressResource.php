@@ -56,7 +56,12 @@ class ProgressResource extends Resource
     {
         return $table
             ->columns([
-
+                Tables\Columns\ImageColumn::make('before')
+                ->label('До')
+                ->size(50),
+                Tables\Columns\ImageColumn::make('after')
+                ->label('После')
+                ->size(50),
                 TextColumn::make('profession.name_profession')
                     ->label('Профессия')
                     ->sortable(),

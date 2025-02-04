@@ -19,17 +19,18 @@ class CreateArticle extends CreateRecord
         return $data;
     }
 
-    protected function getFooterActions(): array
-{
-    return [
-        Filament\Actions\Action::make('create')
-            ->label('Добавить'),
-        
-        Filament\Actions\Action::make('createAndCreateAnother')
-            ->label('Добавить и создать еще'),
+    protected function getCreateButtonLabel(): string
+    {
+        return 'Добавить';
+    }
 
-        Filament\Actions\Action::make('cancel')
-            ->label('Отменить'),
-    ];
-}
+    protected function getCreateAnotherButtonLabel(): string
+    {
+        return 'Добавить и создать еще';
+    }
+
+    protected function getCancelButtonLabel(): string
+    {
+        return 'Отменить';
+    }
 }
