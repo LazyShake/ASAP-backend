@@ -66,8 +66,7 @@ protected static ?string $pluralTitle = 'Отзывы';
                     ->label('Фото'),
                 Tables\Columns\TextColumn::make('video')
                     ->label('Видео')
-                    ->url(fn ($record) => $record->video)
-                    ->label('Открыть'),
+                    ->url(fn ($record) => $record->video),
                 Tables\Columns\TextColumn::make('owner')
                     ->label('Автор'),
                 Tables\Columns\BooleanColumn::make('status')

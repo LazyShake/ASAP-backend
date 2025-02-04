@@ -69,14 +69,14 @@ class ProfessionResource extends Resource
             ->preserveFilenames()
                     ->image()
                     ->disk('public') // Указываем диск
-    ->directory('profession/image') ,
+    ->directory('profession_image') ,
                 Forms\Components\FileUpload::make('miniimage')
                     ->label('Мини-изображение')
                     ->imagePreviewHeight(150)
             ->preserveFilenames()
                     ->image()
                     ->disk('public') // Указываем диск
-    ->directory('profession/mini_image'),
+    ->directory('profession_mini_image'),
                 /*Forms\Components\BelongsToSelect::make('id_career')
                     ->relationship('career', 'name')
                     ->label('Карьера')
