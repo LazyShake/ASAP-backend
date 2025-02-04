@@ -25,12 +25,10 @@ class FirstImageResource extends Resource
             ->schema([
                 Forms\Components\FileUpload::make('image')
                     ->label('Изображение')
-                    ->image()
                     ->imagePreviewHeight(150)
-                    ->preserveFilenames()
-                    //->disk('public') // Указываем диск
-                    //->directory('first_image')
-                    ->visibility('public')
+            ->preserveFilenames()
+                    ->image()
+                    ->disk('public'), 
             ]);
     }
 
