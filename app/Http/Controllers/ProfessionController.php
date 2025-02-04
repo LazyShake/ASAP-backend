@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\{ProfessionResource, ReferalResource, TariffResource, TrackerResource};
+use App\Http\Resources\{ProfessionResource, ReferalResource, TariffResource, TrackerResource, TrainingPlanResource};
 use Illuminate\Http\Request;
-use App\Models\{Profession, Referal, Tracker, Tariff};
+use App\Models\{Profession, Referal, Tracker, Tariff, TrainingPlan};
 use Illuminate\Support\Str;
 
 class ProfessionController extends Controller
@@ -49,6 +49,7 @@ class ProfessionController extends Controller
         'trackers' => TrackerResource::collection($trackers),
         'referals' => new ReferalResource(Referal::first()),
         'tariffs' => TariffResource::collection($tariffs),
+        'training_plan' => new TrainingPlanResource(TrainingPlan::first()),
     ]);
 }
 
