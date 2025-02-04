@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
+use Propaganistas\LaravelPhone\Rules\Phone;
 
 
 class FeedbackController extends Controller
@@ -16,10 +17,7 @@ class FeedbackController extends Controller
             // Валидация данных
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
-                'phone' => [
-                    'required',
-                    'regex:/^\+79\d{9}$/', // Проверка на российский номер с оператором
-                ],
+                'phone' => ['required', new Phone('RU')],  // RU — это код страны для России
             ]);
             
 
