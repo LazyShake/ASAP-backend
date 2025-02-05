@@ -48,7 +48,7 @@ class ProfessionController extends Controller
         'profession' => new ProfessionResource($profession),
         'trackers' => TrackerResource::collection($trackers),
         'referals' => new ReferalResource(Referal::first()),
-        'tariff' => new TariffResource(Tariff::orderByDesc('price')->first()),
+        //'tariff' => new TariffResource(Tariff::orderByDesc('price')->first()),
         'training_plan' => new TrainingPlanResource(TrainingPlan::first()),
     ]);
 }

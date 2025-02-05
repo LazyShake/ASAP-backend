@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\Tariff;
 
 class ProfessionPreviewResource extends JsonResource
 {
@@ -23,6 +24,7 @@ class ProfessionPreviewResource extends JsonResource
             'price' => $this->price,
             'type' => $this->typeProfession->name_type,
             'color' => $this->color->name,
+            'tariff' => new TariffResource(Tariff::orderByDesc('price')->first()),
         ];
     }
 }

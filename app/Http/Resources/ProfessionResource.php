@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Carbon\Carbon;
+use App\Models\Tariff;
 
 class ProfessionResource extends JsonResource
 {
@@ -36,7 +37,7 @@ class ProfessionResource extends JsonResource
             'skills' => SkillResource::collection($this->skills),
             'skilltext' => $this->skilltext, // Добавлено новое поле
             'career' => CareerResource::make($this->career),
-            
+            'tariff' => new TariffResource(Tariff::orderByDesc('price')->first()),
             'programs' => ProgramResource::collection($this->programs),
             'progress' => ProgressResource::collection($this->progress),
             'articles' => ArticleResource::collection($this->articles),
