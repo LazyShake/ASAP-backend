@@ -15,7 +15,7 @@ class ReviewRelationManager extends RelationManager
     protected static ?string $recordTitleAttribute = 'owner';
 
     protected static ?string $title = 'Отзыв';
-protected static ?string $pluralTitle = 'Отзывы';
+    protected static ?string $pluralTitle = 'Отзывы';
 
 
     public static function form(Form $form): Form
@@ -26,7 +26,11 @@ protected static ?string $pluralTitle = 'Отзывы';
                     ->label('Текст отзыва')
                     ->required(),
                 Forms\Components\FileUpload::make('picture')
-                    ->label('Фото отзыва')
+                    ->label('Изображение')
+
+                    ->preserveFilenames()
+                    ->disk('public') // Указываем диск
+                    ->directory('review')
                     ->image(),
                 Forms\Components\TextInput::make('video')
                     ->label('Ссылка на видео')
@@ -61,12 +65,12 @@ protected static ?string $pluralTitle = 'Отзывы';
                 Tables\Columns\TextColumn::make('text')
                     ->label('Текст отзыва')
                     ->limit(50)
-                    ->tooltip(fn ($record) => $record->text),
+                    ->tooltip(fn($record) => $record->text),
                 Tables\Columns\ImageColumn::make('picture')
                     ->label('Фото'),
                 Tables\Columns\TextColumn::make('video')
                     ->label('Видео')
-                    ->url(fn ($record) => $record->video),
+                    ->url(fn($record) => $record->video),
                 Tables\Columns\TextColumn::make('owner')
                     ->label('Автор'),
                 Tables\Columns\BooleanColumn::make('status')
