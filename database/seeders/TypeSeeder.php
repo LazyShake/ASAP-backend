@@ -11,6 +11,21 @@ class TypeSeeder extends Seeder
     public function run()
     {
         // Используем фабрику для создания записей
-        Type::factory()->count(10)->create();  // Создадим 10 записей с фейковыми данными
+        Type::create([
+            'id_type' => 1,
+            'name_type' => 'Другое'
+        ]);
+        Type::create([
+            'id_type' => 2,
+            'name_type' => 'Кейс'
+        ]);
+        Type::create([
+            'id_type' => 3,
+            'name_type' => 'Мероприятие'
+        ]);
+        Type::create([
+            'id_type' => 4,
+            'name_type' => 'Для профессии'
+        ]);
     }
 }

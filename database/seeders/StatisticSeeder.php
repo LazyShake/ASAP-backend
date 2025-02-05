@@ -9,6 +9,17 @@ class StatisticSeeder extends Seeder
 {
     public function run(): void
     {
-        Statistic::factory()->count(10)->create();
+        Statistic::create([
+            'quantity' => 16,
+            'name_statistics' => 'Вакансий на рынке'
+        ]);
+        Statistic::create([
+            'quantity' => 70,
+            'name_statistics' => 'Заказов на фрилансе'
+        ]);
+        Statistic::create([
+            'quantity' => 500,
+            'name_statistics' => 'Дефицит IT-кадров'
+        ]);
     }
 }
