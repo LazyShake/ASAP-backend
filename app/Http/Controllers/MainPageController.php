@@ -32,7 +32,8 @@ class MainPageController extends Controller
             'seo' => new SEOPageResource(SEOPage::find(1)),
             'first_screen' => new FirstImageResource(FirstImage::first()),
             'professions' => ProfessionGeneralResource::collection(Profession::all()),
-            'tariffs' => TariffResource::collection(Tariff::all()),
+            'tariff' => new TariffResource(Tariff::orderByDesc('price')->first()),
+
             'mentors' => MentorResource::collection(
                 Mentor::where('status', true)->get()
             ),
