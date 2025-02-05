@@ -22,7 +22,7 @@ class ReviewRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('text')
+                Forms\Components\TextArea::make('text')
                     ->label('Текст отзыва')
                     ->required(),
                 Forms\Components\FileUpload::make('picture')
