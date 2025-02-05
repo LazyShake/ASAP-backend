@@ -42,6 +42,7 @@ class StatisticResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->label('Редактировать'),
+                Tables\Actions\DeleteAction::make()->label('Удалить'),
             ])
             ->filters([]);
     }
