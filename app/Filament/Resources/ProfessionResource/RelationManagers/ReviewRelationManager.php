@@ -30,7 +30,7 @@ class ReviewRelationManager extends RelationManager
 
                     ->preserveFilenames()
                     ->disk('public') // Указываем диск
-                    ->directory('review')
+                    ->directory('article')
                     ->image(),
                 Forms\Components\TextInput::make('video')
                     ->label('Ссылка на видео')
