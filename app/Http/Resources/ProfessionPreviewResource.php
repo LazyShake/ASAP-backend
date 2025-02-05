@@ -24,7 +24,7 @@ class ProfessionPreviewResource extends JsonResource
             'price' => $this->price,
             'type' => $this->typeProfession->name_type,
             'color' => $this->color->name,
-            'tariff' => new TariffResource(Tariff::orderByDesc('price')->first()),
+            'tariff' => TariffResource::collection(Tariff::orderBy('price')),
         ];
     }
 }

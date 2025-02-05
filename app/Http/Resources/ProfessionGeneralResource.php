@@ -18,7 +18,7 @@ class ProfessionGeneralResource extends JsonResource
             'place' => $this->place,
             'period' => $this->period,
             'color' => $this->color,
-            'tariff' => new TariffResource(Tariff::orderByDesc('price')->first()),
+            'tariff' => TariffResource::collection(Tariff::orderBy('price')),
         ];
     }
 }
