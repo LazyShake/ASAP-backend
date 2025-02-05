@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Models\Tariff;
 
 class ProfessionGeneralResource extends JsonResource
 {
@@ -18,7 +17,6 @@ class ProfessionGeneralResource extends JsonResource
             'place' => $this->place,
             'period' => $this->period,
             'color' => $this->color,
-            'tariff' => new TariffResource(Tariff::orderByDesc('price')->first()),
         ];
     }
 }
