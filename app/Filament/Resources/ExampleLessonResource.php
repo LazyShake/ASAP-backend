@@ -74,8 +74,8 @@ class ExampleLessonResource extends Resource
     {
         return [
             'index' => Pages\ListExampleLessons::route('/'),
-            'Создать' => Pages\CreateExampleLesson::route('/create'),
-            'Редактировать' => Pages\EditExampleLesson::route('/{record}/edit'),
+            'create' => Pages\CreateExampleLesson::route('/create'),
+            'edit' => Pages\EditExampleLesson::route('/{record}/edit'),
         ];
     }
 }

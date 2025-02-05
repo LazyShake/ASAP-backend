@@ -50,7 +50,7 @@ class StatisticResource extends Resource
     {
         return [
             'index' => Pages\ListStatistics::route('/'),
-            'Редактировать' => Pages\EditStatistic::route('/{record}/edit'),
+            'edit' => Pages\EditStatistic::route('/{record}/edit'),
         ];
     }
 }

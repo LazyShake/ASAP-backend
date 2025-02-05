@@ -54,8 +54,8 @@ class TagsResource extends Resource
     {
         return [
             'index' => Pages\ListTags::route('/'),
-            'Создать' => Pages\CreateTags::route('/create'),
-            'Редактировать' => Pages\EditTags::route('/{record}/edit'),
+            'create' => Pages\CreateTags::route('/create'),
+            'edit' => Pages\EditTags::route('/{record}/edit'),
         ];
     }
 }

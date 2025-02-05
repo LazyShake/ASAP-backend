@@ -87,8 +87,8 @@ class TariffResource extends Resource
     {
         return [
             'index' => Pages\ListTariffs::route('/'),
-            'Создать' => Pages\CreateTariff::route('/create'),
-            'Редактировать' => Pages\EditTariff::route('/{record}/edit'),
+            'create' => Pages\CreateTariff::route('/create'),
+            'edit' => Pages\EditTariff::route('/{record}/edit'),
         ];
     }
 }

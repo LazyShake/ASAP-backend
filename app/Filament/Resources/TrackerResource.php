@@ -72,8 +72,8 @@ class TrackerResource extends Resource
     {
         return [
             'index' => Pages\ListTrackers::route('/'),
-            'Создать' => Pages\CreateTracker::route('/create'),
-            'Редактировать' => Pages\EditTracker::route('/{record}/edit'),
+            'create' => Pages\CreateTracker::route('/create'),
+            'edit' => Pages\EditTracker::route('/{record}/edit'),
         ];
     }
 }

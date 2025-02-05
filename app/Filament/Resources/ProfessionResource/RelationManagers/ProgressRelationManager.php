@@ -15,7 +15,7 @@ class ProgressRelationManager extends RelationManager
 {
     protected static string $relationship = 'progress';
 
-    protected static ?string $recordTitleAttribute = 'before';
+    // protected static ?string $recordTitleAttribute = 'before';
 
     protected static ?string $title = 'Прогресс';
 protected static ?string $pluralTitle = 'Прогресс';

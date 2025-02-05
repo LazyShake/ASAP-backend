@@ -55,8 +55,8 @@ class TypeProfessionResource extends Resource
     {
         return [
             'index' => Pages\ListTypeProfessions::route('/'),
-            'Создать' => Pages\CreateTypeProfession::route('/create'),
-            'Редактировать' => Pages\EditTypeProfession::route('/{record}/edit'),
+            'create' => Pages\CreateTypeProfession::route('/create'),
+            'edit' => Pages\EditTypeProfession::route('/{record}/edit'),
         ];
     }
 }

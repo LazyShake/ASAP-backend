@@ -53,7 +53,7 @@ class FirstImageResource extends Resource
     {
         return [
             'index' => Pages\ListFirstImages::route('/'),
-            'Редактировать' => Pages\EditFirstImage::route('/{record}/edit'),
+            'edit' => Pages\EditFirstImage::route('/{record}/edit'),
             //'Создать' => Pages\CreateFirstImage::route('/create'),
         ];
     }

@@ -110,8 +110,8 @@ class MentorResource extends Resource
     {
         return [
             'index' => Pages\ListMentors::route('/'),
-            'Создать' => Pages\CreateMentor::route('/create'),
-            'Редактировать' => Pages\EditMentor::route('/{record}/edit'),
+            'create' => Pages\CreateMentor::route('/create'),
+            'edit' => Pages\EditMentor::route('/{record}/edit'),
         ];
     }
 }

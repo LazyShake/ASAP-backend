@@ -242,8 +242,8 @@ class ArticleResource extends Resource
     {
         return [
             'index' => Pages\ListArticles::route('/'),
-            'Создать' => Pages\CreateArticle::route('/create'),
-            'Редактировать' => Pages\EditArticle::route('/{record}/edit'),
+            'create' => Pages\CreateArticle::route('/create'),
+            'edit' => Pages\EditArticle::route('/{record}/edit'),
         ];
     }
 }
