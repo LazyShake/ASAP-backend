@@ -65,14 +65,14 @@ class ProfessionResource extends Resource
                     ->maxLength(500),
                 Forms\Components\FileUpload::make('image')
                     ->label('Изображение')
-                    ->imagePreviewHeight(150)
+                    
             ->preserveFilenames()
                     ->image()
                     ->disk('public'), // Указываем диск
     //->directory('profession_image') ,
                 Forms\Components\FileUpload::make('miniimage')
                     ->label('Мини-изображение')
-                    ->imagePreviewHeight(150)
+                    
             ->preserveFilenames()
                     ->image()
                     ->disk('public'), // Указываем диск
