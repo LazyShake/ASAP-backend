@@ -14,11 +14,9 @@ class ReferalSeeder extends Seeder
     public function run(): void
     {
         Referal::create([
-            'price' => 40000.00
+            'price' => 5000
         ]);
 
-        Referal::create([
-            'price' => 54000.00
-        ]);
+        
     }
 }
