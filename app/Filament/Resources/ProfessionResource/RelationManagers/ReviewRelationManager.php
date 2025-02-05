@@ -22,7 +22,7 @@ protected static ?string $pluralTitle = 'Отзывы';
     {
         return $form
             ->schema([
-                Forms\Components\RichEditor::make('text')
+                Forms\Components\TextInput::make('text')
                     ->label('Текст отзыва')
                     ->required(),
                 Forms\Components\FileUpload::make('picture')
