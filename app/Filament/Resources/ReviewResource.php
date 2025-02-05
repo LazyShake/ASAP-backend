@@ -113,8 +113,8 @@ class ReviewResource extends Resource
     {
         return [
             'index' => Pages\ListReviews::route('/'),
-            'Создать' => Pages\CreateReview::route('/create'),
-            'Редактировать' => Pages\EditReview::route('/{record}/edit'),
+            'create' => Pages\CreateReview::route('/create'),
+            'edit' => Pages\EditReview::route('/{record}/edit'),
         ];
     }
 }

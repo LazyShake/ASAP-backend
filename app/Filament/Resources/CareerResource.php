@@ -117,8 +117,8 @@ class CareerResource extends Resource
     {
         return [
             'index' => Pages\ListCareers::route('/'),
-            'Создать' => Pages\CreateCareer::route('/create'),
-            'Редактировать' => Pages\EditCareer::route('/{record}/edit'),
+            'create' => Pages\CreateCareer::route('/create'),
+            'edit' => Pages\EditCareer::route('/{record}/edit'),
         ];
     }
 }

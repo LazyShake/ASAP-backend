@@ -55,8 +55,8 @@ class ColorResource extends Resource
     {
         return [
             'index' => Pages\ListColors::route('/'),
-            'Создать' => Pages\CreateColor::route('/create'),
-            'Редактировать' => Pages\EditColor::route('/{record}/edit'),
+            'create' => Pages\CreateColor::route('/create'),
+            'edit' => Pages\EditColor::route('/{record}/edit'),
         ];
     }
 }

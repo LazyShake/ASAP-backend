@@ -59,7 +59,7 @@ class ReferalResource extends Resource
     {
         return [
             'index' => Pages\ListReferals::route('/'),
-            'Редактировать' => Pages\EditReferal::route('/{record}/edit'),
+            'edit' => Pages\EditReferal::route('/{record}/edit'),
         ];
     }
 }

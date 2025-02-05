@@ -56,7 +56,7 @@ class TrainingPlanResource extends Resource
     {
         return [
             'index' => Pages\ListTrainingPlans::route('/'),
-            'Редактировать' => Pages\EditTrainingPlan::route('/{record}/edit'),
+            'edit' => Pages\EditTrainingPlan::route('/{record}/edit'),
         ];
     }
 }

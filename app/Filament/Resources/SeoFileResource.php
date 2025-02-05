@@ -53,7 +53,7 @@ class SeoFileResource extends Resource
     {
         return [
             'index' => Pages\ListSeoFiles::route('/'),
-            'Создать' => Pages\CreateSeoFile::route('/create'),
+            'create' => Pages\CreateSeoFile::route('/create'),
         ];
     }
 }

@@ -66,7 +66,7 @@ class SEOPageResource extends Resource
     {
         return [
             'index' => SEOPageResource\Pages\ListSEOPages::route('/'),
-            'Редактировать' => SEOPageResource\Pages\EditSEOPage::route('/{record}/edit'),
+            'edit' => SEOPageResource\Pages\EditSEOPage::route('/{record}/edit'),
         ];
     }
 }

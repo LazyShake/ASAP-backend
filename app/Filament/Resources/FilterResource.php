@@ -72,8 +72,8 @@ class FilterResource extends Resource
     {
         return [
             'index' => Pages\ListFilters::route('/'),
-            'Создать' => Pages\CreateFilter::route('/create'),
-            'Редактировать' => Pages\EditFilter::route('/{record}/edit'),
+            'create' => Pages\CreateFilter::route('/create'),
+            'edit' => Pages\EditFilter::route('/{record}/edit'),
         ];
     }
 }

@@ -97,8 +97,8 @@ class ProgramResource extends Resource
     {
         return [
             'index' => Pages\ListPrograms::route('/'),
-            'Создать' => Pages\CreateProgram::route('/create'),
-            'Редактировать' => Pages\EditProgram::route('/{record}/edit'),
+            'create' => Pages\CreateProgram::route('/create'),
+            'edit' => Pages\EditProgram::route('/{record}/edit'),
         ];
     }
 }

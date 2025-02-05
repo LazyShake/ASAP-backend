@@ -101,8 +101,8 @@ class ProgressResource extends Resource
     {
         return [
             'index' => Pages\ListProgress::route('/'),
-            'Создать' => Pages\CreateProgress::route('/create'),
-            'Редактировать' => Pages\EditProgress::route('/{record}/edit'),
+            'create' => Pages\CreateProgress::route('/create'),
+            'edit' => Pages\EditProgress::route('/{record}/edit'),
         ];
     }
 }
