@@ -29,7 +29,7 @@ class MainPageController extends Controller
     public function mainPageData(Request $request)
     {
         return response()->json([
-            'seo' => new SEOPageResource(SEOPage::find(1)),
+            'seo' => new SEOPageResource(SEOPage::find(2)),
             'first_screen' => new FirstImageResource(FirstImage::first()),
             'professions' => ProfessionGeneralResource::collection(Profession::all()),
             'tariffs' => TariffResource::collection(Tariff::all()),

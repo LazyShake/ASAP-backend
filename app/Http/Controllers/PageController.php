@@ -14,7 +14,7 @@ class PageController extends Controller
         $filters = Filter::all();
         $articles = Article::where('type_id', '!=', 3)->get();
         $professions = Profession::all();
-        $seoPage = SEOPage::find(2);
+        $seoPage = SEOPage::find(1);
 
         return response()->json([
             'event_articles' => EventArticleResource::collection($eventArticles),
