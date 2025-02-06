@@ -12,7 +12,7 @@ class PageController extends Controller
     {
         $eventArticles = Article::where('type_id', 3)->get();
         $filters = Filter::all();
-        $articles = Article::where('type_id', '!=', 3)->paginate(9);
+        $articles = Article::where('type_id', '!=', 3)->get();
         $professions = Profession::all();
         $seoPage = SEOPage::find(2);
 
