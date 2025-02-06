@@ -170,8 +170,11 @@ class ArticleResource extends Resource
 
                 Forms\Components\FileUpload::make('owner_picture')
                     ->label('Фото автора')
+                    ->required()
                     ->image()
-                    ->imagePreviewHeight(150)
+                    ->preserveFilenames()
+                    ->disk('public') // Указываем диск
+                    ->directory('article')
                     ->default(fn($get) => $get('record.owner_picture')),
             ]);
     }
