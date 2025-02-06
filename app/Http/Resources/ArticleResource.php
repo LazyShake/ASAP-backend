@@ -23,10 +23,10 @@ class ArticleResource extends JsonResource
             'short_text' => Str::limit($this->short_text, 150), // Краткое описание статьи с лимитом
             'content' => $this->content, // Полный текст статьи
             'picture' => $this->picture, // Изображение статьи
-            'type' => new TypeResource($this->whenLoaded('type')), // Тип статьи
-            'profession' => new ProfessionGeneralResource($this->whenLoaded('profession')), // Профессия
-            'filter' => new FilterResource($this->whenLoaded('filter')), // Фильтр
-            'tags' => TagResource::collection($this->whenLoaded('tags')), // Теги
+            'type' => new TypeResource($this->type), // Тип статьи
+            //'profession' => new ProfessionGeneralResource($this->profession), // Профессия
+            'filter' => new FilterResource($this->filter), // Фильтр
+            'tags' => TagResource::collection($this->tags), // Теги
             'link' => $this->link, // Ссылка на источник
             'owner_name' => $this->owner_name, // Имя владельца статьи
             'owner_description' => $this->owner_description, // Описание владельца
