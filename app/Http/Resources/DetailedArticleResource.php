@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Carbon\Carbon;
 
 class DetailedArticleResource extends JsonResource
 {
@@ -29,6 +30,8 @@ class DetailedArticleResource extends JsonResource
             'seo_description' => $this->seo_description, // SEO описание
             'seo_keywords' => $this->seo_keywords, // SEO ключевые слова
             'date' => $this->date, // Дата публикации
+            'created_at' => Carbon::parse($this->created_at)->translatedFormat('j F Y'), // Дата создания
+            'updated_at' => Carbon::parse($this->updated_at)->translatedFormat('j F Y'), // Дата обновления
         ];
     }
 }

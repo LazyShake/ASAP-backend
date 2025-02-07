@@ -45,7 +45,7 @@ class ArticleController extends Controller
     $professions = Profession::all();
 
     return response()->json([
-        'article' => new DetailedArticleResource($article),
+        'article' => new ArticleResource($article),
         'related_articles' => ArticleResource::collection($relatedArticles),
         'professions' => ProfessionPreviewResource::collection($professions),
     ]);
