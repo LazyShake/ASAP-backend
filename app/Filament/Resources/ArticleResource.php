@@ -176,6 +176,16 @@ class ArticleResource extends Resource
                     ->disk('public') // Указываем диск
                     ->directory('article')
                     ->default(fn($get) => $get('record.owner_picture')),
+
+                    Forms\Components\TextInput::make('seo_keywords')
+                    ->label('Ключевые слова SEO')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('seo_title')
+                    ->label('Заголовок SEO')
+                    ->maxLength(255),
+                Forms\Components\Textarea::make('seo_description')
+                    ->label('Описание SEO')
+                    ->maxLength(500),
             ]);
     }
 
