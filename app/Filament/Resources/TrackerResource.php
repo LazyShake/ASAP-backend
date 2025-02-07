@@ -28,12 +28,12 @@ class TrackerResource extends Resource
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('picture')
                     ->label('Фото')
-                    
-                    ->imagePreviewHeight(150)
+                    ->required()
+                    ->image()
                     ->preserveFilenames()
                     ->disk('public') // Указываем диск
-    ->directory('tracker') 
-                    ->image(),
+                    ->directory('article')
+                    ->default(fn($get) => $get('record.picture')),
                 Forms\Components\Textarea::make('description')
                     ->label('Описание')
                     ->required()

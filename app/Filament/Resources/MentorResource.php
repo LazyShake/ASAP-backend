@@ -43,12 +43,12 @@ class MentorResource extends Resource
 
                 Forms\Components\FileUpload::make('picture')
                     ->label('Изображение')
-                    
-                    ->imagePreviewHeight(150)
-            ->preserveFilenames()
-            ->disk('public') // Указываем диск
-    ->directory('mentor') 
-                    ->image(),
+                    ->required()
+                    ->image()
+                    ->preserveFilenames()
+                    ->disk('public') // Указываем диск
+                    ->directory('article')
+                    ->default(fn($get) => $get('record.picture')),
 
                 Toggle::make('status')
                     ->label('Отображать на главной')

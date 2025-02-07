@@ -27,13 +27,12 @@ class PartnerResource extends Resource
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('logo_partners')
                     ->label('Логотип')
-                    
+                    ->required()
                     ->image()
-                    ->imagePreviewHeight(150)
-            ->preserveFilenames()
-            ->disk('public') // Указываем диск
-    ->directory('partner') 
-                    ->nullable(),
+                    ->preserveFilenames()
+                    ->disk('public') // Указываем диск
+                    ->directory('article')
+                    ->default(fn($get) => $get('record.logo_partners')),
             ]);
     }
 
