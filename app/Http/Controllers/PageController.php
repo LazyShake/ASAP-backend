@@ -33,7 +33,7 @@ class PageController extends Controller
         $seoPage = SEOPage::find(2);
 
         return response()->json([
-            'article' => new DetailedArticleResource($main_article),
+            'article' => new ArticleResource($main_article),
             'related_articles' => ArticleResource::collection($relatedArticles),
             'professions' => ProfessionPreviewResource::collection($professions),
             'seo_page' => $seoPage ? new SEOPageResource($seoPage) : null,
