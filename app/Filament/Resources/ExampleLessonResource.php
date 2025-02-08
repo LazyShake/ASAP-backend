@@ -17,7 +17,7 @@ class ExampleLessonResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-collection';
     protected static ?string $pluralLabel = 'Примерные уроки';
     protected static ?string $modelLabel = 'Примерный урок';
-    protected static bool $shouldRegisterNavigation = false;
+    //protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Form $form): Form
     {

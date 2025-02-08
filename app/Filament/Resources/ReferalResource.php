@@ -60,6 +60,7 @@ class ReferalResource extends Resource
         return [
             'index' => Pages\ListReferals::route('/'),
             'edit' => Pages\EditReferal::route('/{record}/edit'),
+            'create' => Pages\CreateReferal::route('/create'),
         ];
     }
 }

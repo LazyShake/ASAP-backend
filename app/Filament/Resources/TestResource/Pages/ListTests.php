@@ -13,7 +13,7 @@ class ListTests extends ListRecords
     protected function getActions(): array
     {
         return [
-
+            Actions\CreateAction::make()->label('Создать'),
         ];
     }
 }

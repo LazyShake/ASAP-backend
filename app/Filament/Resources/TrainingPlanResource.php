@@ -57,6 +57,7 @@ class TrainingPlanResource extends Resource
         return [
             'index' => Pages\ListTrainingPlans::route('/'),
             'edit' => Pages\EditTrainingPlan::route('/{record}/edit'),
+            'create' => Pages\CreateTrainingPlan::route('/create'),
         ];
     }
 }

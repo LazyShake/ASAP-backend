@@ -67,6 +67,7 @@ class SEOPageResource extends Resource
         return [
             'index' => SEOPageResource\Pages\ListSEOPages::route('/'),
             'edit' => SEOPageResource\Pages\EditSEOPage::route('/{record}/edit'),
+            'create' => SEOPageResource\Pages\CreateSEOPage::route('/create'),
         ];
     }
 }
