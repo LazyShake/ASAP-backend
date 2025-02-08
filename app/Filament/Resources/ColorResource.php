@@ -2,7 +2,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ColorResource\Pages;
-use App\Models\Color;
+use App\Models\color;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
