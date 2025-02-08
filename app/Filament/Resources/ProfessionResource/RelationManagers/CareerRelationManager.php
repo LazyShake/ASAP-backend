@@ -15,7 +15,7 @@ class CareerRelationManager extends RelationManager
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?string $title = 'Карьера';
-protected static ?string $pluralTitle = 'Карьеры';
+    protected static ?string $pluralTitle = 'Карьеры';
 
 
     public static function form(Form $form): Form
@@ -100,8 +100,14 @@ protected static ?string $pluralTitle = 'Карьеры';
             ->defaultSort('name') // Сортировка по умолчанию по названию
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                    ->visible(fn ($livewire) => !$livewire->getRelationship()->exists()) // Скрываем кнопку, если есть запись
-                    ->label('Создать'),
+                    ->label('Создать')
+                    ->using(function (array $data, $livewire) {
+                        $career = $livewire->getRelationship()->create($data);
+                        $livewire->ownerRecord->update(['id_career' => $career->id]); // Связываем профессию с карьерой
+                        return $career;
+                    })
+                    ->visible(fn($livewire) => !$livewire->getRelationship()->exists()),
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->label('Редактировать'),
