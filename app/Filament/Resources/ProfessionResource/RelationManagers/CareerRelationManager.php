@@ -103,7 +103,7 @@ class CareerRelationManager extends RelationManager
                     ->label('Создать')
                     ->using(function (array $data, $livewire) {
                         $career = $livewire->getRelationship()->create($data);
-                        $livewire->ownerRecord->update(['id_career' => $career->id]); // Связываем профессию с карьерой
+                        $livewire->ownerRecord->update(['id_career' => $career->id_career]); // Связываем профессию с карьерой
                         return $career;
                     })
                     ->visible(fn($livewire) => !$livewire->getRelationship()->exists()),
