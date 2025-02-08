@@ -17,10 +17,10 @@ class PageController extends Controller
         $seoPage = SEOPage::find(1);
 
         return response()->json([
-            'event_articles' => EventArticleResource::collection($eventArticles),
-            'filters' => FilterResource::collection($filters),
-            'articles' => ArticleResource::collection($articles),
-            'professions' => ProfessionPreviewResource::collection($professions),
+            'event_articles' => $eventArticles->isEmpty() ? [] : EventArticleResource::collection($eventArticles),
+            'filters' => $filters->isEmpty() ? [] : FilterResource::collection($filters),
+            'articles' => $articles->isEmpty() ? [] : ArticleResource::collection($articles),
+            'professions' => $professions->isEmpty() ? [] : ProfessionPreviewResource::collection($professions),
             'seo_page' => $seoPage ? new SEOPageResource($seoPage) : null,
         ]);
     }
@@ -34,8 +34,8 @@ class PageController extends Controller
 
         return response()->json([
             'article' => new ArticleResource($main_article),
-            'related_articles' => ArticleResource::collection($relatedArticles),
-            'professions' => ProfessionPreviewResource::collection($professions),
+            'related_articles' => $relatedArticles->isEmpty() ? [] : ArticleResource::collection($relatedArticles),
+            'professions' => $professions->isEmpty() ? [] : ProfessionPreviewResource::collection($professions),
             'seo_page' => $seoPage ? new SEOPageResource($seoPage) : null,
         ]);
     }
@@ -45,7 +45,7 @@ class PageController extends Controller
         $recentArticles = Article::latest()->take(3)->get();
 
         return response()->json([
-            'articles' => ArticleResource::collection($recentArticles),
+            'articles' => $recentArticles->isEmpty() ? [] : ArticleResource::collection($recentArticles),
         ]);
     }
 
@@ -54,7 +54,7 @@ class PageController extends Controller
         $professions = Profession::all();
 
         return response()->json([
-            'professions' => ProfessionPreviewResource::collection($professions),
+            'professions' => $professions->isEmpty() ? [] : ProfessionPreviewResource::collection($professions),
         ]);
     }
 }

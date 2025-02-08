@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
 use App\Http\Resources\SEOPageResource;
@@ -29,22 +30,16 @@ class MainPageController extends Controller
     public function mainPageData(Request $request)
     {
         return response()->json([
-            'seo' => new SEOPageResource(SEOPage::find(2)),
-            'first_screen' => new FirstImageResource(FirstImage::first()),
-            'professions' => ProfessionGeneralResource::collection(Profession::all()),
-            'tariffs' => TariffResource::collection(Tariff::all()),
-            'mentors' => MentorResource::collection(
-                Mentor::where('status', true)->get()
-            ),
-            'statistics' => StatisticResource::collection(Statistic::all()),
-            'reviews' => ReviewResource::collection(
-                Review::where('status', true)->paginate($request->get('recordsPerPage', 2))
-            ),
-            'partners' => PartnerResource::collection(Partner::all()),
-            'articles' => ArticleResource::collection(
-                Article::where('type_id', 1)->latest('created_at')->take(2)->get()
-            ),
-            'referal_price' => new ReferalResource(Referal::first()),
+            'seo' => SEOPage::find(2) ? new SEOPageResource(SEOPage::find(2)) : null,
+            'first_screen' => FirstImage::first() ? new FirstImageResource(FirstImage::first()) : null,
+            'professions' => Profession::all() ? ProfessionGeneralResource::collection(Profession::all()) : [],
+            'tariffs' => Tariff::all() ? TariffResource::collection(Tariff::all()) : [],
+            'mentors' => Mentor::where('status', true)->exists() ? MentorResource::collection(Mentor::where('status', true)->get()) : [],
+            'statistics' => Statistic::all() ? StatisticResource::collection(Statistic::all()) : [],
+            'reviews' => Review::where('status', true)->exists() ? ReviewResource::collection(Review::where('status', true)->paginate($request->get('recordsPerPage', 2))) : [],
+            'partners' => Partner::all() ? PartnerResource::collection(Partner::all()) : [],
+            'articles' => Article::where('type_id', 1)->latest('created_at')->take(2)->exists() ? ArticleResource::collection(Article::where('type_id', 1)->latest('created_at')->take(2)->get()) : [],
+            'referal_price' => Referal::first() ? new ReferalResource(Referal::first()) : null,
         ]);
     }
 }

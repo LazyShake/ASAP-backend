@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Resources\SeoPageResource;
 use Illuminate\Support\Facades\Storage;
 
-
 class SeoFileController extends Controller
 {
     /**
@@ -15,20 +14,24 @@ class SeoFileController extends Controller
      */
     public function index()
     {
-        return SeoPageResource::collection(
-            SeoFile::paginate(10)
-        );
+        $seoFiles = SeoFile::paginate(10);
+
+        return SeoPageResource::collection($seoFiles->isEmpty() ? [] : $seoFiles);
     }
 
     /**
      * Возвращает данные о конкретном SEO файле.
      *
      * @param int $id
-     * @return SeoFileResource
+     * @return SeoPageResource
      */
     public function show(int $id)
     {
-        $seoFile = SeoFile::findOrFail($id);
+        $seoFile = SeoFile::find($id);
+
+        if (!$seoFile) {
+            return response()->json(['error' => 'SEO file not found'], 404);
+        }
 
         return new SeoPageResource($seoFile);
     }
@@ -59,7 +62,11 @@ class SeoFileController extends Controller
      */
     public function destroy(int $id)
     {
-        $seoFile = SeoFile::findOrFail($id);
+        $seoFile = SeoFile::find($id);
+
+        if (!$seoFile) {
+            return response()->json(['error' => 'SEO file not found'], 404);
+        }
 
         // Удаляем файл с сервера
         Storage::delete($seoFile->path);

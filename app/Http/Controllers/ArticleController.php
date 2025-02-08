@@ -16,6 +16,12 @@ class ArticleController extends Controller
     {
         $perPage = $request->get('per_page', 12);
         $articles = Article::with('type', 'profession')->paginate($perPage);
+
+        // Проверка на существование данных
+        if ($articles->isEmpty()) {
+            return response()->json(['message' => 'No articles found'], 404);
+        }
+
         return ArticleResource::collection($articles);
     }
 
@@ -30,27 +36,43 @@ class ArticleController extends Controller
         $perPage = $request->get('per_page', 12);
         $articles = $query->with('type', 'profession')->paginate($perPage);
 
+        // Проверка на существование данных
+        if ($articles->isEmpty()) {
+            return response()->json(['message' => 'No articles found for this profession'], 404);
+        }
+
         return ArticleResource::collection($articles);
     }
 
     public function showArticle($slug)
-{
-    $article = Article::with('type', 'profession')->where('slug', $slug)->firstOrFail();
+    {
+        // Проверка существования статьи
+        $article = Article::with('type', 'profession')->where('slug', $slug)->first();
 
-    $relatedArticles = Article::where('type_id', $article->type->id_type)
-        ->where('id_article', '!=', $article->id_article)
-        ->take(3)
-        ->get();
+        if (!$article) {
+            return response()->json(['message' => 'Article not found'], 404);
+        }
 
-    $professions = Profession::all();
+        // Получаем связанные статьи
+        $relatedArticles = Article::where('type_id', $article->type->id_type)
+            ->where('id_article', '!=', $article->id_article)
+            ->take(3)
+            ->get();
 
-    return response()->json([
-        'article' => new ArticleResource($article),
-        'related_articles' => ArticleResource::collection($relatedArticles),
-        'professions' => ProfessionPreviewResource::collection($professions),
-    ]);
-}
+        // Проверка на существование связанных статей
+        if ($relatedArticles->isEmpty()) {
+            $relatedArticles = [];  // Пустой массив, если нет связанных статей
+        }
 
+        // Получаем профессии
+        $professions = Profession::all();
+
+        return response()->json([
+            'article' => new ArticleResource($article),
+            'related_articles' => ArticleResource::collection($relatedArticles),
+            'professions' => ProfessionPreviewResource::collection($professions),
+        ]);
+    }
 
     public function sendToTelegram(Request $request)
     {

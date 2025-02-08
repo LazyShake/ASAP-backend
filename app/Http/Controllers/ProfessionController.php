@@ -22,37 +22,41 @@ class ProfessionController extends Controller
             'articles',
         ])->paginate(10);
 
-        return ProfessionResource::collection($professions);
+        return ProfessionResource::collection($professions->isEmpty() ? [] : $professions);
     }
 
     public function show($slug)
-{
-    $profession = Profession::where('slug', $slug)->firstOrFail();
+    {
+        $profession = Profession::where('slug', $slug)->first();
 
-    $profession->load([
-        'career',
-        'typeProfession',
-        'color',
-        'skills',
-        'mentors',
-        'reviews',
-        'progress',
-        'articles',
-    ]);
+        if (!$profession) {
+            return response()->json(['error' => 'Profession not found'], 404);
+        }
 
-    $trackers = Tracker::all();
-    $referals = Referal::all();
-    $tariffs = Tariff::all();
+        $profession->load([
+            'career',
+            'typeProfession',
+            'color',
+            'skills',
+            'mentors',
+            'reviews',
+            'progress',
+            'articles',
+        ]);
 
-    return response()->json([
-        'profession' => new ProfessionResource($profession),
-        'trackers' => TrackerResource::collection($trackers),
-        'referals' => new ReferalResource(Referal::first()),
-        'tariffs' => TariffResource::collection($tariffs),
-        'training_plan' => new TrainingPlanResource(TrainingPlan::first()),
-    ]);
-}
+        $trackers = Tracker::all();
+        $referals = Referal::all();
+        $tariffs = Tariff::all();
+        $trainingPlan = TrainingPlan::first();
 
+        return response()->json([
+            'profession' => new ProfessionResource($profession),
+            'trackers' => $trackers->isEmpty() ? [] : TrackerResource::collection($trackers),
+            'referals' => $referals->isEmpty() ? null : new ReferalResource($referals->first()),
+            'tariffs' => $tariffs->isEmpty() ? [] : TariffResource::collection($tariffs),
+            'training_plan' => $trainingPlan ? new TrainingPlanResource($trainingPlan) : null,
+        ]);
+    }
 
     public function update(Request $request, Profession $profession)
     {
@@ -72,7 +76,6 @@ class ProfessionController extends Controller
             'profession' => new ProfessionResource($profession),
         ]);
     }
-
 
     private function generateUniqueSlug($model, $title)
     {
