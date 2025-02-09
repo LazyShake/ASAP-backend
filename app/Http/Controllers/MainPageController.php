@@ -36,7 +36,9 @@ class MainPageController extends Controller
             'tariffs' => Tariff::all() ? TariffResource::collection(Tariff::all()) : [],
             'mentors' => Mentor::where('status', true)->exists() ? MentorResource::collection(Mentor::where('status', true)->get()) : [],
             'statistics' => Statistic::all() ? StatisticResource::collection(Statistic::all()) : [],
-            'reviews' => Review::where('status', true)->exists() ? ReviewResource::collection(Review::where('status', true)->paginate($request->get('recordsPerPage', 2))) : [],
+            'reviews' => Review::where('status', true)->exists()
+                ? ReviewResource::collection(Review::where('status', true)->get())
+                : [],
             'partners' => Partner::all() ? PartnerResource::collection(Partner::all()) : [],
             'articles' => Article::where('type_id', 1)->latest('created_at')->take(2)->exists() ? ArticleResource::collection(Article::where('type_id', 1)->latest('created_at')->take(2)->get()) : [],
             'referal_price' => Referal::first() ? new ReferalResource(Referal::first()) : null,

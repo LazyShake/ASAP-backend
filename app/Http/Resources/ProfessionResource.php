@@ -20,29 +20,32 @@ class ProfessionResource extends JsonResource
         return [
             'id_profession' => $this->id_profession,
             'name_profession' => $this->name_profession,
+            'slug' => $this->slug,
             'description' => $this->description,
             'price' => "От {$this->price} ₽",
             'period' => $this->period,
             'start_of_training' => Carbon::parse($this->start_of_training)->translatedFormat('j F Y'),
             'place' => $this->place,
-            'type' => $this->typeProfession->name_type ?? null,
-            'mini_images' => $this->miniimage,
             'image' => $this->image,
-            'SEO' => [
-                'key_words' => $this->SEO_key_words, // добавлено поле ключевых слов
-                'title' => $this->SEO_title, // добавлено поле для заголовка
-                'description' => $this->SEO_description, // добавлено поле для описания
-            ],
+            'mini_images' => $this->miniimage,
+            'skilltext' => $this->skilltext, 
+            'type' => $this->typeProfession->name_type ?? null,
+            'color' => $this->color->name ?? null,
+            'career' => CareerResource::make($this->career),
             'mentors' => MentorResource::collection($this->mentors),
             'skills' => SkillResource::collection($this->skills),
-            'skilltext' => $this->skilltext, // Добавлено новое поле
-            'career' => CareerResource::make($this->career),
-            'tariffs' => TariffResource::collection(Tariff::orderBy('price')->get()),
-            'programs' => ProgramResource::collection($this->programs),
             'progress' => ProgressResource::collection($this->progress),
             'articles' => ArticleResource::collection($this->articles),
+            'programs' => ProgramResource::collection($this->programs),
             'reviews' => ReviewResource::collection($this->reviews),
-            'color' => $this->color->name,
+            'tariffs' => TariffResource::collection(Tariff::orderBy('price')->get()),
+
+            // SEO данные
+            'SEO' => [
+                'key_words' => $this->SEO_key_words,
+                'title' => $this->SEO_title,
+                'description' => $this->SEO_description,
+            ],
         ];
     }
 }
