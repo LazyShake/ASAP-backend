@@ -64,9 +64,9 @@ class ArticleResource extends Resource
                     ->label('Контент')
                     ->required()
                     ->default(fn($get) => $get('record.content'))
-                    ->imageHandlerUrl(route('filament.resources.files.upload'))  // Используй стандартный URL для загрузки файлов
-                    ->imageUploadMaxSize(5 * 1024 * 1024) // Ограничение на размер файла (5MB)
-                    ->imageUploadAllowedExtensions(['jpg', 'jpeg', 'png', 'gif']),
+                    ->fileAttachmentsDisk('public')
+                    ->fileAttachmentsDirectory('article')
+                    ->fileAttachmentsVisibility('public'),
 
                 Forms\Components\FileUpload::make('picture')
                     ->label('Изображение')
