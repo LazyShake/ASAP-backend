@@ -63,7 +63,10 @@ class ArticleResource extends Resource
                 Forms\Components\RichEditor::make('content')
                     ->label('Контент')
                     ->required()
-                    ->default(fn($get) => $get('record.content')),
+                    ->default(fn($get) => $get('record.content'))
+                    ->imageHandlerUrl(route('filament.resources.files.upload'))  // Используй стандартный URL для загрузки файлов
+                    ->imageUploadMaxSize(5 * 1024 * 1024) // Ограничение на размер файла (5MB)
+                    ->imageUploadAllowedExtensions(['jpg', 'jpeg', 'png', 'gif']),
 
                 Forms\Components\FileUpload::make('picture')
                     ->label('Изображение')
@@ -177,7 +180,7 @@ class ArticleResource extends Resource
                     ->directory('article')
                     ->default(fn($get) => $get('record.owner_picture')),
 
-                    Forms\Components\TextInput::make('seo_keywords')
+                Forms\Components\TextInput::make('seo_keywords')
                     ->label('Ключевые слова SEO')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('seo_title')

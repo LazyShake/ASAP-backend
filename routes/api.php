@@ -10,6 +10,8 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\MainPageController;
 use App\Http\Controllers\SeoFileController;
+use Filament\Forms\Components\FileUpload;
+use Filament\Http\Controllers\FileUploadController;
 
 /*
 |--------------------------------------------------------------------------
