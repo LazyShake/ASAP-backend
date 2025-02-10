@@ -164,13 +164,13 @@ class ArticleResource extends Resource
                 Forms\Components\TextInput::make('owner_name')
                     ->label('Имя автора')
                     ->maxLength(255)
-                    ->default(fn($get) => $get('record.owner_name') ?? 'Автор отсутствует'),
+                    ->default(fn($get) => $get('record.owner_name')),
 
 
                     Forms\Components\Textarea::make('owner_description')
                     ->label('Описание автора')
                     ->maxLength(500)
-                    ->default(fn($get) => $get('record.owner_description') ?? 'Пустое описание'),
+                    ->default(fn($get) => $get('record.owner_description')),
                 
 
                 Forms\Components\FileUpload::make('owner_picture')
