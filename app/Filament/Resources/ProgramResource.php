@@ -18,7 +18,7 @@ class ProgramResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-list';
     protected static ?string $pluralLabel = 'Программы';
     protected static ?string $modelLabel = 'Программа';
-    //protected static bool $shouldRegisterNavigation = false;
+    protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Form $form): Form
     {

@@ -26,8 +26,8 @@ class SEOPageResource extends Resource
                 Forms\Components\TextInput::make('page_name')
                     ->label('Название страницы')
                     ->required()
-                    ->maxLength(255),
-                    //->disabled(),
+                    ->maxLength(255)
+                    ->disabled(),
                 Forms\Components\TextInput::make('SEO_title')
                     ->label('SEO Заголовок')
                     ->maxLength(255),

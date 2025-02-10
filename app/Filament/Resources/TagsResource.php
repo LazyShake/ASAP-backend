@@ -19,7 +19,7 @@ class TagsResource extends Resource
     protected static ?string $navigationLabel = 'Теги';
     protected static ?string $pluralLabel = 'Теги';
     protected static ?string $modelLabel = 'Тег';
-    //protected static bool $shouldRegisterNavigation = false;
+    protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Form $form): Form
     {

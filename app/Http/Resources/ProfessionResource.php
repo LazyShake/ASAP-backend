@@ -25,7 +25,8 @@ class ProfessionResource extends JsonResource
             'price' => "От {$this->price} ₽",
             'period' => $this->period,
             'start_of_training' => Carbon::parse($this->start_of_training)->translatedFormat('j F Y'),
-            'place' => $this->place,
+            'place' => $this->place . ' ' . (in_array($this->place % 10, [2, 3, 4]) && !in_array($this->place % 100, [12, 13, 14]) ? 'человека' : 'человек'),
+
             'image' => $this->image,
             'mini_images' => $this->miniimage,
             'skilltext' => $this->skilltext, 

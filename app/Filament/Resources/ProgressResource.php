@@ -23,7 +23,7 @@ class ProgressResource extends Resource
     protected static ?string $pluralLabel = 'Прогресс';
 
     protected static ?string $modelLabel = 'Прогресс';
-    //protected static bool $shouldRegisterNavigation = false;
+    protected static bool $shouldRegisterNavigation = false;
 
     protected static ?int $navigationSort = 2;
 
