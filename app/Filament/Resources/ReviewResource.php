@@ -29,7 +29,7 @@ class ReviewResource extends Resource
                     ->required(),
                 Forms\Components\FileUpload::make('picture')
                     ->label('Изображение')
-                    
+                    ->required()
             ->preserveFilenames()
             ->disk('public') // Указываем диск
     ->directory('article') 

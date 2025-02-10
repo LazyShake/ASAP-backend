@@ -65,14 +65,14 @@ class ProfessionResource extends Resource
                     ->maxLength(500),
                 Forms\Components\FileUpload::make('image')
                     ->label('Изображение')
-                    
+                    ->required()
             ->preserveFilenames()
                     ->image()
                     ->disk('public') // Указываем диск
     ->directory('article') ,
                 Forms\Components\FileUpload::make('miniimage')
                     ->label('Мини-изображение')
-                    
+                    ->required()
             ->preserveFilenames()
                     ->image()
                     ->disk('public') // Указываем диск
@@ -99,10 +99,10 @@ class ProfessionResource extends Resource
                         Forms\Components\TextInput::make('name')
                             ->required(),
                     ]),
-                Forms\Components\BelongsToSelect::make('id_type')
+                    Forms\Components\BelongsToSelect::make('id_type')
                     ->relationship('typeProfession', 'name_type')
                     ->label('Тип профессии')
-                    ->required(),
+                    ->default(fn($get) => $get('record.id_type') ?? 1), // Укажите нужный ID по умолчанию
                 Forms\Components\TextInput::make('skilltext')
                     ->label('Текст навыков')
                     ->required()

@@ -60,10 +60,10 @@ class ArticleResource extends Resource
                     ->maxLength(500)
                     ->default(fn($get) => $get('record.short_text')),
 
-                Forms\Components\RichEditor::make('content')
+                    Forms\Components\RichEditor::make('content')
                     ->label('Контент')
                     ->required()
-                    ->default(fn($get) => $get('record.content'))
+                    ->default(fn($get) => $get('record.content') ?? 'пустой контент')
                     ->fileAttachmentsDisk('public')
                     ->fileAttachmentsDirectory('article')
                     ->fileAttachmentsVisibility('public'),
@@ -164,16 +164,18 @@ class ArticleResource extends Resource
                 Forms\Components\TextInput::make('owner_name')
                     ->label('Имя автора')
                     ->maxLength(255)
-                    ->default(fn($get) => $get('record.owner_name')),
+                    ->default(fn($get) => $get('record.owner_name') ?? 'Автор отсутствует'),
 
-                Forms\Components\Textarea::make('owner_description')
+
+                    Forms\Components\Textarea::make('owner_description')
                     ->label('Описание автора')
                     ->maxLength(500)
-                    ->default(fn($get) => $get('record.owner_description')),
+                    ->default(fn($get) => $get('record.owner_description') ?? 'Пустое описание'),
+                
 
                 Forms\Components\FileUpload::make('owner_picture')
                     ->label('Фото автора')
-                    ->required()
+                    //->required()
                     ->image()
                     ->preserveFilenames()
                     ->disk('public') // Указываем диск

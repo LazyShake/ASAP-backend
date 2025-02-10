@@ -31,32 +31,32 @@ class CareerRelationManager extends RelationManager
                 Forms\Components\TextInput::make('hh')
                     ->label('Вакансии HH.ru')
                     ->numeric()
-                    ->nullable(),
+                    ->required(),
 
                 Forms\Components\TextInput::make('habr')
                     ->label('Вакансии Habr')
                     ->numeric()
-                    ->nullable(),
+                    ->required(),
 
                 Forms\Components\TextInput::make('freelance')
                     ->label('Заказы на фрилансе')
                     ->numeric()
-                    ->nullable(),
+                    ->required(),
 
                 Forms\Components\TextInput::make('start_vage')
                     ->label('Зарплата на старте')
                     ->numeric()
-                    ->nullable(),
+                    ->required(),
 
                 Forms\Components\TextInput::make('one_year_vage')
                     ->label('Зарплата после 1 года')
                     ->numeric()
-                    ->nullable(),
+                    ->required(),
 
                 Forms\Components\TextInput::make('three_year_vage')
                     ->label('Зарплата после 3 лет')
                     ->numeric()
-                    ->nullable(),
+                    ->required(),
 
             ]);
     }
