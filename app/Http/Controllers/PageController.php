@@ -35,7 +35,7 @@ class PageController extends Controller
         return response()->json([
             'article' => new ArticleResource($main_article),
             'related_articles' => $relatedArticles->isEmpty() ? [] : ArticleResource::collection($relatedArticles),
-            'professions' => $professions->isEmpty() ? [] : ProfessionPreviewResource::collection($professions),
+            'professions' => $professions->isEmpty() ? [] : ProfessionGeneralResource::collection($professions),
             'seo_page' => $seoPage ? new SEOPageResource($seoPage) : null,
         ]);
     }
@@ -54,7 +54,7 @@ class PageController extends Controller
         $professions = Profession::all();
 
         return response()->json([
-            'professions' => $professions->isEmpty() ? [] : ProfessionPreviewResource::collection($professions),
+            'professions' => $professions->isEmpty() ? [] : ProfessionGeneralResource::collection($professions),
         ]);
     }
 }
