@@ -44,10 +44,10 @@ class TypeResource extends Resource
                 // Можно добавить фильтры, если необходимо
             ])
             ->actions([
-                Tables\Actions\EditAction::make()->label('Редактировать'),
+                //Tables\Actions\EditAction::make()->label('Редактировать'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make()->label('Удалить'),
+                //Tables\Actions\DeleteBulkAction::make()->label('Удалить'),
             ]);
     }
 

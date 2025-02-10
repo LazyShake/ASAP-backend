@@ -13,7 +13,7 @@ class ListFirstImages extends ListRecords
     protected function getActions(): array
     {
         return [
-            Actions\CreateAction::make()->label('Создать'),
+            //Actions\CreateAction::make()->label('Создать'),
         ];
     }
 }

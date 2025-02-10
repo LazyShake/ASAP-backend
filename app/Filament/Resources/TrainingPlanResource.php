@@ -47,6 +47,7 @@ class TrainingPlanResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->label('Редактировать'),
+                Tables\Actions\DeleteBulkAction::make()->label('Удалить'),
             ])
             ->bulkActions([
             ]);

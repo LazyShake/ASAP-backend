@@ -43,11 +43,11 @@ class ColorResource extends Resource
                 // Добавить фильтры, если нужно
             ])
             ->actions([
-                Tables\Actions\EditAction::make()->label('Редактировать'),
+                //Tables\Actions\EditAction::make()->label('Редактировать'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make()
-                ->label('Удалить'),
+                //Tables\Actions\DeleteBulkAction::make()
+                //->label('Удалить'),
             ]);
     }
 

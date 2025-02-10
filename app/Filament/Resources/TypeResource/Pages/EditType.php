@@ -13,7 +13,7 @@ class EditType extends EditRecord
     protected function getActions(): array
     {
         return [
-            Actions\DeleteAction::make()->label('Удалить'),
+            //Actions\DeleteAction::make()->label('Удалить'),
         ];
     }
 }

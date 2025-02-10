@@ -58,7 +58,7 @@ class SEOPageResource extends Resource
                 Tables\Actions\EditAction::make()->label('Редактировать'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make()->label('Удалить'),
+                //Tables\Actions\DeleteBulkAction::make()->label('Удалить'),
             ]);
     }
 
