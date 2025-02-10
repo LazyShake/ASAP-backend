@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\{EventArticleResource, FilterResource, ArticleResource, ProfessionPreviewResource, DetailedArticleResource, SEOPageResource};
+use App\Http\Resources\{EventArticleResource, FilterResource, ArticleResource, ProfessionGeneralResource, DetailedArticleResource, SEOPageResource};
 use Illuminate\Http\Request;
 use App\Models\{Article, Filter, Profession, SEOPage};
 
@@ -20,7 +20,7 @@ class PageController extends Controller
             'event_articles' => $eventArticles->isEmpty() ? [] : EventArticleResource::collection($eventArticles),
             'filters' => $filters->isEmpty() ? [] : FilterResource::collection($filters),
             'articles' => $articles->isEmpty() ? [] : ArticleResource::collection($articles),
-            'professions' => $professions->isEmpty() ? [] : ProfessionPreviewResource::collection($professions),
+            'professions' => $professions->isEmpty() ? [] : ProfessionGeneralResource::collection($professions),
             'seo_page' => $seoPage ? new SEOPageResource($seoPage) : null,
         ]);
     }
