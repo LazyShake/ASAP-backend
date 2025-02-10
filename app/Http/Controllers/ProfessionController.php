@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\{ProfessionResource, ReferalResource, TariffResource, TrackerResource, TrainingPlanResource};
+use App\Http\Resources\{ProfessionResource, ProfessionGeneralResource, ReferalResource, TariffResource, TrackerResource, TrainingPlanResource};
 use Illuminate\Http\Request;
 use App\Models\{Profession, Referal, Tracker, Tariff, TrainingPlan};
 use Illuminate\Support\Str;
@@ -22,7 +22,7 @@ class ProfessionController extends Controller
             'articles',
         ])->paginate(10);
 
-        return ProfessionResource::collection($professions->isEmpty() ? [] : $professions);
+        return ProfessionGeneralResource::collection($professions->isEmpty() ? [] : $professions);
     }
 
     public function show($slug)
