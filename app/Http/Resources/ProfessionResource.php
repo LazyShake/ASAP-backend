@@ -30,7 +30,7 @@ class ProfessionResource extends JsonResource
 
             'image' => $this->image,
             'mini_images' => $this->miniimage,
-            'skilltext' => $this->skilltext, 
+            'skilltext' => $this->skilltext,
             'type' => $this->typeProfession->name_type ?? null,
             'color' => $this->color->name ?? null,
             'career' => CareerResource::make($this->career),
@@ -45,7 +45,7 @@ class ProfessionResource extends JsonResource
             // Самая новая статья с типом "Кейс" среди всех статей
             'latest_case' => ArticleResource::make(
                 Article::whereHas('type', fn($q) => $q->where('name_type', 'Кейс'))
-                    ->latest()
+                    ->orderByDesc('created_at')
                     ->first()
             ),
 
