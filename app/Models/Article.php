@@ -60,7 +60,7 @@ class Article extends Model
     });
 
     // Запрет удаления статьи, если на нее ссылаются другие записи
-    static::deleting(function ($article) {
+    /*static::deleting(function ($article) {
         $relations = [
             'tags' => 'Теги',
             'type' => 'Тип статьи',
@@ -87,7 +87,7 @@ class Article extends Model
             // Выбрасываем исключение с отформатированным JSON
             throw new \Exception(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         }
-    });
+    });*/
 }
 
     public function type()

@@ -22,7 +22,7 @@ class Progress extends Model
         'id_profession',
     ];
 
-    protected static function booted()
+    /*protected static function booted()
 {
     static::deleting(function ($progress) {
         if ($progress->profession()->exists()) {
@@ -41,7 +41,7 @@ class Progress extends Model
         }
     });
     
-}
+}*/
 
 
     public static function getProgressByProfession($professionId)

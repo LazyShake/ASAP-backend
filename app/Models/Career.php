@@ -36,7 +36,7 @@ class Career extends Model
     }
 
     // Запрещаем удаление, если карьера используется в профессиях
-    protected static function booted()
+    /*protected static function booted()
     {
         static::deleting(function ($career) {
             // Получаем все профессии, использующие эту карьеру
@@ -59,7 +59,7 @@ class Career extends Model
                 throw new \Exception($formattedError);
             }
         });
-    }
+    }*/
 
     // Указать, что timestamps присутствуют
     public $timestamps = true;

@@ -17,7 +17,7 @@ class Filter extends Model
         'name_filter',
     ];
 
-    protected static function booted()
+    /*protected static function booted()
     {
         static::deleting(function ($filter) {
             // Получаем статьи, использующие данный фильтр
@@ -38,7 +38,7 @@ class Filter extends Model
                 throw new \Exception(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
             }
         });
-    }
+    }*/
 
 
     public function articles()

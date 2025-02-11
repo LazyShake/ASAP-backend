@@ -24,7 +24,7 @@ class Mentor extends Model
         'workplace',
     ];
 
-    protected static function booted()
+    /*protected static function booted()
 {
     static::deleting(function ($mentor) {
         // Проверяем, связан ли ментор с профессией
@@ -42,7 +42,7 @@ class Mentor extends Model
             throw new \Exception(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         }
     });
-}
+}*/
 
 
     // Указываем, что Laravel будет работать с временными метками created_at и updated_at

@@ -27,7 +27,7 @@ class Type extends Model
     }
 
     // Пример проверки перед удалением, если тип используется в статьях
-    protected static function booted()
+    /*protected static function booted()
     {
         static::deleting(function ($type) {
             // Получаем все статьи, ссылающиеся на данный тип
@@ -53,7 +53,7 @@ class Type extends Model
             }
         });
         
-    }
+    }*/
 
     // Указываем, что Laravel не должен ожидать поля timestamps, если их нет
     public $timestamps = true;

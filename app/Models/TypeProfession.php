@@ -17,7 +17,7 @@ class TypeProfession extends Model
         'name_type',
     ];
 
-    protected static function booted()
+    /*protected static function booted()
 {
     static::deleting(function ($typeProfession) {
         // Получаем все профессии, использующие данный тип профессии
@@ -43,7 +43,7 @@ class TypeProfession extends Model
         }
     });
     
-}
+}*/
 
 
     public function professions()

@@ -52,7 +52,7 @@ class Profession extends Model
         'SEO_description',
     ];
 
-    protected static function booted()
+    /*protected static function booted()
     {
         static::creating(function ($profession) {
             if (empty($profession->slug)) {
@@ -95,7 +95,7 @@ class Profession extends Model
             }
         });
         
-    }
+    }*/
 
 
     // Отношения

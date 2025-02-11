@@ -22,7 +22,7 @@ class Tags extends Model
         'name_tag',
     ];
 
-    protected static function booted()
+    /*protected static function booted()
 {
     static::deleting(function ($tag) {
         // Проверяем, есть ли связанные статьи
@@ -42,7 +42,7 @@ class Tags extends Model
         }
     });
     
-}
+}*/
 
 
     public function articles()
