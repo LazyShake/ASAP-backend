@@ -42,8 +42,12 @@ class ProfessionResource extends JsonResource
             'reviews' => ReviewResource::collection($this->reviews),
             'tariffs' => TariffResource::collection(Tariff::orderBy('price')->get()),
 
-            // Самый новый article с типом "Кейс"
-            'latest_case' => ArticleResource::make($this->articles()->whereHas('type', fn($q) => $q->where('name_type', 'Кейс'))->latest()->first()),
+            // Самая новая статья с типом "Кейс" среди всех статей
+            'latest_case' => ArticleResource::make(
+                Article::whereHas('type', fn($q) => $q->where('name_type', 'Кейс'))
+                    ->latest()
+                    ->first()
+            ),
 
             // SEO данные
             'SEO' => [
