@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Carbon\Carbon;
 use App\Models\Tariff;
+use App\Models\Article;
 
 class ProfessionResource extends JsonResource
 {
@@ -40,6 +41,9 @@ class ProfessionResource extends JsonResource
             'programs' => ProgramResource::collection($this->programs),
             'reviews' => ReviewResource::collection($this->reviews),
             'tariffs' => TariffResource::collection(Tariff::orderBy('price')->get()),
+
+            // Самый новый article с типом "Кейс"
+            'latest_case' => ArticleResource::make($this->articles()->whereHas('type', fn($q) => $q->where('name_type', 'Кейс'))->latest()->first()),
 
             // SEO данные
             'SEO' => [

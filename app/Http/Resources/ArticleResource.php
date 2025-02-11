@@ -25,7 +25,7 @@ class ArticleResource extends JsonResource
             'picture' => $this->picture, // Изображение статьи
             'type' => new TypeResource($this->type), // Тип статьи
             //'profession' => new ProfessionGeneralResource($this->profession), // Профессия
-            'filter' => new FilterResource($this->filter), // Фильтр
+            'filter' => $this->type->name_type === 'Кейс' ? new TypeResource($this->type) : new FilterResource($this->filter), // Фильтр или тип, если "Кейс"
             'tags' => TagResource::collection($this->tags), // Теги
             'link' => $this->link, // Ссылка на источник
             'owner_name' => $this->owner_name, // Имя владельца статьи
