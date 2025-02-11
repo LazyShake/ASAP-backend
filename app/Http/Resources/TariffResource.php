@@ -12,8 +12,8 @@ class TariffResource extends JsonResource
         return [
             'name_tariff' => $this->name_tariff,
             'short_description' => $this->short_description,
-            'price' => $this->price,
-            'instalment' => $this->installment,
+            'price' => number_format($this->price, 0, '.', ' '),
+            'instalment' => number_format($this->instalment, 0, '.', ' '),
             'detailed_description' => $this->detailed_description,
         ];
     }

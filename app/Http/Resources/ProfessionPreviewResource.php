@@ -21,7 +21,6 @@ class ProfessionPreviewResource extends JsonResource
             'name_profession' => $this->name_profession,
             'mini_images' => $this->miniimage,
             'place' => $this->place,
-            'price' => $this->price,
             'period' => $this->period,
             'type' => $this->typeProfession->name_type,
             'color' => $this->color->name,
