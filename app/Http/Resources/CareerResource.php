@@ -16,12 +16,12 @@ class CareerResource extends JsonResource
     {
         return [
             'name' => $this->name,
-            'hh' => $this->hh,
-            'habr' => $this->habr,
-            'freelance' => $this->freelance,
-            'start_vage' => $this->start_vage,
-            'one_year_vage' => $this->one_year_vage,
-            'three_year_vage' => $this->three_year_vage,
+            'hh' => number_format((int) preg_replace('/\D/', '', $this->hh), 0, '.', ' '),
+            'habr' => number_format((int) preg_replace('/\D/', '', $this->habr), 0, '.', ' '),
+            'freelance' => number_format((int) preg_replace('/\D/', '', $this->freelance), 0, '.', ' '),
+            'start_vage' => number_format($this->start_vage, 0, '.', ' '),
+            'one_year_vage' => number_format($this->one_year_vage, 0, '.', ' '),
+            'three_year_vage' => number_format($this->three_year_vage, 0, '.', ' '),
 
         ];
     }
