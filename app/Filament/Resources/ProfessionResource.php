@@ -110,14 +110,11 @@ class ProfessionResource extends Resource
                     ->placeholder('Введите описание навыков'),
                 // SEO поля
                 Forms\Components\TextInput::make('SEO_key_words')
-                    ->label('Ключевые слова SEO')
-                    ->maxLength(255),
+                    ->label('Ключевые слова SEO'),
                 Forms\Components\TextInput::make('SEO_title')
-                    ->label('Заголовок SEO')
-                    ->maxLength(255),
+                    ->label('Заголовок SEO'),
                 Forms\Components\Textarea::make('SEO_description')
-                    ->label('Описание SEO')
-                    ->maxLength(500),
+                    ->label('Описание SEO'),
             ]);
     }
 
