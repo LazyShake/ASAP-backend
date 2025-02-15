@@ -50,9 +50,8 @@ class ArticleResource extends Resource
                     ->label('Slug')
                     ->required()
                     ->unique(ignoreRecord: true)
-                    ->disabled(fn($record) => $record !== null) // Запрет изменения после создания
-                    ->helperText('Будет автоматически создан из названия.')
-                    ->default(fn($get) => $get('record.slug')),
+                    ->readOnly()
+                    ->default(fn($record) => $record?->name_article ? Str::slug($record->name_article) : ''),
 
                 Forms\Components\Textarea::make('short_text')
                     ->label('Краткий текст')
@@ -60,7 +59,7 @@ class ArticleResource extends Resource
                     ->maxLength(500)
                     ->default(fn($get) => $get('record.short_text')),
 
-                    Forms\Components\RichEditor::make('content')
+                Forms\Components\RichEditor::make('content')
                     ->label('Контент')
                     ->required()
                     ->default(fn($get) => $get('record.content') ?? 'пустой контент')
@@ -167,11 +166,11 @@ class ArticleResource extends Resource
                     ->default(fn($get) => $get('record.owner_name')),
 
 
-                    Forms\Components\Textarea::make('owner_description')
+                Forms\Components\Textarea::make('owner_description')
                     ->label('Описание автора')
                     ->maxLength(500)
                     ->default(fn($get) => $get('record.owner_description')),
-                
+
 
                 Forms\Components\FileUpload::make('owner_picture')
                     ->label('Фото автора')

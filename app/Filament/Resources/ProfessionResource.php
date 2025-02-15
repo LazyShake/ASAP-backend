@@ -43,7 +43,8 @@ class ProfessionResource extends Resource
                     ->label('Slug')
                     ->required()
                     ->unique(ignoreRecord: true)
-                    ->disabled(fn($record) => $record !== null), // Запрет изменения после создания
+                    ->readOnly()
+                    ->default(fn($record) => $record?->name_profession ? Str::slug($record->name_profession) : ''),
                 Forms\Components\TextInput::make('price')
                     ->label('Стоимость обучения')
                     ->required()
@@ -66,17 +67,17 @@ class ProfessionResource extends Resource
                 Forms\Components\FileUpload::make('image')
                     ->label('Изображение')
                     ->required()
-            ->preserveFilenames()
+                    ->preserveFilenames()
                     ->image()
                     ->disk('public') // Указываем диск
-    ->directory('article') ,
+                    ->directory('article'),
                 Forms\Components\FileUpload::make('miniimage')
                     ->label('Мини-изображение')
                     ->required()
-            ->preserveFilenames()
+                    ->preserveFilenames()
                     ->image()
                     ->disk('public') // Указываем диск
-    ->directory('article'),
+                    ->directory('article'),
                 /*Forms\Components\BelongsToSelect::make('id_career')
                     ->relationship('career', 'name')
                     ->label('Карьера')
@@ -99,7 +100,7 @@ class ProfessionResource extends Resource
                         Forms\Components\TextInput::make('name')
                             ->required(),
                     ]),
-                    Forms\Components\BelongsToSelect::make('id_type')
+                Forms\Components\BelongsToSelect::make('id_type')
                     ->relationship('typeProfession', 'name_type')
                     ->label('Тип профессии')
                     ->default(fn($get) => $get('record.id_type') ?? 1), // Укажите нужный ID по умолчанию
@@ -164,7 +165,7 @@ class ProfessionResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make()
-                ->label('Удалить'),
+                    ->label('Удалить'),
             ]);
     }
 
