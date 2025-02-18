@@ -52,7 +52,9 @@ class ProfessionResource extends Resource
                 Forms\Components\TextInput::make('place')
                     ->label('Количество мест')
                     ->required()
-                    ->numeric(),
+                    ->numeric()
+                    ->integer() // Запрещает дробные числа
+                    ->minValue(0), // Запрещает отрицательные числа
                 Forms\Components\TextInput::make('period')
                     ->label('Период обучения')
                     ->required()
@@ -60,7 +62,7 @@ class ProfessionResource extends Resource
                 Forms\Components\DatePicker::make('start_of_training')
                     ->label('Дата начала обучения')
                     ->required(),
-                Forms\Components\TextInput::make('description')
+                Forms\Components\TextArea::make('description')
                     ->label('Описание')
                     ->required()
                     ->maxLength(500),
@@ -91,8 +93,11 @@ class ProfessionResource extends Resource
                     ->multiple() // Поддержка нескольких тегов
                     ->relationship('skills', 'name') // Используйте связь с моделью
                     ->searchable() // Включаем поиск
-                    ->getSearchResultsUsing(function (string $query) {
-                        return Skill::where('name', 'like', "%{$query}%")
+                    ->getSearchResultsUsing(function (string $query, callable $get) {
+                        $selectedSkills = $get('skills') ?? []; // Получаем выбранные ID
+
+                        return Skill::whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($query) . '%'])
+                            ->whereNotIn('id_skills', $selectedSkills) // Исключаем выбранные навыки
                             ->pluck('name', 'id_skills');
                     })
                     ->placeholder('Выберите навык или создайте новый')
@@ -103,16 +108,17 @@ class ProfessionResource extends Resource
                 Forms\Components\BelongsToSelect::make('id_type')
                     ->relationship('typeProfession', 'name_type')
                     ->label('Тип профессии')
+                    ->required()
                     ->default(fn($get) => $get('record.id_type') ?? 1), // Укажите нужный ID по умолчанию
-                Forms\Components\TextInput::make('skilltext')
+                Forms\Components\TextArea::make('skilltext')
                     ->label('Текст навыков')
                     ->required()
                     ->maxLength(500)
                     ->placeholder('Введите описание навыков'),
                 // SEO поля
-                Forms\Components\TextInput::make('SEO_key_words')
+                Forms\Components\TextArea::make('SEO_key_words')
                     ->label('Ключевые слова SEO'),
-                Forms\Components\TextInput::make('SEO_title')
+                Forms\Components\TextArea::make('SEO_title')
                     ->label('Заголовок SEO'),
                 Forms\Components\Textarea::make('SEO_description')
                     ->label('Описание SEO'),
