@@ -43,7 +43,7 @@ class ProfessionResource extends Resource
                     ->label('Slug')
                     ->required()
                     ->unique(ignoreRecord: true)
-                    ->readOnly()
+                    ->disabled()
                     ->default(fn($record) => $record?->name_profession ? Str::slug($record->name_profession) : ''),
                 Forms\Components\TextInput::make('price')
                     ->label('Стоимость обучения')
