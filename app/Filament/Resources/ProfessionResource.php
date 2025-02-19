@@ -58,7 +58,7 @@ class ProfessionResource extends Resource
                 Forms\Components\DatePicker::make('start_of_training')
                     ->label('Дата начала обучения')
                     ->required(),
-                Forms\Components\TextArea::make('description')
+                Forms\Components\Textarea::make('description')
                     ->label('Описание')
                     ->required()
                     ->maxLength(500),
@@ -108,15 +108,15 @@ class ProfessionResource extends Resource
                     ->label('Тип профессии')
                     ->required()
                     ->default(fn($get) => $get('record.id_type') ?? 1), // Укажите нужный ID по умолчанию
-                Forms\Components\TextArea::make('skilltext')
+                Forms\Components\Textarea::make('skilltext')
                     ->label('Текст навыков')
                     ->required()
                     ->maxLength(500)
                     ->placeholder('Введите описание навыков'),
                 // SEO поля
-                Forms\Components\TextArea::make('SEO_key_words')
+                Forms\Components\Textarea::make('SEO_key_words')
                     ->label('Ключевые слова SEO'),
-                Forms\Components\TextArea::make('SEO_title')
+                Forms\Components\Textarea::make('SEO_title')
                     ->label('Заголовок SEO'),
                 Forms\Components\Textarea::make('SEO_description')
                     ->label('Описание SEO'),
