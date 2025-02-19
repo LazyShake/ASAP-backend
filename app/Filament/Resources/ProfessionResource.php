@@ -45,10 +45,6 @@ class ProfessionResource extends Resource
                     ->unique(ignoreRecord: true)
                     ->disabled()
                     ->default(fn($record) => $record?->name_profession ? Str::slug($record->name_profession) : ''),
-                Forms\Components\TextInput::make('price')
-                    ->label('Стоимость обучения')
-                    ->required()
-                    ->maxLength(255),
                 Forms\Components\TextInput::make('place')
                     ->label('Количество мест')
                     ->required()
@@ -95,7 +91,9 @@ class ProfessionResource extends Resource
                     ->searchable() // Включаем поиск
                     ->getSearchResultsUsing(function (string $query, callable $get) {
                         $selectedSkills = $get('skills') ?? []; // Получаем выбранные ID
-
+                        if (!is_array($selectedSkills)) {
+                            $selectedSkills = [$selectedSkills];
+                        }
                         return Skill::whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($query) . '%'])
                             ->whereNotIn('id_skills', $selectedSkills) // Исключаем выбранные навыки
                             ->pluck('name', 'id_skills');
@@ -133,9 +131,6 @@ class ProfessionResource extends Resource
                     ->label('Название профессии')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('price')
-                    ->label('Стоимость обучения')
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('place')
                     ->label('Количество мест'),
                 Tables\Columns\TextColumn::make('period')

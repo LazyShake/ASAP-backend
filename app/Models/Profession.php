@@ -37,7 +37,6 @@ class Profession extends Model
         'name_profession',
         'slug',
         'image',
-        'price',
         'period',
         'start_of_training',
         'id_career',
