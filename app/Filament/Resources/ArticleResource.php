@@ -46,11 +46,11 @@ class ArticleResource extends Resource
                     ->default(fn($get) => $get('record.name_article')) // Привязка к значению из модели
                     ->afterStateUpdated(fn($state, callable $set) => $set('slug', Str::slug($state))),
 
-                Forms\Components\TextInput::make('slug')
+                    Forms\Components\TextInput::make('slug')
                     ->label('Slug')
                     ->required()
                     ->unique(ignoreRecord: true)
-                    ->readOnly()
+                    ->disabled()
                     ->default(fn($record) => $record?->name_article ? Str::slug($record->name_article) : ''),
 
                 Forms\Components\Textarea::make('short_text')
