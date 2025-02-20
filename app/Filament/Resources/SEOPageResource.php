@@ -29,11 +29,14 @@ class SEOPageResource extends Resource
                     ->maxLength(255)
                     ->disabled(),
                 Forms\Components\TextInput::make('SEO_title')
-                    ->label('SEO Заголовок'),
+                    ->label('SEO Заголовок')
+                    ->required(),
                 Forms\Components\TextInput::make('SEO_key_words')
-                    ->label('SEO Ключевые слова'),
+                    ->label('SEO Ключевые слова')
+                    ->required(),
                 Forms\Components\Textarea::make('SEO_description')
-                    ->label('SEO Описание'),
+                    ->label('SEO Описание')
+                    ->required(),
             ]);
     }
 
