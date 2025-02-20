@@ -36,8 +36,7 @@ class TrackerResource extends Resource
                     ->default(fn($get) => $get('record.picture')),
                 Forms\Components\Textarea::make('description')
                     ->label('Описание')
-                    ->required()
-                    ->nullable(),
+                    ->required(),
             ]);
     }
 
