@@ -33,7 +33,7 @@ protected static ?string $pluralTitle = 'Менторы';
                 Forms\Components\FileUpload::make('picture')
                     ->label('Изображение')
                     ->image()
-                    ->nullable(),
+                    ->required(),
                 Forms\Components\Toggle::make('status')
                     ->label('Отображать на главной')
                     ->default(false),
