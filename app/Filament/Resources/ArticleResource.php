@@ -62,7 +62,7 @@ class ArticleResource extends Resource
                 Forms\Components\RichEditor::make('content')
                     ->label('Контент')
                     ->required()
-                    ->default(fn($get) => $get('record.content') ?? 'пустой контент')
+                    ->default(fn($get) => $get('record.content'))
                     ->fileAttachmentsDisk('public')
                     ->fileAttachmentsDirectory('article')
                     ->fileAttachmentsVisibility('public'),
