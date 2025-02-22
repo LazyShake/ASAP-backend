@@ -15,7 +15,7 @@ class MentorRelationManager extends RelationManager
     protected static ?string $recordTitleAttribute = 'name_mentors';
 
     protected static ?string $title = 'Ментор';
-protected static ?string $pluralTitle = 'Менторы';
+    protected static ?string $pluralTitle = 'Менторы';
 
 
     public static function form(Form $form): Form
@@ -32,8 +32,12 @@ protected static ?string $pluralTitle = 'Менторы';
                     ->maxLength(1000),
                 Forms\Components\FileUpload::make('picture')
                     ->label('Изображение')
+                    ->required()
                     ->image()
-                    ->required(),
+                    ->preserveFilenames()
+                    ->disk('public') // Указываем диск
+                    ->directory('article')
+                    ->default(fn($get) => $get('record.picture')),
                 Forms\Components\Toggle::make('status')
                     ->label('Отображать на главной')
                     ->default(false),
