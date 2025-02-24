@@ -33,11 +33,15 @@ class TariffResource extends Resource
                 Forms\Components\TextInput::make('price')
                     ->label('Цена')
                     ->required()
+                    ->integer()
+                    ->minValue(0)
                     ->numeric(),
                 Forms\Components\TextInput::make('installment')
                     ->label('Рассрочка')
                     ->required()
                     ->numeric()
+                    ->integer()
+                    ->minValue(0)
                     ->maxLength(255),
                 Forms\Components\Repeater::make('detailed_description')
                     ->label('Услуги, входящие в тариф')

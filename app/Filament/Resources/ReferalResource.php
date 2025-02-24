@@ -25,6 +25,8 @@ class ReferalResource extends Resource
                 Forms\Components\TextInput::make('price')
                     ->label('Стоимость')
                     ->numeric()
+                    ->integer()
+                    ->minValue(0)
                     ->required()
                     ->suffix('₽'),
             ]);

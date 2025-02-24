@@ -28,6 +28,8 @@ class StatisticResource extends Resource
                 Forms\Components\TextInput::make('quantity')
                     ->label('Количество')
                     ->numeric()
+                    ->integer()
+                    ->minValue(0)
                     ->required()
                     ->default(0),
             ]);
