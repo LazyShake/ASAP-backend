@@ -27,36 +27,48 @@ class CareerRelationManager extends RelationManager
                     ->required()
                     ->maxLength(255),
 
-
                 Forms\Components\TextInput::make('hh')
                     ->label('Вакансии HH.ru')
                     ->numeric()
+                    ->integer()
+                    ->minValue(0)
                     ->required(),
 
                 Forms\Components\TextInput::make('habr')
                     ->label('Вакансии Habr')
                     ->numeric()
+                    ->integer()
+                    ->minValue(0)
                     ->required(),
 
                 Forms\Components\TextInput::make('freelance')
                     ->label('Заказы на фрилансе')
                     ->numeric()
+                    ->integer()
+                    ->minValue(0)
                     ->required(),
 
                 Forms\Components\TextInput::make('start_vage')
                     ->label('Зарплата на старте')
                     ->numeric()
+                    ->integer()
+                    ->minValue(0)
                     ->required(),
 
                 Forms\Components\TextInput::make('one_year_vage')
                     ->label('Зарплата после 1 года')
                     ->numeric()
+                    ->integer()
+                    ->minValue(0)
                     ->required(),
 
                 Forms\Components\TextInput::make('three_year_vage')
                     ->label('Зарплата после 3 лет')
                     ->numeric()
+                    ->integer()
+                    ->minValue(0)
                     ->required(),
+
 
             ]);
     }

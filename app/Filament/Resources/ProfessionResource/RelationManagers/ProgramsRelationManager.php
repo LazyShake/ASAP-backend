@@ -49,6 +49,8 @@ protected static ?string $pluralTitle = 'Программы';
                 Forms\Components\TextInput::make('number_module')
                     ->label('Номер модуля')
                     ->numeric()
+                    ->integer()
+                    ->minValue(0)
                     ->required(),
             ]);
     }
