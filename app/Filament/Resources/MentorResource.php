@@ -36,7 +36,7 @@ class MentorResource extends Resource
                     ->required()
                     ->maxLength(255),
 
-                TextInput::make('description')
+                Forms\Components\Textarea::make('description')
                     ->label('Описание')
                     ->required()
                     ->maxLength(1000),

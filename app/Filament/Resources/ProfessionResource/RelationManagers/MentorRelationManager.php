@@ -26,7 +26,7 @@ class MentorRelationManager extends RelationManager
                     ->label('Имя')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('description')
+                Forms\Components\Textarea::make('description')
                     ->label('Описание')
                     ->required()
                     ->maxLength(1000),
