@@ -15,7 +15,7 @@ class TrainingPlanResource extends Resource
     protected static ?string $model = TrainingPlan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
-    protected static ?string $pluralLabel = 'Учебные планы';
+    protected static ?string $pluralLabel = 'Учебный план';
     protected static ?string $modelLabel = 'Учебный план';
 
     public static function form(Form $form): Form

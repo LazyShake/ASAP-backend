@@ -15,7 +15,7 @@ class ReferalResource extends Resource
     protected static ?string $model = Referal::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-cash';
-    protected static ?string $pluralLabel = 'Реферальные программы';
+    protected static ?string $pluralLabel = 'Реферальная программа';
     protected static ?string $modelLabel = 'Реферальная программа';
 
     public static function form(Form $form): Form
@@ -38,7 +38,7 @@ class ReferalResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('price')
                     ->label('Стоимость')
-                    ->formatStateUsing(fn (string $state): string => number_format($state, 0, '.', ' ') . ' ₽')
+                    ->formatStateUsing(fn(string $state): string => number_format($state, 0, '.', ' ') . ' ₽')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -52,17 +52,22 @@ class ReferalResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make()->label('Редактировать'),
             ])
-            ->bulkActions([
-                
-            ]);
+            ->bulkActions([]);
     }
 
     public static function getPages(): array
     {
-        return [
+        $canCreate = Referal::count() === 0; // Проверяем, есть ли уже рефералка
+
+        $pages = [
             'index' => Pages\ListReferals::route('/'),
             'edit' => Pages\EditReferal::route('/{record}/edit'),
-            'create' => Pages\CreateReferal::route('/create'),
         ];
+
+        if ($canCreate) {
+            $pages['create'] = Pages\CreateReferal::route('/create'); // Добавляем только если можно создать
+        }
+
+        return $pages;
     }
 }

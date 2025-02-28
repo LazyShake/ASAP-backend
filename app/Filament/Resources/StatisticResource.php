@@ -14,7 +14,7 @@ class StatisticResource extends Resource
 {
     protected static ?string $model = Statistic::class;
     protected static ?string $navigationIcon = 'heroicon-o-chart-bar';
-    protected static ?string $pluralLabel = 'Статистики';
+    protected static ?string $pluralLabel = 'Статистика';
     protected static ?string $navigationGroup = 'Главная';
     protected static ?string $modelLabel = 'Статистика';
     public static function form(Form $form): Form

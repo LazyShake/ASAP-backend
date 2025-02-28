@@ -39,7 +39,7 @@ class ProfessionResource extends JsonResource
             'articles' => ArticleResource::collection($this->articles),
             'programs' => ProgramResource::collection($this->programs),
             'reviews' => ReviewResource::collection($this->reviews),
-            'tariffs' => TariffResource::collection(Tariff::orderBy('price')->get()),
+            'tariffs' => TariffResource::collection(Tariff::orderByDesc('price')->get()),
 
             // Самая новая статья с типом "Кейс" среди всех статей
             'latest_case' => ArticleResource::make(

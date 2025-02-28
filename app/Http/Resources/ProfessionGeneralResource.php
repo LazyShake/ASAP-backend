@@ -22,7 +22,7 @@ class ProfessionGeneralResource extends JsonResource
 
             'period' => $this->period,
             'color' => $this->color,
-            'tariffs' => TariffResource::collection(Tariff::orderBy('price')->get()),
+            'tariffs' => TariffResource::collection(Tariff::orderByDesc('price')->get()),
         ];
     }
 }
