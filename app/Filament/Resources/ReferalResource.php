@@ -59,7 +59,7 @@ class ReferalResource extends Resource
 
     public static function getPages(): array
     {
-        $canCreate = Referal::count() === 0; // Проверяем, есть ли уже рефералка
+        //$canCreate = Referal::count() === 0; // Проверяем, есть ли уже рефералка
         
         return [
             'index' => Pages\ListReferals::route('/'),
